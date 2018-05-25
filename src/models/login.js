@@ -17,11 +17,12 @@ export default {
         type: 'changeLoginStatus',
         payload: response,
       });
+      console.log('response',response)
       // Login successfully
-      if (response.status === 'ok') {
-        reloadAuthorized();
-        yield put(routerRedux.push('/'));
-      }
+      // if (response.status === 'ok') {
+      //   reloadAuthorized();
+      //   yield put(routerRedux.push('/'));
+      // }
     },
     *logout(_, { put, select }) {
       try {
@@ -47,11 +48,11 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      // setAuthority(payload.currentAuthority);
       return {
         ...state,
-        status: payload.status,
-        type: payload.type,
+        // status: payload.status,
+        // type: payload.type,
       };
     },
   },

@@ -1,6 +1,7 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
 
+
 export async function queryProjectNotice() {
   return request('/api/project/notice');
 }
@@ -60,8 +61,16 @@ export async function queryFakeList(params) {
   return request(`/api/fake_list?${stringify(params)}`);
 }
 
+// export async function fakeAccountLogin(params) {
+//   return request('/api/login/account', {
+//     method: 'POST',
+//     body: params,
+//   });
+// }
+
+// 登录的时候
 export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
+  return request('/api/signIn', {
     method: 'POST',
     body: params,
   });

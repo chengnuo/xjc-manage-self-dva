@@ -5,6 +5,8 @@ import { Checkbox, Alert, Icon } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 
+import md5 from 'md5';
+
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
 @connect(({ login, loading }) => ({
@@ -23,12 +25,22 @@ export default class LoginPage extends Component {
 
   handleSubmit = (err, values) => {
     const { type } = this.state;
+
+
+    const fecthData = Object.assign({}, values ,{
+      password: md5(values.password)
+    });
+
+
+    console.log('values',values);
+    console.log('fecthData',fecthData);
+
     if (!err) {
       this.props.dispatch({
         type: 'login/login',
         payload: {
-          ...values,
-          type,
+          ...fecthData,
+          // type,
         },
       });
     }
@@ -55,7 +67,7 @@ export default class LoginPage extends Component {
               login.type === 'account' &&
               !login.submitting &&
               this.renderMessage('账户或密码错误（admin/888888）')}
-            <UserName name="userName" placeholder="admin/user" />
+            <UserName name="username" placeholder="admin/user" />
             <Password name="password" placeholder="888888/123456" />
           </Tab>
           <Tab key="mobile" tab="手机号登录">
