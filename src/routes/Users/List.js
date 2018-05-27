@@ -1,9 +1,16 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'dva';
+import { Link } from 'dva/router';
 
-
+@connect(({ users, loading }) => ({
+  users,
+}))
 export default class List extends PureComponent {
-  componentWillUnmount() {
-
+  componentDidMount() {
+    console.log('this',this)
+    this.props.dispatch({
+      type: 'users/fetchQueryUsers',
+    });
   }
   render() {
 
