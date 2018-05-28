@@ -5,7 +5,7 @@ export default {
 
   state: {
     list: [],
-    currentUser: {},
+    total: 0,
   },
 
   effects: {
@@ -24,7 +24,8 @@ export default {
       console.log('action',action);
       return {
         ...state,
-        list: action.payload,
+        list: action.payload.data.list,
+        total: action.payload.data.total,
       };
     },
   },
