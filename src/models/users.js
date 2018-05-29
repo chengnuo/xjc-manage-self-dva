@@ -1,4 +1,4 @@
-import { query as queryUsers } from '../services/user';
+import { queryUsers } from '../services/users';
 
 export default {
   namespace: 'users',
@@ -6,14 +6,20 @@ export default {
   state: {
     list: [],
     total: 0,
+    // 搜索参数
+    pageCurrent: 1,
+    pageSize: 10,
   },
 
   effects: {
-    *fetchQueryUsers(_, { call, put }) {
-      const response = yield call(queryUsers);
+    *fetchQueryUsers({ payload },{ call, put }) {
+      const response = yield call(queryUsers, payload);
       yield put({
         type: 'list',
-        payload: response,
+        payload: {
+          response,
+          payload,
+        },
       });
     },
   },
@@ -24,8 +30,10 @@ export default {
       console.log('action',action);
       return {
         ...state,
-        list: action.payload.data.list,
-        total: action.payload.data.total,
+        list: action.payload.response.data.list,
+        total: action.payload.response.data.total,
+        pageCurrent: action.payload.payload.pageCurrent,
+        pageSize: action.payload.payload.pageSize,
       };
     },
   },
