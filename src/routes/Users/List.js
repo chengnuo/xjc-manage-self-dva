@@ -57,9 +57,19 @@ export default class List extends PureComponent {
 
   render() {
 
-    const { list = [] } = this.props.users;
+    const { list = [], pageCurrent, pageSize } = this.props.users;
 
     const columns = [{
+      title: '序号',
+      dataIndex: 'serialNumber',
+      key: 'serialNumber',
+      width: 50,
+      render: (text, record, index) => (
+        <div>
+          {index+1 + (pageCurrent-1) * pageSize}
+        </div>
+      ),
+    },{
       title: 'id',
       dataIndex: 'id',
       key: 'id',
