@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
+import moment from 'moment';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { routerRedux } from 'dva/router';
 import { Table, Icon, Divider } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import form from "../../models/form";
 
 
 @connect(({ users, loading }) => ({
@@ -11,7 +13,7 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 export default class List extends PureComponent {
   componentDidMount() {
     console.log('this',this)
-    this.fetchQueryUsers({
+    this.fetchGetUsers({
       pageCurrent: 1,
       pageSize: 10,
     });
@@ -33,9 +35,9 @@ export default class List extends PureComponent {
     };
     return pagination
   }
-  fetchQueryUsers(payload) {
+  fetchGetUsers(payload) {
     this.props.dispatch({
-      type: 'users/fetchQueryUsers',
+      type: 'users/fetchGetUsers',
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
@@ -44,16 +46,21 @@ export default class List extends PureComponent {
   }
   // pageSize 变化的回调
   handleShowSizeChange(pageCurrent, pageSize) {
-    this.fetchQueryUsers({
+    this.fetchGetUsers({
       pageCurrent,
       pageSize,
     });
   }
   // 点击当前页面
   handleChange(pageCurrent) {
-    this.fetchQueryUsers({
+    this.fetchGetUsers({
       pageCurrent,
     });
+  }
+
+  goCreate =()=>{
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push(`/users/create`));
   }
 
   render() {
@@ -80,8 +87,8 @@ export default class List extends PureComponent {
       ),
     }, {
       title: '用户名',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'username',
+      key: 'username',
       width: 120,
       render: (text, record) => (
         <div>{text}</div>
@@ -98,14 +105,14 @@ export default class List extends PureComponent {
       dataIndex: 'updated_time',
       key: 'updated_time',
       render: (text, record) => (
-        <div>{text}</div>
+        <div>{moment(text).format('YYYY-MM-DD hh:mm:ss')}</div>
       ),
     },{
       title: '创建时间',
       dataIndex: 'created_time',
       key: 'created_time',
       render: (text, record) => (
-        <div>{text}</div>
+        <div>{moment(text).format('YYYY-MM-DD hh:mm:ss')}</div>
       ),
     }, {
       title: '操作',
@@ -113,7 +120,7 @@ export default class List extends PureComponent {
       width: 150,
       render: (text, record) => (
         <div>
-          <a href="javascript:;">新增</a>
+          <a href="javascript:;" onClick={this.goCreate}>新增</a>
           <Divider type="vertical" />
           <a href="javascript:;">编辑</a>
           <Divider type="vertical" />
@@ -123,7 +130,7 @@ export default class List extends PureComponent {
     }];
 
     const PageHeaderLayoutContent = (
-      <div>说明</div>
+      <div>说明`http://www.54php.cn/default/42.html`【RBAC】打造Web权限控制系统</div>
     )
 
     return (

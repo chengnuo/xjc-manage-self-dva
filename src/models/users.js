@@ -1,4 +1,4 @@
-import { queryUsers } from '../services/users';
+import { getUsers } from '../services/users';
 
 export default {
   namespace: 'users',
@@ -12,8 +12,8 @@ export default {
   },
 
   effects: {
-    *fetchQueryUsers({ payload },{ call, put }) {
-      const response = yield call(queryUsers, payload);
+    *fetchGetUsers({ payload },{ call, put }) {
+      const response = yield call(getUsers, payload);
       yield put({
         type: 'list',
         payload: {

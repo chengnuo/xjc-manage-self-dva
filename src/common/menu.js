@@ -163,6 +163,10 @@ const menuData = [
         name: '列表',
         path: 'list',
       },
+      {
+        name: '新增',
+        path: 'create',
+      },
     ],
   },
 ];
