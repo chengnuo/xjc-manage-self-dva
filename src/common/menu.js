@@ -167,6 +167,10 @@ const menuData = [
         name: '新增',
         path: 'create',
       },
+      {
+        name: '编辑',
+        path: 'editor',
+      },
     ],
   },
 ];

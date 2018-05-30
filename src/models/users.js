@@ -1,4 +1,4 @@
-import { getUsers, postUsers } from '../services/users';
+import { getUsers, postUsers, putUsers } from '../services/users';
 
 export default {
   namespace: 'users',
@@ -34,6 +34,18 @@ export default {
         },
       });
     },
+    // 更新
+    *fetchPutUsers({ payload }, { call, put }) {
+
+      const response = yield call(putUsers, payload);
+      yield put({
+        type: 'updata',
+        payload: {
+          response,
+          payload,
+        },
+      });
+    },
 
   },
 
@@ -51,6 +63,13 @@ export default {
     },
     // 新增
     create(state, action) {
+      console.log('action',action);
+      return {
+        ...state,
+      };
+    },
+    // 新增
+    updata(state, action) {
       console.log('action',action);
       return {
         ...state,

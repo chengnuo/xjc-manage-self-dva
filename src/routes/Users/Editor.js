@@ -20,25 +20,45 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-@connect(({ loading }) => ({
+@connect(({ users,loading }) => ({
+  users,
   submitting: loading.effects['form/submitRegularForm'],
 }))
 @Form.create()
-export default class Create extends PureComponent {
+export default class Editor extends PureComponent {
+  componentDidMount() {
+    console.log('this',this)
+    this.fetchGetUsers({
+      pageCurrent: 1,
+      pageSize: 10,
+      id: 1,
+    });
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'users/fetchPostUsers',
+          type: 'users/fetchPutUsers',
           payload: values,
         });
       }
     });
   };
+  fetchGetUsers(payload) {
+    this.props.dispatch({
+      type: 'users/fetchGetUsers',
+      payload: Object.assign({},{
+        pageCurrent: 1,
+        pageSize: 10,
+      },payload),
+    });
+  }
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { list = [] } = this.props.users;
+
 
     const formItemLayout = {
       labelCol: {
@@ -66,6 +86,17 @@ export default class Create extends PureComponent {
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+            <FormItem {...formItemLayout} label="id">
+              {getFieldDecorator('id', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入id',
+                  },
+                ],
+                initialValue: list.length > 0 && list[0].id,
+              })(<Input placeholder="请输入用户id" disabled />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="用户名">
               {getFieldDecorator('username', {
                 rules: [
@@ -74,17 +105,8 @@ export default class Create extends PureComponent {
                     message: '请输入用户名',
                   },
                 ],
+                initialValue: list.length > 0 && list[0].username,
               })(<Input placeholder="请输入用户名" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="密码">
-              {getFieldDecorator('password', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入密码',
-                  },
-                ],
-              })(<Input placeholder="请输入密码" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="邮箱">
               {getFieldDecorator('email', {
@@ -94,6 +116,7 @@ export default class Create extends PureComponent {
                     message: '邮箱',
                   },
                 ],
+                initialValue: list.length > 0 && list[0].email,
               })(<Input placeholder="请输入邮箱" />)}
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
