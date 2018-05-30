@@ -1,4 +1,4 @@
-import { getUsers } from '../services/users';
+import { getUsers, postUsers } from '../services/users';
 
 export default {
   namespace: 'users',
@@ -12,6 +12,7 @@ export default {
   },
 
   effects: {
+    // 列表
     *fetchGetUsers({ payload },{ call, put }) {
       const response = yield call(getUsers, payload);
       yield put({
@@ -22,6 +23,18 @@ export default {
         },
       });
     },
+    // 新增
+    *fetchPostUsers({ payload },{ call, put }) {
+      const response = yield call(postUsers, payload);
+      yield put({
+        type: 'create',
+        payload: {
+          response,
+          payload,
+        },
+      });
+    },
+
   },
 
   reducers: {
@@ -34,6 +47,13 @@ export default {
         total: action.payload.response.data.total,
         pageCurrent: action.payload.payload.pageCurrent,
         pageSize: action.payload.payload.pageSize,
+      };
+    },
+    // 新增
+    create(state, action) {
+      console.log('action',action);
+      return {
+        ...state,
       };
     },
   },

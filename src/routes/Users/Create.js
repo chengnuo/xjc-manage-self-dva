@@ -30,7 +30,7 @@ export default class BasicForms extends PureComponent {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'form/submitRegularForm',
+          type: 'users/fetchPostUsers',
           payload: values,
         });
       }
@@ -75,6 +75,16 @@ export default class BasicForms extends PureComponent {
                   },
                 ],
               })(<Input placeholder="请输入用户名" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="密码">
+              {getFieldDecorator('password', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入密码',
+                  },
+                ],
+              })(<Input placeholder="请输入密码" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="邮箱">
               {getFieldDecorator('email', {
