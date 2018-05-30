@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Table, Icon, Divider } from 'antd';
+import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 
 @connect(({ users, loading }) => ({
@@ -63,7 +64,7 @@ export default class List extends PureComponent {
       title: '序号',
       dataIndex: 'serialNumber',
       key: 'serialNumber',
-      width: 50,
+      width: 60,
       render: (text, record, index) => (
         <div>
           {index+1 + (pageCurrent-1) * pageSize}
@@ -73,7 +74,7 @@ export default class List extends PureComponent {
       title: 'id',
       dataIndex: 'id',
       key: 'id',
-      width: 50,
+      width: 60,
       render: (text, record) => (
         <div>{text}</div>
       ),
@@ -121,11 +122,18 @@ export default class List extends PureComponent {
       ),
     }];
 
+    const PageHeaderLayoutContent = (
+      <div>说明</div>
+    )
+
     return (
-      <div>
+      <PageHeaderLayout
+        title="用户列表"
+        content={PageHeaderLayoutContent}
+      >
         {/* 用户列表 */}
         <Table columns={columns} dataSource={list} pagination={this.pagination} rowKey='id' />
-      </div>
+      </PageHeaderLayout>
     );
   }
 }

@@ -154,6 +154,17 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '用户',
+    icon: 'warning',
+    path: 'users',
+    children: [
+      {
+        name: '列表',
+        path: 'list',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
