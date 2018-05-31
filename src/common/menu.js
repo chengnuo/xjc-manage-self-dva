@@ -173,6 +173,25 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '角色',
+    icon: 'warning',
+    path: 'roles',
+    children: [
+      {
+        name: '列表',
+        path: 'list',
+      },
+      {
+        name: '新增',
+        path: 'create',
+      },
+      {
+        name: '编辑',
+        path: 'editor',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
