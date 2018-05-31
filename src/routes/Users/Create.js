@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import {
   Form,
   Input,
@@ -32,6 +33,9 @@ export default class Create extends PureComponent {
         this.props.dispatch({
           type: 'users/fetchPostUsers',
           payload: values,
+          callback: ()=>{
+            this.props.dispatch(routerRedux.push(`/users/list`));
+          },
         });
       }
     });

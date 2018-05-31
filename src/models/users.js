@@ -24,7 +24,7 @@ export default {
       });
     },
     // 新增
-    *fetchPostUsers({ payload },{ call, put }) {
+    *fetchPostUsers({ payload, callback },{ call, put }) {
       const response = yield call(postUsers, payload);
       yield put({
         type: 'create',
@@ -33,9 +33,10 @@ export default {
           payload,
         },
       });
+      if (callback) callback();
     },
     // 更新
-    *fetchPutUsers({ payload }, { call, put }) {
+    *fetchPutUsers({ payload, callback }, { call, put }) {
 
       const response = yield call(putUsers, payload);
       yield put({
@@ -45,6 +46,8 @@ export default {
           payload,
         },
       });
+
+      if (callback) callback();
     },
 
   },
