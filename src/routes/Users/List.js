@@ -62,6 +62,10 @@ export default class List extends PureComponent {
     const { dispatch } = this.props;
     dispatch(routerRedux.push(`/users/create`));
   }
+  goEditor =(record)=>{
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push(`/users/editor/${record.id}`));
+  }
 
   render() {
 
@@ -118,15 +122,19 @@ export default class List extends PureComponent {
       title: '操作',
       key: 'action',
       width: 150,
-      render: (text, record) => (
-        <div>
-          <a href="javascript:;" onClick={this.goCreate}>新增</a>
-          <Divider type="vertical" />
-          <a href="javascript:;">编辑</a>
-          <Divider type="vertical" />
-          <a href="javascript:;">删除</a>
-        </div>
-      ),
+      render: (text, record) => {
+        console.log('record', record);
+
+        return (
+          <div>
+            <a href="javascript:;" onClick={this.goCreate}>新增</a>
+            <Divider type="vertical" />
+            <a href="javascript:;" onClick={this.goEditor.bind(this, record)}>编辑</a>
+            <Divider type="vertical" />
+            <a href="javascript:;">删除</a>
+          </div>
+        )
+      },
     }];
 
     const PageHeaderLayoutContent = (

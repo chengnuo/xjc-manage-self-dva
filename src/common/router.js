@@ -177,7 +177,7 @@ export const getRouterData = app => {
     '/users/create': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Create')),
     },
-    '/users/editor': {
+    '/users/editor/:id': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Editor')),
     },
   };
