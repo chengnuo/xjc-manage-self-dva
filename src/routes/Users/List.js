@@ -57,14 +57,27 @@ export default class List extends PureComponent {
       pageCurrent,
     });
   }
-
+  // 新增
   goCreate =()=>{
     const { dispatch } = this.props;
     dispatch(routerRedux.push(`/users/create`));
   }
+  // 编辑
   goEditor =(record)=>{
     const { dispatch } = this.props;
     dispatch(routerRedux.push(`/users/editor/${record.id}`));
+  }
+  // 删除
+  handleDelete = (record) =>{
+    this.props.dispatch({
+      type: 'users/fetchDeleteUsers',
+      payload: {
+        id: record.id,
+      },
+      callback: ()=>{
+        this.fetchGetUsers();
+      },
+    });
   }
 
   render() {
@@ -130,7 +143,7 @@ export default class List extends PureComponent {
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.goEditor.bind(this, record)}>编辑</a>
             <Divider type="vertical" />
-            <a href="javascript:;">删除</a>
+            <a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>
           </div>
         )
       },

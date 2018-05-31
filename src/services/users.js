@@ -37,5 +37,11 @@ export async function putUsers(params) {
   });
 }
 
-
+// 删除
+export async function deleteUsers(params) {
+  return request(`/api/users/${params.id}`, {
+    method: 'Delete',
+    body: filterId(params),
+  });
+}
 

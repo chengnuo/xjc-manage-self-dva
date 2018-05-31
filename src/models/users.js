@@ -1,4 +1,4 @@
-import { getUsers, postUsers, putUsers } from '../services/users';
+import { getUsers, postUsers, putUsers, deleteUsers } from '../services/users';
 
 export default {
   namespace: 'users',
@@ -49,6 +49,20 @@ export default {
 
       if (callback) callback();
     },
+    // 删除
+    *fetchDeleteUsers({ payload, callback }, { call, put }) {
+
+      const response = yield call(deleteUsers, payload);
+      yield put({
+        type: 'deleteUser',
+        payload: {
+          response,
+          payload,
+        },
+      });
+
+      if (callback) callback();
+    },
 
   },
 
@@ -73,6 +87,13 @@ export default {
     },
     // 新增
     updata(state, action) {
+      console.log('action',action);
+      return {
+        ...state,
+      };
+    },
+    // 删除
+    deleteUser(state, action) {
       console.log('action',action);
       return {
         ...state,
