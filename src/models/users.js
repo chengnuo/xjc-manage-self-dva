@@ -33,7 +33,7 @@ export default {
           payload,
         },
       });
-      if (callback) callback();
+      if (callback && response.status === 200 ) callback(); // 新增的时候必须等于200才跳转
     },
     // 更新
     *fetchPutUsers({ payload, callback }, { call, put }) {

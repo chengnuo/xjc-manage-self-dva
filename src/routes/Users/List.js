@@ -123,7 +123,6 @@ export default class List extends PureComponent {
       key: 'action',
       width: 150,
       render: (text, record) => {
-        console.log('record', record);
 
         return (
           <div>

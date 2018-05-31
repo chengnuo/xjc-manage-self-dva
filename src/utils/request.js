@@ -66,11 +66,26 @@ export default function request(url, options) {
 
   return fetch(url, newOptions)
     .then(checkStatus)
+    // .then(response => {
+    //
+    //   if (newOptions.method === 'DELETE' || response.status === 204) {
+    //     return response.text();
+    //   }
+    //
+    //
+    //   return response.json();
+    // })
     .then(response => {
-      if (newOptions.method === 'DELETE' || response.status === 204) {
-        return response.text();
-      }
-      return response.json();
+      const json = response.json();
+      json.then((res) => {
+        if(res.status !== 200 ) { // 不等于 200 全局报错
+          notification.error({
+            message: `错误代码：${res.status}`,
+            description: `错误原因：${res.message}`,
+          });
+        }
+      });
+      return json;
     })
     .catch(e => {
       const { dispatch } = store;
