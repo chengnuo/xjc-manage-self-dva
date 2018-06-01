@@ -7,20 +7,20 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import form from "../../models/form";
 
 
-@connect(({ users, loading }) => ({
-  users,
+@connect(({ roles, loading }) => ({
+  roles,
 }))
 export default class List extends PureComponent {
   componentDidMount() {
     console.log('this',this)
-    this.fetchGetUsers({
+    this.fetchGetRoles({
       pageCurrent: 1,
       pageSize: 10,
     });
   }
   get pagination() {
 
-    const { pageCurrent, pageSize, total = 0 } = this.props.users;
+    const { pageCurrent, pageSize, total = 0 } = this.props.roles;
 
     const self = this;
     const pagination = {
@@ -35,9 +35,9 @@ export default class List extends PureComponent {
     };
     return pagination
   }
-  fetchGetUsers(payload) {
+  fetchGetRoles(payload) {
     this.props.dispatch({
-      type: 'users/fetchGetUsers',
+      type: 'roles/fetchGetRoles',
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
@@ -46,43 +46,45 @@ export default class List extends PureComponent {
   }
   // pageSize 变化的回调
   handleShowSizeChange(pageCurrent, pageSize) {
-    this.fetchGetUsers({
+    this.fetchGetRoles({
       pageCurrent,
       pageSize,
     });
   }
   // 点击当前页面
   handleChange(pageCurrent) {
-    this.fetchGetUsers({
+    this.fetchGetRoles({
       pageCurrent,
     });
   }
   // 新增
   goCreate =()=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/create`));
+    dispatch(routerRedux.push(`/roles/create`));
   }
   // 编辑
   goEditor =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/editor/${record.id}`));
+    dispatch(routerRedux.push(`/roles/editor/${record.id}`));
   }
   // 删除
   handleDelete = (record) =>{
     this.props.dispatch({
-      type: 'users/fetchDeleteUsers',
+      type: 'roles/fetchDeleteRoles',
       payload: {
         id: record.id,
       },
       callback: ()=>{
-        this.fetchGetUsers();
+        this.fetchGetRoles();
       },
     });
   }
 
   render() {
 
-    const { list = [], pageCurrent, pageSize } = this.props.users;
+    const { list = [], pageCurrent, pageSize } = this.props.roles;
+
+    console.log('list', list)
 
     const columns = [{
       title: '序号',
@@ -103,19 +105,20 @@ export default class List extends PureComponent {
         <div>{text}</div>
       ),
     }, {
-      title: '用户名',
-      dataIndex: 'username',
-      key: 'username',
+      title: '角色名',
+      dataIndex: 'name',
+      key: 'name',
       width: 120,
       render: (text, record) => (
         <div>{text}</div>
       ),
-    }, {
-      title: '邮箱',
-      dataIndex: 'email',
-      key: 'email',
+    },{
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+      width: 120,
       render: (text, record) => (
-        <div>{text}</div>
+        <div>{text === 1 ? '开启' : '关闭'}</div>
       ),
     },{
       title: '更新时间',
@@ -155,10 +158,10 @@ export default class List extends PureComponent {
 
     return (
       <PageHeaderLayout
-        title="用户列表"
+        title="角色列表"
         content={PageHeaderLayoutContent}
       >
-        {/* 用户列表 */}
+        {/* 角色列表 */}
         <Table columns={columns} dataSource={list} pagination={this.pagination} rowKey='id' />
       </PageHeaderLayout>
     );

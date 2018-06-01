@@ -181,13 +181,13 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Editor')),
     },
     '/roles/list': {
-      component: dynamicWrapper(app, ['users'], () => import('../routes/Users/List')),
+      component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/List')),
     },
     '/roles/create': {
-      component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Create')),
+      component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/Create')),
     },
     '/roles/editor/:id': {
-      component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Editor')),
+      component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/Editor')),
     },
   };
   // Get name from ./menu.js or just set it in the router data.
