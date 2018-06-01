@@ -192,6 +192,25 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '权限',
+    icon: 'warning',
+    path: 'access',
+    children: [
+      {
+        name: '列表',
+        path: 'list',
+      },
+      {
+        name: '新增',
+        path: 'create',
+      },
+      {
+        name: '编辑',
+        path: 'editor',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {

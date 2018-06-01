@@ -189,6 +189,15 @@ export const getRouterData = app => {
     '/roles/editor/:id': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/Editor')),
     },
+    '/access/list': {
+      component: dynamicWrapper(app, ['access'], () => import('../routes/Access/List')),
+    },
+    '/access/create': {
+      component: dynamicWrapper(app, ['access'], () => import('../routes/Access/Create')),
+    },
+    '/access/editor/:id': {
+      component: dynamicWrapper(app, ['access'], () => import('../routes/Access/Editor')),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());
