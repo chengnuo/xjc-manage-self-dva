@@ -33,7 +33,7 @@ export default class Editor extends PureComponent {
     this.fetchGetAccess({
       pageCurrent: 1,
       pageSize: 10,
-      id: 1,
+      id: this.props.match.params.id,
     });
   }
   handleSubmit = e => {
