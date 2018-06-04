@@ -137,7 +137,7 @@ export default class List extends PureComponent {
     }, {
       title: '操作',
       key: 'action',
-      width: 150,
+      width: 300,
       render: (text, record) => {
 
         return (
@@ -147,6 +147,10 @@ export default class List extends PureComponent {
             <a href="javascript:;" onClick={this.goEditor.bind(this, record)}>编辑</a>
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>
+            <Divider type="vertical" />
+            <a href="javascript:;">查看权限</a>
+            <Divider type="vertical" />
+            <a href="javascript:;">设置权限</a>
           </div>
         )
       },

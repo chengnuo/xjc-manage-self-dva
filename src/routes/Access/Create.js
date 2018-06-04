@@ -109,7 +109,6 @@ export default class Create extends PureComponent {
               <Button type="primary" htmlType="submit" loading={submitting}>
                 提交
               </Button>
-              <Button style={{ marginLeft: 8 }}>保存</Button>
             </FormItem>
           </Form>
         </Card>
