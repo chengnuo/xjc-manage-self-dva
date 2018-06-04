@@ -30,20 +30,40 @@ const { TextArea } = Input;
 @Form.create()
 export default class SetRoles extends PureComponent {
   componentDidMount() {
-    this.fetchSetRoles();
+    this.fetchSetRolesList();
+  }
+  valuesData(values) {
+    console.log('values-111',values)
+    let valuesRoles = values['roles'] || [];
+    let fetchData = valuesRoles.map((item)=>{
+      return {
+        uid: parseInt(values.id ,10),
+        role_id: item,
+      }
+    });
+
+    return fetchData;
   }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'users/fetchPutUsers',
-          payload: values,
-          callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/users/list`));
-          },
-        });
-      }
+
+
+
+      console.log('values', values);
+
+      let fetchData = this.valuesData(values);
+      console.log('fetchData', fetchData);
+
+      // if (!err) {
+      //   this.props.dispatch({
+      //     type: 'users/setRoles',
+      //     payload: fetchData,
+      //     callback: ()=>{
+      //       this.props.dispatch(routerRedux.push(`/users/list`));
+      //     },
+      //   });
+      // }
     });
   };
   // fetchGetUsers(payload) {
@@ -55,9 +75,9 @@ export default class SetRoles extends PureComponent {
   //     },payload),
   //   });
   // }
-  fetchSetRoles(){
+  fetchSetRolesList(){
     this.props.dispatch({
-      type: 'users/fetchSetRoles',
+      type: 'users/fetchSetRolesList',
     });
   }
   onChange(checkedValues) {
@@ -125,9 +145,19 @@ export default class SetRoles extends PureComponent {
                 initialValue: this.props.match.params.id,
               })(<Input placeholder="请输入用户id" disabled />)}
             </FormItem>
-
-            <CheckboxGroup options={this.tempalteOptions()} defaultValue={[]} onChange={this.onChange} />
-
+            <FormItem {...formItemLayout} label="权限">
+              {getFieldDecorator('roles', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入id',
+                  },
+                ],
+                initialValue: [],
+              })(
+                <CheckboxGroup options={this.tempalteOptions()} onChange={this.onChange} />
+              )}
+            </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
                 提交
