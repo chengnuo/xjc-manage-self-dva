@@ -79,7 +79,7 @@ export default {
       if (callback) callback();
     },
     // 设置setRoles
-    *setRoles({ payload, callback }, { call, put }) {
+    *fetchSetRoles({ payload, callback }, { call, put }) {
 
       const response = yield call(setRoles, payload);
       yield put({

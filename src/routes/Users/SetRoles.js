@@ -55,15 +55,20 @@ export default class SetRoles extends PureComponent {
       let fetchData = this.valuesData(values);
       console.log('fetchData', fetchData);
 
-      // if (!err) {
-      //   this.props.dispatch({
-      //     type: 'users/setRoles',
-      //     payload: fetchData,
-      //     callback: ()=>{
-      //       this.props.dispatch(routerRedux.push(`/users/list`));
-      //     },
-      //   });
-      // }
+
+      if (!err) {
+
+        for(let i = 0;i<fetchData.length;i++){
+          this.props.dispatch({
+            type: 'users/fetchSetRoles',
+            payload: fetchData[i],
+            callback: ()=>{
+              this.props.dispatch(routerRedux.push(`/users/list`));
+            },
+          });
+        }
+
+      }
     });
   };
   // fetchGetUsers(payload) {
