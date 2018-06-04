@@ -10,6 +10,7 @@ export default {
     pageCurrent: 1,
     pageSize: 10,
     setRolesList: [], // 设置角色列表
+    userRoleList: [], // 设置角色列表,选中
   },
 
   effects: {
@@ -134,6 +135,7 @@ export default {
       return {
         ...state,
         setRolesList: action.payload.response.data.list,
+        userRoleList: action.payload.response.data.userRoleList,
       };
     },
     // 设置setRolesList

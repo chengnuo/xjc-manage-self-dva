@@ -58,15 +58,16 @@ export default class SetRoles extends PureComponent {
 
       if (!err) {
 
-        for(let i = 0;i<fetchData.length;i++){
-          this.props.dispatch({
-            type: 'users/fetchSetRoles',
-            payload: fetchData[i],
-            callback: ()=>{
-              this.props.dispatch(routerRedux.push(`/users/list`));
-            },
-          });
-        }
+        // for(let i = 0;i<fetchData.length;i++){
+        //
+        // }
+        this.props.dispatch({
+          type: 'users/fetchSetRoles',
+          payload: fetchData,
+          callback: ()=>{
+            this.props.dispatch(routerRedux.push(`/users/list`));
+          },
+        });
 
       }
     });
@@ -83,15 +84,16 @@ export default class SetRoles extends PureComponent {
   fetchSetRolesList(){
     this.props.dispatch({
       type: 'users/fetchSetRolesList',
+      payload: {
+        uid: this.props.match.params.id,
+      },
     });
   }
   onChange(checkedValues) {
     console.log('checked = ', checkedValues);
   }
-  tempalteOptions(){
+  tempalteOptions() {
     const  { setRolesList = [] } = this.props.users;
-
-    console.log('setRolesList',setRolesList)
 
     return setRolesList.map((item)=>{
       return {
@@ -101,6 +103,19 @@ export default class SetRoles extends PureComponent {
     })
 
   }
+
+  tempalteOptionsDefaul() {
+    const  { userRoleList = [] } = this.props.users;
+
+    let result = userRoleList.map((item)=>{
+      return item.role_id;
+    })
+
+    console.log('result-', result);
+
+    return result;
+  }
+
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
@@ -158,7 +173,7 @@ export default class SetRoles extends PureComponent {
                     message: '请输入id',
                   },
                 ],
-                initialValue: [],
+                initialValue: this.tempalteOptionsDefaul(),
               })(
                 <CheckboxGroup options={this.tempalteOptions()} onChange={this.onChange} />
               )}

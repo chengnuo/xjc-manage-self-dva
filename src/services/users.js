@@ -53,7 +53,7 @@ export async function setRoles(params) {
   });
 }
 // 设置权限列表
-export async function setRolesList() {
-  return request(`/api/setRolesList`);
+export async function setRolesList(params) {
+  return request(`/api/setRolesList?${stringify(params)}`);
 }
 
