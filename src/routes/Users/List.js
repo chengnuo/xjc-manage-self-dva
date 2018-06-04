@@ -150,8 +150,6 @@ export default class List extends PureComponent {
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>
             <Divider type="vertical" />
-            <a href="javascript:;">查看角色</a>
-            <Divider type="vertical" />
             <a href="javascript:;" onClick={this.goSetRoles.bind(this, record)}>设置角色</a>
           </div>
         )
