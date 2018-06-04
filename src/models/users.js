@@ -1,4 +1,4 @@
-import { getUsers, postUsers, putUsers, deleteUsers } from '../services/users';
+import { getUsers, postUsers, putUsers, deleteUsers, setRoles } from '../services/users';
 
 export default {
   namespace: 'users',
@@ -9,6 +9,7 @@ export default {
     // 搜索参数
     pageCurrent: 1,
     pageSize: 10,
+    setRolesList: [], // 设置角色列表
   },
 
   effects: {
@@ -63,6 +64,20 @@ export default {
 
       if (callback) callback();
     },
+    // 设置setRoles
+    *fetchSetRoles({ payload, callback }, { call, put }) {
+
+      const response = yield call(setRoles, payload);
+      yield put({
+        type: 'setRoles',
+        payload: {
+          response,
+          payload,
+        },
+      });
+
+      if (callback) callback();
+    },
 
   },
 
@@ -97,6 +112,14 @@ export default {
       console.log('action',action);
       return {
         ...state,
+      };
+    },
+    // 设置setRoles
+    setRoles(state, action) {
+      console.log('action',action);
+      return {
+        ...state,
+        setRolesList: action.payload.response.data.list,
       };
     },
   },

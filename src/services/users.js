@@ -45,3 +45,7 @@ export async function deleteUsers(params) {
   });
 }
 
+// 设置权限
+export async function setRoles() {
+  return request(`/api/setRoles`);
+}

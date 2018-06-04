@@ -180,6 +180,9 @@ export const getRouterData = app => {
     '/users/editor/:id': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Editor')),
     },
+    '/users/setRoles/:id': {
+      component: dynamicWrapper(app, ['users'], () => import('../routes/Users/SetRoles')),
+    },
     '/roles/list': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/List')),
     },
