@@ -45,3 +45,16 @@ export async function deleteRoles(params) {
   });
 }
 
+
+// 设置权限
+export async function setAccess(params) {
+  return request(`/api/setAccess`, {
+    method: 'POST',
+    body: params,
+  });
+}
+// 设置权限列表
+export async function setAccessList(params) {
+  return request(`/api/setAccessList?${stringify(params)}`);
+}
+

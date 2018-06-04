@@ -67,6 +67,11 @@ export default class List extends PureComponent {
     const { dispatch } = this.props;
     dispatch(routerRedux.push(`/roles/editor/${record.id}`));
   }
+  // 设置权限
+  goSetAccess =(record)=>{
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push(`/roles/setAccess/${record.id}`));
+  }
   // 删除
   handleDelete = (record) =>{
     this.props.dispatch({
@@ -148,7 +153,7 @@ export default class List extends PureComponent {
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>
             <Divider type="vertical" />
-            <a href="javascript:;">设置权限</a>
+            <a href="javascript:;" onClick={this.goSetAccess.bind(this, record)}>设置权限</a>
           </div>
         )
       },

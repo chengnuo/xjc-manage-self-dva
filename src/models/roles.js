@@ -1,4 +1,4 @@
-import { getRoles, postRoles, putRoles, deleteRoles } from '../services/roles';
+import { getRoles, postRoles, putRoles, deleteRoles, setAccess, setAccessList } from '../services/roles';
 
 export default {
   namespace: 'roles',
@@ -9,6 +9,8 @@ export default {
     // 搜索参数
     pageCurrent: 1,
     pageSize: 10,
+    setAccessList: [], // 设置角色列表
+    userAccessList: [], // 设置角色列表,选中
   },
 
   effects: {
@@ -64,6 +66,35 @@ export default {
       if (callback) callback();
     },
 
+    // 设置setRoles列表
+    *fetchSetAccessList({ payload, callback }, { call, put }) {
+
+      const response = yield call(setAccessList, payload);
+      yield put({
+        type: 'setAccessList',
+        payload: {
+          response,
+          payload,
+        },
+      });
+
+      if (callback) callback();
+    },
+    // 设置setRoles
+    *fetchSetAccess({ payload, callback }, { call, put }) {
+
+      const response = yield call(setAccess, payload);
+      yield put({
+        type: 'setAccess',
+        payload: {
+          response,
+          payload,
+        },
+      });
+
+      if (callback) callback();
+    },
+
   },
 
   reducers: {
@@ -94,6 +125,23 @@ export default {
     },
     // 删除
     deleteUser(state, action) {
+      console.log('action',action);
+      return {
+        ...state,
+      };
+    },
+
+    // 设置setRolesList
+    setAccessList(state, action) {
+      console.log('action',action);
+      return {
+        ...state,
+        setAccessList: action.payload.response.data.list,
+        userAccessList: action.payload.response.data.userAccessList,
+      };
+    },
+    // 设置setRolesList
+    setAccess(state, action) {
       console.log('action',action);
       return {
         ...state,

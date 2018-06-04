@@ -192,6 +192,9 @@ export const getRouterData = app => {
     '/roles/editor/:id': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/Editor')),
     },
+    '/roles/setAccess/:id': {
+      component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/SetAccess')),
+    },
     '/access/list': {
       component: dynamicWrapper(app, ['access'], () => import('../routes/Access/List')),
     },
