@@ -183,6 +183,9 @@ class BasicLayout extends React.PureComponent {
       location,
     } = this.props;
     const bashRedirect = this.getBashRedirect();
+
+    console.log('bashRedirect', bashRedirect);
+
     const layout = (
       <Layout>
         <SiderMenu
@@ -227,7 +230,8 @@ class BasicLayout extends React.PureComponent {
                   redirectPath="/exception/403"
                 />
               ))}
-              <Redirect exact from="/" to={bashRedirect} />
+              {/* <Redirect exact from="/" to={bashRedirect} /> */}
+              <Redirect exact from="/" to={'/users/list'} />
               <Route render={NotFound} />
             </Switch>
           </Content>
