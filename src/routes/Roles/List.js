@@ -150,8 +150,8 @@ export default class List extends PureComponent {
             <a href="javascript:;" onClick={this.goCreate}>新增</a>
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.goEditor.bind(this, record)}>编辑</a>
-            <Divider type="vertical" />
-            <a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>
+            {/*<Divider type="vertical" />*/}
+            {/*<a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>*/}
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.goSetAccess.bind(this, record)}>设置权限</a>
           </div>
