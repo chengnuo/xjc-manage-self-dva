@@ -35,7 +35,7 @@ export default class Create extends PureComponent {
           type: 'access/fetchPostAccess',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/access/list`));
+            this.props.dispatch(routerRedux.push(`/users/access/list`));
           },
         });
       }

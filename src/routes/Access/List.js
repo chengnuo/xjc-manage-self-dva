@@ -60,12 +60,12 @@ export default class List extends PureComponent {
   // 新增
   goCreate =()=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/access/create`));
+    dispatch(routerRedux.push(`/users/access/create`));
   }
   // 编辑
   goEditor =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/access/editor/${record.id}`));
+    dispatch(routerRedux.push(`/users/access/editor/${record.id}`));
   }
   // 删除
   handleDelete = (record) =>{

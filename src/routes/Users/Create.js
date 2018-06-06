@@ -34,7 +34,7 @@ export default class Create extends PureComponent {
           type: 'users/fetchPostUsers',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/users/list`));
+            this.props.dispatch(routerRedux.push(`/users/users/list`));
           },
         });
       }

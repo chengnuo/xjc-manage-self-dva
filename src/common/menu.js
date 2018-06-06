@@ -155,68 +155,28 @@ const menuData = [
     ],
   },
   {
-    name: '用户',
-    icon: 'warning',
+    name: '用户管理',
+    icon: 'user',
     path: 'users',
     children: [
       {
-        name: '列表',
-        path: 'list',
+        name: '用户列表',
+        path: 'users/list',
       },
       {
-        name: '新增',
-        path: 'create',
-        hideInMenu: true,
+        name: '角色列表',
+        path: 'roles/list',
       },
       {
-        name: '编辑',
-        path: 'editor',
-        hideInMenu: true,
+        name: '权限列表',
+        path: 'access/list',
       },
     ],
   },
-  {
-    name: '角色',
-    icon: 'warning',
-    path: 'roles',
-    children: [
-      {
-        name: '列表',
-        path: 'list',
-      },
-      {
-        name: '新增',
-        path: 'create',
-        hideInMenu: true,
-      },
-      {
-        name: '编辑',
-        path: 'editor',
-        hideInMenu: true,
-      },
-    ],
-  },
-  {
-    name: '权限',
-    icon: 'warning',
-    path: 'access',
-    children: [
-      {
-        name: '列表',
-        path: 'list',
-      },
-      {
-        name: '新增',
-        path: 'create',
-        hideInMenu: true,
-      },
-      {
-        name: '编辑',
-        path: 'editor',
-        hideInMenu: true,
-      },
-    ],
-  },
+
+
+
+
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {

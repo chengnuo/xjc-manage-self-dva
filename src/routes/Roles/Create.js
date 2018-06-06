@@ -35,7 +35,7 @@ export default class Create extends PureComponent {
           type: 'roles/fetchPostRoles',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/roles/list`));
+            this.props.dispatch(routerRedux.push(`/users/roles/list`));
           },
         });
       }

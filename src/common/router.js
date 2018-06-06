@@ -171,37 +171,37 @@ export const getRouterData = app => {
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
-    '/users/list': {
+    '/users/users/list': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/List')),
     },
-    '/users/create': {
+    '/users/users/create': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Create')),
     },
-    '/users/editor/:id': {
+    '/users/users/editor/:id': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/Editor')),
     },
-    '/users/setRoles/:id': {
+    '/users/users/setRoles/:id': {
       component: dynamicWrapper(app, ['users'], () => import('../routes/Users/SetRoles')),
     },
-    '/roles/list': {
+    '/users/roles/list': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/List')),
     },
-    '/roles/create': {
+    '/users/roles/create': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/Create')),
     },
-    '/roles/editor/:id': {
+    '/users/roles/editor/:id': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/Editor')),
     },
-    '/roles/setAccess/:id': {
+    '/users/roles/setAccess/:id': {
       component: dynamicWrapper(app, ['roles'], () => import('../routes/Roles/SetAccess')),
     },
-    '/access/list': {
+    '/users/access/list': {
       component: dynamicWrapper(app, ['access'], () => import('../routes/Access/List')),
     },
-    '/access/create': {
+    '/users/access/create': {
       component: dynamicWrapper(app, ['access'], () => import('../routes/Access/Create')),
     },
-    '/access/editor/:id': {
+    '/users/access/editor/:id': {
       component: dynamicWrapper(app, ['access'], () => import('../routes/Access/Editor')),
     },
   };

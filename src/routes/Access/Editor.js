@@ -44,7 +44,7 @@ export default class Editor extends PureComponent {
           type: 'access/fetchPutAccess',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/access/list`));
+            this.props.dispatch(routerRedux.push(`/users/access/list`));
           },
         });
       }

@@ -44,7 +44,7 @@ export default class Editor extends PureComponent {
           type: 'roles/fetchPutRoles',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/roles/list`));
+            this.props.dispatch(routerRedux.push(`/users/roles/list`));
           },
         });
       }

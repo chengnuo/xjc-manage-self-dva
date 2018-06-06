@@ -43,7 +43,7 @@ export default class Editor extends PureComponent {
           type: 'users/fetchPutUsers',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/users/list`));
+            this.props.dispatch(routerRedux.push(`/users/users/list`));
           },
         });
       }
