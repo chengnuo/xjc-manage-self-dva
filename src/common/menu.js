@@ -166,10 +166,12 @@ const menuData = [
       {
         name: '新增',
         path: 'create',
+        hideInMenu: true,
       },
       {
         name: '编辑',
         path: 'editor',
+        hideInMenu: true,
       },
     ],
   },
@@ -185,10 +187,12 @@ const menuData = [
       {
         name: '新增',
         path: 'create',
+        hideInMenu: true,
       },
       {
         name: '编辑',
         path: 'editor',
+        hideInMenu: true,
       },
     ],
   },
@@ -204,10 +208,12 @@ const menuData = [
       {
         name: '新增',
         path: 'create',
+        hideInMenu: true,
       },
       {
         name: '编辑',
         path: 'editor',
+        hideInMenu: true,
       },
     ],
   },
