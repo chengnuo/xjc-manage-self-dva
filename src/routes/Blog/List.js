@@ -7,20 +7,20 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import form from "../../models/form";
 
 
-@connect(({ users, loading }) => ({
-  users,
+@connect(({ blogs, loading }) => ({
+  blogs,
 }))
 export default class List extends PureComponent {
   componentDidMount() {
     console.log('this',this)
-    this.fetchGetUsers({
+    this.fetchGetBlogs({
       pageCurrent: 1,
       pageSize: 10,
     });
   }
   get pagination() {
 
-    const { pageCurrent, pageSize, total = 0 } = this.props.users;
+    const { pageCurrent, pageSize, total = 0 } = this.props.blogs;
 
     const self = this;
     const pagination = {
@@ -35,9 +35,9 @@ export default class List extends PureComponent {
     };
     return pagination
   }
-  fetchGetUsers(payload) {
+  fetchGetBlogs(payload) {
     this.props.dispatch({
-      type: 'users/fetchGetUsers',
+      type: 'blogs/fetchGetBlogs',
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
@@ -46,48 +46,48 @@ export default class List extends PureComponent {
   }
   // pageSize 变化的回调
   handleShowSizeChange(pageCurrent, pageSize) {
-    this.fetchGetUsers({
+    this.fetchGetBlogs({
       pageCurrent,
       pageSize,
     });
   }
   // 点击当前页面
   handleChange(pageCurrent) {
-    this.fetchGetUsers({
+    this.fetchGetBlogs({
       pageCurrent,
     });
   }
   // 新增
   goCreate =()=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/users/create`));
+    dispatch(routerRedux.push(`/blogs/create`));
   }
   // 编辑
   goEditor =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/users/editor/${record.id}`));
+    dispatch(routerRedux.push(`/blogs/editor/${record.id}`));
   }
   // 设置角色
   goSetRoles =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/users/setRoles/${record.id}`));
+    dispatch(routerRedux.push(`/blogs/setRoles/${record.id}`));
   }
   // 删除
   handleDelete = (record) =>{
     this.props.dispatch({
-      type: 'users/fetchDeleteUsers',
+      type: 'blogs/fetchDeleteBlogs',
       payload: {
         id: record.id,
       },
       callback: ()=>{
-        this.fetchGetUsers();
+        this.fetchGetBlogs();
       },
     });
   }
 
   render() {
 
-    const { list = [], pageCurrent, pageSize } = this.props.users;
+    const { list = [], pageCurrent, pageSize } = this.props.blogs;
 
     const columns = [{
       title: '序号',
