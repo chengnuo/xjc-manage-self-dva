@@ -173,7 +173,17 @@ const menuData = [
       },
     ],
   },
-
+  {
+    name: '博客管理',
+    icon: 'blog',
+    path: 'blog',
+    children: [
+    {
+      name: '博客列表',
+      path: 'list',
+    },
+  ],
+  },
 
 
 
