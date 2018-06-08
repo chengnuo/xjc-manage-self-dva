@@ -67,6 +67,10 @@ function getFlatMenuData(menus) {
   return keys;
 }
 
+// '/': {
+//   component: dynamicWrapper(app, ['user', 'login']=> 这里是namespace, () => import('../layouts/BasicLayout')),
+// },
+
 export const getRouterData = app => {
   const routerConfig = {
     '/': {
@@ -207,7 +211,7 @@ export const getRouterData = app => {
     },
     // 博客管理
     '/blog/list': {
-      component: dynamicWrapper(app, ['access'], () => import('../routes/Blog/List')),
+      component: dynamicWrapper(app, ['blogs'], () => import('../routes/Blog/List')),
     },
   };
   // Get name from ./menu.js or just set it in the router data.

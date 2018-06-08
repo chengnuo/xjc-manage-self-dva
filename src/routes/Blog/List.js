@@ -86,7 +86,6 @@ export default class List extends PureComponent {
   }
 
   render() {
-
     const { list = [], pageCurrent, pageSize } = this.props.blogs;
 
     const columns = [{
@@ -138,7 +137,7 @@ export default class List extends PureComponent {
         title="用户列表"
         content={PageHeaderLayoutContent}
       >
-        {/* 用户列表 */}
+        {/* 博客列表 */}
         <Table columns={columns} dataSource={list} pagination={this.pagination} rowKey='id' />
       </PageHeaderLayout>
     );

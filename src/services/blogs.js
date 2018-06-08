@@ -44,16 +44,3 @@ export async function deleteBlogs(params) {
     body: filterId(params),
   });
 }
-
-// 设置权限
-export async function setRoles(params) {
-  return request(`/api/setRoles`, {
-    method: 'POST',
-    body: params,
-  });
-}
-// 设置权限列表
-export async function setRolesList(params) {
-  return request(`/api/setRolesList?${stringify(params)}`);
-}
-
