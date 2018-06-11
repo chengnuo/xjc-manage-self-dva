@@ -129,12 +129,12 @@ export default class List extends PureComponent {
     }];
 
     const PageHeaderLayoutContent = (
-      <div>说明`http://www.54php.cn/default/42.html`【RBAC】打造Web权限控制系统</div>
+      <div>说明：记录自己的博客内容</div>
     )
 
     return (
       <PageHeaderLayout
-        title="用户列表"
+        title="博客列表"
         content={PageHeaderLayoutContent}
       >
         {/* 博客列表 */}

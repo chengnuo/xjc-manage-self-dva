@@ -175,7 +175,7 @@ const menuData = [
   },
   {
     name: '博客管理',
-    icon: 'blog',
+    icon: 'book',
     path: 'blog',
     children: [
     {
