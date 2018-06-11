@@ -60,17 +60,17 @@ export default class List extends PureComponent {
   // 新增
   goCreate =()=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/blogs/create`));
+    dispatch(routerRedux.push(`/blog/create`));
   }
   // 编辑
   goEditor =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/blogs/editor/${record.id}`));
+    dispatch(routerRedux.push(`/blog/editor/${record.id}`));
   }
   // 设置角色
   goSetRoles =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/blogs/setRoles/${record.id}`));
+    dispatch(routerRedux.push(`/blog/setRoles/${record.id}`));
   }
   // 删除
   handleDelete = (record) =>{
@@ -122,6 +122,7 @@ export default class List extends PureComponent {
 
         return (
           <div>
+            <a href="javascript:;" onClick={this.goCreate}>新增</a>
             <Divider type="vertical" />
           </div>
         )
