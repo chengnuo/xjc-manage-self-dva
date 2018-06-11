@@ -81,7 +81,7 @@ export default class Create extends PureComponent {
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="请输入文章内容">
-              {getFieldDecorator('password', {
+              {getFieldDecorator('content', {
                 rules: [
                   {
                     required: true,
