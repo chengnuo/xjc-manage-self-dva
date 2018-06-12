@@ -178,15 +178,23 @@ const menuData = [
     icon: 'book',
     path: 'blogs',
     children: [
-    {
-      name: '博客列表',
-      path: 'list',
-    },
-  ],
+      {
+        name: '博客列表',
+        path: 'list',
+      },
+    ],
   },
-
-
-
+  {
+    name: '计划管理',
+    icon: 'tag-o',
+    path: 'plans',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {

@@ -219,6 +219,10 @@ export const getRouterData = app => {
     '/blogs/editor/:id': {
       component: dynamicWrapper(app, ['blogs'], () => import('../routes/Blog/Editor')),
     },
+    // 计划管理
+    '/plans/list': {
+      component: dynamicWrapper(app, ['users'], () => import('../routes/Plan/List')),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());
