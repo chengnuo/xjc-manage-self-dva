@@ -210,11 +210,14 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['access'], () => import('../routes/Access/Editor')),
     },
     // 博客管理
-    '/blog/list': {
+    '/blogs/list': {
       component: dynamicWrapper(app, ['blogs'], () => import('../routes/Blog/List')),
     },
-    '/blog/create': {
+    '/blogs/create': {
       component: dynamicWrapper(app, ['blogs'], () => import('../routes/Blog/Create')),
+    },
+    '/blogs/editor/:id': {
+      component: dynamicWrapper(app, ['blogs'], () => import('../routes/Blog/Editor')),
     },
   };
   // Get name from ./menu.js or just set it in the router data.

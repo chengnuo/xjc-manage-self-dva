@@ -176,7 +176,7 @@ const menuData = [
   {
     name: '博客管理',
     icon: 'book',
-    path: 'blog',
+    path: 'blogs',
     children: [
     {
       name: '博客列表',

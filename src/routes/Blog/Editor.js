@@ -21,17 +21,26 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-@connect(({ loading }) => ({
+@connect(({ blogs,loading }) => ({
+  blogs,
   submitting: loading.effects['form/submitRegularForm'],
 }))
 @Form.create()
-export default class Create extends PureComponent {
+export default class Editor extends PureComponent {
+  componentDidMount() {
+    console.log('this',this)
+    this.fetchGetBlogs({
+      pageCurrent: 1,
+      pageSize: 10,
+      id: this.props.match.params.id,
+    });
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'blogs/fetchPostBlogs',
+          type: 'blogs/fetchPutBlogs',
           payload: values,
           callback: ()=>{
             this.props.dispatch(routerRedux.push(`/blogs/list`));
@@ -40,9 +49,20 @@ export default class Create extends PureComponent {
       }
     });
   };
+  fetchGetBlogs(payload) {
+    this.props.dispatch({
+      type: 'blogs/fetchGetBlogs',
+      payload: Object.assign({},{
+        pageCurrent: 1,
+        pageSize: 10,
+      },payload),
+    });
+  }
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { list = [] } = this.props.blogs;
+
 
     const formItemLayout = {
       labelCol: {
@@ -70,6 +90,17 @@ export default class Create extends PureComponent {
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+            <FormItem {...formItemLayout} label="id">
+              {getFieldDecorator('id', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入id',
+                  },
+                ],
+                initialValue: list.length > 0 && list[0].id,
+              })(<Input placeholder="请输入用户id" disabled />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="标题">
               {getFieldDecorator('title', {
                 rules: [
@@ -78,6 +109,7 @@ export default class Create extends PureComponent {
                     message: '请输入标题',
                   },
                 ],
+                initialValue: list.length > 0 && list[0].title,
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="请输入文章内容">
@@ -88,6 +120,7 @@ export default class Create extends PureComponent {
                     message: '请输入文章内容',
                   },
                 ],
+                initialValue: list.length > 0 && list[0].content,
               })(<TextArea rows={4} />)}
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
