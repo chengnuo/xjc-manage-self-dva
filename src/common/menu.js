@@ -239,6 +239,17 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '面试题管理',
+    icon: 'tag-o',
+    path: 'plans6',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
