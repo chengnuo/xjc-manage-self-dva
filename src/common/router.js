@@ -221,7 +221,13 @@ export const getRouterData = app => {
     },
     // 计划管理
     '/plans/list': {
-      component: dynamicWrapper(app, ['users'], () => import('../routes/Plan/List')),
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Plan/List')),
+    },
+    '/plans/create': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Plan/Create')),
+    },
+    '/plans/editor/:id': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Plan/Editor')),
     },
   };
   // Get name from ./menu.js or just set it in the router data.

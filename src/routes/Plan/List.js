@@ -7,20 +7,20 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import form from "../../models/form";
 
 
-@connect(({ users, loading }) => ({
-  users,
+@connect(({ plans, loading }) => ({
+  plans,
 }))
 export default class List extends PureComponent {
   componentDidMount() {
     console.log('this',this)
-    this.fetchGetUsers({
+    this.fetchGetPlans({
       pageCurrent: 1,
       pageSize: 10,
     });
   }
   get pagination() {
 
-    const { pageCurrent, pageSize, total = 0 } = this.props.users;
+    const { pageCurrent, pageSize, total = 0 } = this.props.plans;
 
     const self = this;
     const pagination = {
@@ -35,9 +35,9 @@ export default class List extends PureComponent {
     };
     return pagination
   }
-  fetchGetUsers(payload) {
+  fetchGetPlans(payload) {
     this.props.dispatch({
-      type: 'users/fetchGetUsers',
+      type: 'plans/fetchGetPlans',
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
@@ -46,48 +46,47 @@ export default class List extends PureComponent {
   }
   // pageSize 变化的回调
   handleShowSizeChange(pageCurrent, pageSize) {
-    this.fetchGetUsers({
+    this.fetchGetPlans({
       pageCurrent,
       pageSize,
     });
   }
   // 点击当前页面
   handleChange(pageCurrent) {
-    this.fetchGetUsers({
+    this.fetchGetPlans({
       pageCurrent,
     });
   }
   // 新增
   goCreate =()=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/users/create`));
+    dispatch(routerRedux.push(`/plans/create`));
   }
   // 编辑
   goEditor =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/users/editor/${record.id}`));
+    dispatch(routerRedux.push(`/plans/editor/${record.id}`));
   }
-  // 设置角色
+  // 设置计划
   goSetRoles =(record)=>{
     const { dispatch } = this.props;
-    dispatch(routerRedux.push(`/users/users/setRoles/${record.id}`));
+    dispatch(routerRedux.push(`/plans/setRoles/${record.id}`));
   }
   // 删除
   handleDelete = (record) =>{
     this.props.dispatch({
-      type: 'users/fetchDeleteUsers',
+      type: 'plans/fetchDeletePlans',
       payload: {
         id: record.id,
       },
       callback: ()=>{
-        this.fetchGetUsers();
+        this.fetchGetPlans();
       },
     });
   }
 
   render() {
-
-    const { list = [], pageCurrent, pageSize } = this.props.users;
+    const { list = [], pageCurrent, pageSize } = this.props.plans;
 
     const columns = [{
       title: '序号',
@@ -100,41 +99,20 @@ export default class List extends PureComponent {
         </div>
       ),
     },{
-      title: 'id',
-      dataIndex: 'id',
-      key: 'id',
-      width: 60,
-      render: (text, record) => (
-        <div>{text}</div>
-      ),
-    }, {
-      title: '计划名',
-      dataIndex: 'username',
-      key: 'username',
+      title: '标题',
+      dataIndex: 'title',
+      key: 'title',
       width: 120,
       render: (text, record) => (
         <div>{text}</div>
       ),
     }, {
-      title: '邮箱',
-      dataIndex: 'email',
-      key: 'email',
+      title: '内容',
+      dataIndex: 'content',
+      key: 'content',
+      width: 320,
       render: (text, record) => (
         <div>{text}</div>
-      ),
-    },{
-      title: '更新时间',
-      dataIndex: 'updated_time',
-      key: 'updated_time',
-      render: (text, record) => (
-        <div>{moment(text).format('YYYY-MM-DD hh:mm:ss')}</div>
-      ),
-    },{
-      title: '创建时间',
-      dataIndex: 'created_time',
-      key: 'created_time',
-      render: (text, record) => (
-        <div>{moment(text).format('YYYY-MM-DD hh:mm:ss')}</div>
       ),
     }, {
       title: '操作',
@@ -147,17 +125,13 @@ export default class List extends PureComponent {
             <a href="javascript:;" onClick={this.goCreate}>新增</a>
             <Divider type="vertical" />
             <a href="javascript:;" onClick={this.goEditor.bind(this, record)}>编辑</a>
-            {/*<Divider type="vertical" />*/}
-            {/*<a href="javascript:;" onClick={this.handleDelete.bind(this, record)}>删除</a>*/}
-            <Divider type="vertical" />
-            <a href="javascript:;" onClick={this.goSetRoles.bind(this, record)}>设置角色</a>
           </div>
         )
       },
     }];
 
     const PageHeaderLayoutContent = (
-      <div>说明`http://www.54php.cn/default/42.html`【RBAC】打造Web权限控制系统</div>
+      <div>说明：记录自己的计划内容</div>
     )
 
     return (

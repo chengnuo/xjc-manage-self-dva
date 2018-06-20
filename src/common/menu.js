@@ -195,6 +195,50 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '读书管理',
+    icon: 'tag-o',
+    path: 'plans2',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
+  {
+    name: '审核管理',
+    icon: 'tag-o',
+    path: 'plans3',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
+  {
+    name: '网站导航管理',
+    icon: 'tag-o',
+    path: 'plans4',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
+  {
+    name: '工具管理',
+    icon: 'tag-o',
+    path: 'plans5',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
