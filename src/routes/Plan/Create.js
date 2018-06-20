@@ -31,10 +31,10 @@ export default class Create extends PureComponent {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'blogs/fetchPostBlogs',
+          type: 'plans/fetchPostPlans',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/blogs/list`));
+            this.props.dispatch(routerRedux.push(`/plans/list`));
           },
         });
       }

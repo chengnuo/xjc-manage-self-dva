@@ -21,15 +21,15 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-@connect(({ blogs,loading }) => ({
-  blogs,
+@connect(({ plans,loading }) => ({
+  plans,
   submitting: loading.effects['form/submitRegularForm'],
 }))
 @Form.create()
 export default class Editor extends PureComponent {
   componentDidMount() {
     console.log('this',this)
-    this.fetchGetBlogs({
+    this.fetchGetPlans({
       pageCurrent: 1,
       pageSize: 10,
       id: this.props.match.params.id,
@@ -40,18 +40,18 @@ export default class Editor extends PureComponent {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'blogs/fetchPutBlogs',
+          type: 'plans/fetchPutPlans',
           payload: values,
           callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/blogs/list`));
+            this.props.dispatch(routerRedux.push(`/plans/list`));
           },
         });
       }
     });
   };
-  fetchGetBlogs(payload) {
+  fetchGetPlans(payload) {
     this.props.dispatch({
-      type: 'blogs/fetchGetBlogs',
+      type: 'plans/fetchGetPlans',
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
@@ -61,7 +61,7 @@ export default class Editor extends PureComponent {
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
-    const { list = [] } = this.props.blogs;
+    const { list = [] } = this.props.plans;
 
 
     const formItemLayout = {
