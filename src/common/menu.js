@@ -261,6 +261,51 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '全栈系列',
+    icon: 'tag-o',
+    path: 'plans8',
+    children: [
+      {
+        name: 'vue列表',
+        path: 'list',
+      },
+      {
+        name: 'react列表',
+        path: 'list2',
+      },
+      {
+        name: 'ng列表',
+        path: 'list3',
+      },
+    ],
+  },
+  {
+    name: '黑名单管理',
+    icon: 'tag-o',
+    path: 'plans9',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
+  {
+    name: '爱好管理',
+    icon: 'tag-o',
+    path: 'plans10',
+    children: [
+      {
+        name: '影视列表',
+        path: 'list',
+      },
+      {
+        name: '音乐列表',
+        path: 'list2',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
