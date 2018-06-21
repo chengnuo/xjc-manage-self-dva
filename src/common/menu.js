@@ -250,6 +250,17 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '朋友画像管理',
+    icon: 'tag-o',
+    path: 'plans7',
+    children: [
+      {
+        name: '计划列表',
+        path: 'list',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
