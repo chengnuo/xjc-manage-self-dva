@@ -14,6 +14,13 @@ import {
   Tooltip,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+
+const ReactMarkdown = require('react-markdown');
+import CodeBlock from './code-block';
+
+const hljs = window.hljs;
+
+
 import styles from './style.less';
 
 const FormItem = Form.Item;
@@ -26,6 +33,7 @@ const { TextArea } = Input;
 }))
 @Form.create()
 export default class Create extends PureComponent {
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -62,6 +70,9 @@ export default class Create extends PureComponent {
         sm: { span: 10, offset: 7 },
       },
     };
+    const input = getFieldValue('content') || '';
+
+    console.log('CodeBlock', CodeBlock)
 
     return (
       <PageHeaderLayout
@@ -96,6 +107,13 @@ export default class Create extends PureComponent {
               </Button>
             </FormItem>
           </Form>
+          <div className="result-pane">
+            <ReactMarkdown
+              className="result"
+              source={input}
+              renderers={{code: CodeBlock}}
+            />
+          </div>
         </Card>
       </PageHeaderLayout>
     );
