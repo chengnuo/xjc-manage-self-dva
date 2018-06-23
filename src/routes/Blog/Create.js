@@ -17,11 +17,26 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 const ReactMarkdown = require('react-markdown');
 import CodeBlock from './code-block';
+import {Controlled as CodeMirror} from 'react-codemirror2';
+
+
+
 
 const hljs = window.hljs;
 
 
 import styles from './style.less';
+
+
+import '../../../node_modules/codemirror/lib/codemirror.css';
+import '../../../node_modules/codemirror/theme/material.css';
+import '../../../node_modules/codemirror/theme/xq-light.css';
+import '../../../node_modules/codemirror/theme/monokai.css';
+
+
+require('../../../node_modules/codemirror/mode/xml/xml');
+require('../../../node_modules/codemirror/mode/javascript/javascript');
+require('../../../node_modules/codemirror/mode/markdown/markdown'); // 需要加载 markdown
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -33,7 +48,55 @@ const { TextArea } = Input;
 }))
 @Form.create()
 export default class Create extends PureComponent {
-
+  constructor(props){
+    super(props)
+    this.state = {
+      value: '\n' +
+      '# Live demo\n' +
+      '\n' +
+      'Changes are automatically rendered as you type.\n' +
+      '\n' +
+      '* Implements [GitHub Flavored Markdown](https://github.github.com/gfm/)\n' +
+      '* Renders actual, "native" React DOM elements\n' +
+      '* Allows you to escape or skip HTML (try toggling the checkboxes above)\n' +
+      '* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!\n' +
+      '\n' +
+      '## HTML block below\n' +
+      '\n' +
+      '<blockquote>\n' +
+      '  This blockquote will change based on the HTML settings above.\n' +
+      '</blockquote>\n' +
+      '\n' +
+      '## How about some code?\n' +
+      '```js\n' +
+      'var React = require(\'react\');\n' +
+      'var Markdown = require(\'react-markdown\');\n' +
+      '\n' +
+      'React.render(\n' +
+      '  <Markdown source="# Your markdown here" />,\n' +
+      '  document.getElementById(\'content\')\n' +
+      ');\n' +
+      '```\n' +
+      '\n' +
+      'Pretty neat, eh?\n' +
+      '\n' +
+      '## Tables?\n' +
+      '\n' +
+      '| Feature | Support |\n' +
+      '| ------ | ----------- |\n' +
+      '| tables | ✔ |\n' +
+      '| alignment | ✔ |\n' +
+      '| wewt | ✔ |\n' +
+      '\n' +
+      '## More info?\n' +
+      '\n' +
+      'Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)\n' +
+      '\n' +
+      '---------------\n' +
+      '\n' +
+      'A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal\n',
+    }
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -108,9 +171,22 @@ export default class Create extends PureComponent {
             </FormItem>
           </Form>
           <div className="result-pane">
+            <CodeMirror
+              value={this.state.value}
+              options={{
+                mode: 'markdown',
+                theme: 'monokai',
+                lineNumbers: true,
+              }}
+              onBeforeChange={(editor, data, value) => {
+                this.setState({value});
+              }}
+              onChange={(editor, data, value) => {
+              }}
+            />
             <ReactMarkdown
               className="result"
-              source={input}
+              source={this.state.value}
               renderers={{code: CodeBlock}}
             />
           </div>
