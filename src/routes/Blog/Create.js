@@ -17,6 +17,7 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 const ReactMarkdown = require('react-markdown');
 import CodeBlock from './code-block';
+import MarkdownControls from './markdown-controls';
 import {Controlled as CodeMirror} from 'react-codemirror2';
 
 
@@ -37,6 +38,7 @@ import '../../../node_modules/codemirror/theme/monokai.css';
 require('../../../node_modules/codemirror/mode/xml/xml');
 require('../../../node_modules/codemirror/mode/javascript/javascript');
 require('../../../node_modules/codemirror/mode/markdown/markdown'); // 需要加载 markdown
+
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -66,6 +68,8 @@ export default class Create extends PureComponent {
       '<blockquote>\n' +
       '  This blockquote will change based on the HTML settings above.\n' +
       '</blockquote>\n' +
+      '<p>你说啊</p>\n' +
+      '<del>删除线吧</del>\n' +
       '\n' +
       '## How about some code?\n' +
       '```js\n' +
@@ -95,8 +99,13 @@ export default class Create extends PureComponent {
       '---------------\n' +
       '\n' +
       'A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal\n',
+      htmlMode: 'raw',
     }
   }
+  handleControlsChange = (mode) =>{
+    this.setState({htmlMode: mode})
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -171,6 +180,9 @@ export default class Create extends PureComponent {
             </FormItem>
           </Form>
           <div className="result-pane">
+
+            <MarkdownControls onChange={this.handleControlsChange} mode={this.state.htmlMode} />
+
             <CodeMirror
               value={this.state.value}
               options={{
@@ -188,6 +200,8 @@ export default class Create extends PureComponent {
               className="result"
               source={this.state.value}
               renderers={{code: CodeBlock}}
+              skipHtml={this.state.htmlMode === 'skip'}
+              escapeHtml={this.state.htmlMode === 'escape'}
             />
           </div>
         </Card>
