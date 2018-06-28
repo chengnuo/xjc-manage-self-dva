@@ -229,6 +229,11 @@ export const getRouterData = app => {
     '/plans/editor/:id': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Plan/Editor')),
     },
+    // 工具管理
+    '/tools/list': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Tool/List')),
+    },
+
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());

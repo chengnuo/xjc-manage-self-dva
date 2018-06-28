@@ -196,6 +196,17 @@ const menuData = [
     ],
   },
   {
+    name: '工具管理',
+    icon: 'tag-o',
+    path: 'tools',
+    children: [
+      {
+        name: '工具',
+        path: 'list',
+      },
+    ],
+  },
+  {
     name: '读书管理',
     icon: 'tag-o',
     path: 'plans2',
@@ -221,17 +232,6 @@ const menuData = [
     name: '网站导航管理',
     icon: 'tag-o',
     path: 'plans4',
-    children: [
-      {
-        name: '计划列表',
-        path: 'list',
-      },
-    ],
-  },
-  {
-    name: '工具管理',
-    icon: 'tag-o',
-    path: 'plans5',
     children: [
       {
         name: '计划列表',
