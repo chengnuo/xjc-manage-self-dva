@@ -56,7 +56,7 @@ export default class Create extends PureComponent {
   constructor(props){
     super(props)
     this.state = {
-      content: '11',
+      content: '',
       htmlMode: 'raw',
     }
   }
