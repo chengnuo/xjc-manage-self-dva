@@ -12,6 +12,7 @@ import {
   Radio,
   Icon,
   Tooltip,
+  Popover,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -19,6 +20,8 @@ const ReactMarkdown = require('react-markdown');
 import CodeBlock from './code-block';
 import MarkdownControls from './markdown-controls';
 import {Controlled as CodeMirror} from 'react-codemirror2';
+
+import FooterToolbar from 'components/FooterToolbar'; // 底下导航
 
 
 
@@ -53,52 +56,7 @@ export default class Create extends PureComponent {
   constructor(props){
     super(props)
     this.state = {
-      value: '\n' +
-      '# Live demo\n' +
-      '\n' +
-      'Changes are automatically rendered as you type.\n' +
-      '\n' +
-      '* Implements [GitHub Flavored Markdown](https://github.github.com/gfm/)\n' +
-      '* Renders actual, "native" React DOM elements\n' +
-      '* Allows you to escape or skip HTML (try toggling the checkboxes above)\n' +
-      '* If you escape or skip the HTML, no `dangerouslySetInnerHTML` is used! Yay!\n' +
-      '\n' +
-      '## HTML block below\n' +
-      '\n' +
-      '<blockquote>\n' +
-      '  This blockquote will change based on the HTML settings above.\n' +
-      '</blockquote>\n' +
-      '<p>你说啊</p>\n' +
-      '<del>删除线吧</del>\n' +
-      '\n' +
-      '## How about some code?\n' +
-      '```js\n' +
-      'var React = require(\'react\');\n' +
-      'var Markdown = require(\'react-markdown\');\n' +
-      '\n' +
-      'React.render(\n' +
-      '  <Markdown source="# Your markdown here" />,\n' +
-      '  document.getElementById(\'content\')\n' +
-      ');\n' +
-      '```\n' +
-      '\n' +
-      'Pretty neat, eh?\n' +
-      '\n' +
-      '## Tables?\n' +
-      '\n' +
-      '| Feature | Support |\n' +
-      '| ------ | ----------- |\n' +
-      '| tables | ✔ |\n' +
-      '| alignment | ✔ |\n' +
-      '| wewt | ✔ |\n' +
-      '\n' +
-      '## More info?\n' +
-      '\n' +
-      'Read usage information and more on [GitHub](//github.com/rexxars/react-markdown)\n' +
-      '\n' +
-      '---------------\n' +
-      '\n' +
-      'A component by [VaffelNinja](http://vaffel.ninja) / Espen Hovlandsdal\n',
+      content: '',
       htmlMode: 'raw',
     }
   }
@@ -121,8 +79,8 @@ export default class Create extends PureComponent {
     });
   };
   render() {
-    const { submitting } = this.props;
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { form, dispatch, submitting } = this.props;
+    const { getFieldDecorator, validateFieldsAndScroll, getFieldsError, getFieldValue } = form;
 
     const formItemLayout = {
       labelCol: {
@@ -144,15 +102,82 @@ export default class Create extends PureComponent {
     };
     const input = getFieldValue('content') || '';
 
-    console.log('CodeBlock', CodeBlock)
+
+    const validate = () => {
+      validateFieldsAndScroll((error, values) => {
+        if (!error) {
+          // submit the values
+          // dispatch({
+          //   type: 'form/submitAdvancedForm',
+          //   payload: values,
+          // });
+
+          console.log('可以提交：')
+
+          const fetchData = Object.assign({},{
+            title: values.title,
+            content: this.state.content,
+          });
+
+
+          this.props.dispatch({
+            type: 'blogs/fetchPostBlogs',
+            payload: fetchData,
+            callback: ()=>{
+              this.props.dispatch(routerRedux.push(`/blogs/list`));
+            },
+          });
+        }
+      });
+    };
+    const errors = getFieldsError();
+    const getErrorInfo = () => {
+      const errorCount = Object.keys(errors).filter(key => errors[key]).length;
+      if (!errors || errorCount === 0) {
+        return null;
+      }
+      const scrollToField = fieldKey => {
+        const labelNode = document.querySelector(`label[for="${fieldKey}"]`);
+        if (labelNode) {
+          labelNode.scrollIntoView(true);
+        }
+      };
+      const errorList = Object.keys(errors).map(key => {
+        if (!errors[key]) {
+          return null;
+        }
+        return (
+          <li key={key} className={styles.errorListItem} onClick={() => scrollToField(key)}>
+            <Icon type="cross-circle-o" className={styles.errorIcon} />
+            <div className={styles.errorMessage}>{errors[key][0]}</div>
+            {/*<div className={styles.errorField}>{fieldLabels[key]}</div>*/}
+          </li>
+        );
+      });
+      return (
+        <span className={styles.errorIcon}>
+          <Popover
+            title="表单校验信息"
+            content={errorList}
+            overlayClassName={styles.errorPopover}
+            trigger="click"
+            getPopupContainer={trigger => trigger.parentNode}
+          >
+            <Icon type="exclamation-circle" />
+          </Popover>
+          {errorCount}
+        </span>
+      );
+    };
+
 
     return (
       <PageHeaderLayout
-        title="基础表单"
-        content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
+        // title="基础表单"
+        // content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
       >
-        <Card bordered={false}>
-          <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+        <Card bordered={false} className="blog">
+          <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }} layout={'inline'}>
             <FormItem {...formItemLayout} label="标题">
               {getFieldDecorator('title', {
                 rules: [
@@ -161,50 +186,60 @@ export default class Create extends PureComponent {
                     message: '请输入标题',
                   },
                 ],
-              })(<Input placeholder="请输入用户名" />)}
+              })(<Input placeholder="请输入用户名" style={{'width': '250px'}} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="请输入文章内容">
-              {getFieldDecorator('content', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入文章内容',
-                  },
-                ],
-              })(<TextArea rows={4} />)}
-            </FormItem>
-            <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-              <Button type="primary" htmlType="submit" loading={submitting}>
-                提交
-              </Button>
-            </FormItem>
+            {/*<FormItem {...formItemLayout} label="请输入文章内容">*/}
+              {/*{getFieldDecorator('content', {*/}
+                {/*rules: [*/}
+                  {/*{*/}
+                    {/*required: true,*/}
+                    {/*message: '请输入文章内容',*/}
+                  {/*},*/}
+                {/*],*/}
+              {/*})(<TextArea rows={4} />)}*/}
+            {/*</FormItem>*/}
+            {/*<FormItem {...submitFormLayout} style={{ marginTop: 32 }}>*/}
+              {/*<Button type="primary" htmlType="submit" loading={submitting}>*/}
+                {/*提交*/}
+              {/*</Button>*/}
+            {/*</FormItem>*/}
           </Form>
-          <div className="result-pane">
-
-            <MarkdownControls onChange={this.handleControlsChange} mode={this.state.htmlMode} />
-
-            <CodeMirror
-              value={this.state.value}
-              options={{
-                mode: 'markdown',
-                theme: 'monokai',
-                lineNumbers: true,
-              }}
-              onBeforeChange={(editor, data, value) => {
-                this.setState({value});
-              }}
-              onChange={(editor, data, value) => {
-              }}
-            />
-            <ReactMarkdown
-              className="result"
-              source={this.state.value}
-              renderers={{code: CodeBlock}}
-              skipHtml={this.state.htmlMode === 'skip'}
-              escapeHtml={this.state.htmlMode === 'escape'}
-            />
+          <div className="demo">
+            {/* 博客输入 */}
+            <div className="editor-pane">
+              <MarkdownControls onChange={this.handleControlsChange} mode={this.state.htmlMode} />
+              <CodeMirror
+                value={this.state.content}
+                options={{
+                  mode: 'markdown',
+                  theme: 'monokai',
+                  lineNumbers: true,
+                }}
+                onBeforeChange={(editor, data, value) => {
+                  this.setState({value});
+                }}
+                onChange={(editor, data, value) => {
+                }}
+              />
+            </div>
+            {/* 博客展示 */}
+            <div className="result-pane">
+              <ReactMarkdown
+                className="result"
+                source={this.state.content}
+                renderers={{code: CodeBlock}}
+                skipHtml={this.state.htmlMode === 'skip'}
+                escapeHtml={this.state.htmlMode === 'escape'}
+              />
+            </div>
           </div>
         </Card>
+        <FooterToolbar style={{ width: this.state.width }}>
+          {getErrorInfo()}
+          <Button type="primary" onClick={validate} loading={submitting}>
+            提交
+          </Button>
+        </FooterToolbar>
       </PageHeaderLayout>
     );
   }
