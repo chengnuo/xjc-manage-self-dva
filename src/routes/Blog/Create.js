@@ -56,7 +56,7 @@ export default class Create extends PureComponent {
   constructor(props){
     super(props)
     this.state = {
-      content: '',
+      content: '11',
       htmlMode: 'raw',
     }
   }
@@ -216,7 +216,7 @@ export default class Create extends PureComponent {
                   lineNumbers: true,
                 }}
                 onBeforeChange={(editor, data, value) => {
-                  this.setState({value});
+                  this.setState({content: value});
                 }}
                 onChange={(editor, data, value) => {
                 }}
