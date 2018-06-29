@@ -2,11 +2,20 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { Collapse, Divider, List } from 'antd';
+import fehelperIcon from './../../assets/images/fehelperLogo.png'; // fehelperLogo
+import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
 
 const Panel = Collapse.Panel;
 
+
 // 前端fehelper助手
 const fehelperData = [
+  {
+    title: '网站',
+    description: '',
+    href: 'https://www.baidufe.com/fehelper/feedback.html',
+    icon: fehelperIcon,
+  },
   {
     title: 'FeHelper--弹出菜单',
     description: '插件入口，点击ICON，插件相关的所有功能都会在这里列出来，在popup中选择所需使用的功能即可使用',
@@ -92,7 +101,7 @@ export default class ToolList extends PureComponent {
           <Panel header="谷歌访问助手" key="1">
             <div>
               <div>
-                域名：
+                网站：
                 <a href="http://www.ggfwzs.com/" target="_blank">
                   http://www.ggfwzs.com/
                 </a>
@@ -108,16 +117,6 @@ export default class ToolList extends PureComponent {
           <Panel header="FeHelper，Chrome浏览器插件，包含一些前端实用的工具，欢迎安装使用！" key="2">
             <div>
               <div>
-                域名：
-                <a href="https://www.baidufe.com/fehelper/feedback.html" target="_blank">
-                  https://www.baidufe.com/fehelper/feedback.html
-                </a>
-              </div>
-              <div>
-
-                功能简介>>
-
-
                 <List
                   itemLayout="horizontal"
                   dataSource={fehelperData}
@@ -125,9 +124,15 @@ export default class ToolList extends PureComponent {
                     <List.Item>
                       <List.Item.Meta
                         // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                        title={<a href="https://ant.design">{item.title}</a>}
+                        title={<div>{item.title}</div>}
                         description={
-                          <div>{item.description}</div>
+                          <div>
+                            <p><a href={item.href}> {item.href} </a></p>
+                            {
+                              item.icon?<p style={{ width: '128px' }}><img src={item.icon} /></p>:null
+                            }
+                            <p>{item.description}</p>
+                          </div>
                         }
                       />
                     </List.Item>
@@ -137,8 +142,24 @@ export default class ToolList extends PureComponent {
               </div>
             </div>
           </Panel>
-          <Panel header="This is panel header 3" key="3">
-            <p>3</p>
+          <Panel header="switchHosts" key="3">
+            <div>
+              <div>
+                网站：
+                <a href="http://oldj.github.io/SwitchHosts/#cn" target="_blank">
+                  http://oldj.github.io/SwitchHosts/#cn
+                </a>
+                <p>
+                  Logo：<img style={{ width: '128px' }} src={switchHostsLogo} />
+                </p>
+              </div>
+              <div>
+                说明：
+                SwitchHosts! 是一个管理、切换多个 hosts 方案的工具。
+
+                它是一个免费开源软件。
+              </div>
+            </div>
           </Panel>
         </Collapse>
       </PageHeaderLayout>
