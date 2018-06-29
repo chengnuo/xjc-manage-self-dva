@@ -127,7 +127,7 @@ export default class ToolList extends PureComponent {
                         title={<div>{item.title}</div>}
                         description={
                           <div>
-                            <p><a href={item.href}> {item.href} </a></p>
+                            <p><a href={item.href} target="_blank"> {item.href} </a></p>
                             {
                               item.icon?<p style={{ width: '128px' }}><img src={item.icon} /></p>:null
                             }
