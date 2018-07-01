@@ -6,6 +6,7 @@ import ggfwzsLogo from './../../assets/images/ggfwzsLogo.png'; // ggfwzsLogo
 import fehelperLogo from './../../assets/images/fehelperLogo.png'; // fehelperLogo
 import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
 import postmanLogo from './../../assets/images/postmanLogo.png'; // postmanLogo
+import charlesLogo from './../../assets/images/charlesLogo.png'; // charlesLogo
 
 import styles from './CardList.less';
 import Ellipsis from 'components/Ellipsis';
@@ -115,6 +116,13 @@ const dataSource = [
     "avatar": postmanLogo,
     "description": "Postman Makes API Development Simple.Developers use Postman to build modern software for the API-first world.",
     "url": "https://www.getpostman.com/",
+  },
+  {
+    "id": "fake-list-15",
+    "title": "charlesproxy",
+    "avatar": charlesLogo,
+    "description": "Charles is an HTTP proxy / HTTP monitor / Reverse Proxy that enables a developer to view all of the HTTP and SSL / HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).",
+    "url": "https://www.charlesproxy.com/",
   },
 ]
 
