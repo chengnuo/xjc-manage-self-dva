@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { Collapse, Divider, List, Card, Button, Icon } from 'antd';
 import ggfwzsLogo from './../../assets/images/ggfwzsLogo.png'; // ggfwzsLogo
-import fehelperIcon from './../../assets/images/fehelperLogo.png'; // fehelperLogo
+import fehelperLogo from './../../assets/images/fehelperLogo.png'; // fehelperLogo
 import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
 
 import styles from './CardList.less';
@@ -18,7 +18,7 @@ const fehelperData = [
     title: '网站',
     description: '',
     href: 'https://www.baidufe.com/fehelper/feedback.html',
-    icon: fehelperIcon,
+    icon: fehelperLogo,
   },
   {
     title: 'FeHelper--弹出菜单',
@@ -374,9 +374,23 @@ const dataSource = [
     "title": "谷歌访问助手",
     "avatar": ggfwzsLogo,
     "description": "谷歌chrome浏览器商店，gmail邮箱提供加速服务，解决偶尔打不开的问题",
+    "url": "https://www.baidufe.com/fehelper",
+  },
+  {
+    "id": "fake-list-12",
+    "title": "WEB前端助手(FeHelper)",
+    "avatar": fehelperLogo,
+    "description": "FeHelper，Chrome浏览器插件，包含一些前端实用的工具，欢迎安装使用！",
+    "url": "https://www.baidufe.com/fehelper",
+  },
+  {
+    "id": "fake-list-12",
+    "title": "SwitchHosts",
+    "avatar": switchHostsLogo,
+    "description": "SwitchHosts! 是一个管理、切换多个 hosts 方案的工具。它是一个免费开源软件。",
+    "url": "http://oldj.github.io/SwitchHosts/#cn",
   },
 ]
-
 
 @connect(state => ({
   isloading: state.error.isloading,
@@ -402,7 +416,7 @@ export default class ToolList extends PureComponent {
                   <Card hoverable className={styles.card} actions={
                     [
                       <a>详情</a>,
-                      <a href='http://www.ggfwzs.com/' target='_blank' >官网</a>
+                      <a href={item.url} target='_blank' >官网</a>
                     ]
                   }>
                     <Card.Meta

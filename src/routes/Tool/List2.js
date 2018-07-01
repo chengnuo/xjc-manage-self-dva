@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { Collapse, Divider, List } from 'antd';
-import fehelperIcon from './../../assets/images/fehelperLogo.png'; // fehelperLogo
+import fehelperLogo from './../../assets/images/fehelperLogo.png'; // fehelperLogo
 import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
 
 const Panel = Collapse.Panel;
@@ -14,7 +14,7 @@ const fehelperData = [
     title: '网站',
     description: '',
     href: 'https://www.baidufe.com/fehelper/feedback.html',
-    icon: fehelperIcon,
+    icon: fehelperLogo,
   },
   {
     title: 'FeHelper--弹出菜单',
