@@ -1,9 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import { Collapse, Divider, List } from 'antd';
+import { Collapse, Divider, List, Card, Button, Icon } from 'antd';
+import ggfwzsLogo from './../../assets/images/ggfwzsLogo.png'; // ggfwzsLogo
 import fehelperIcon from './../../assets/images/fehelperLogo.png'; // fehelperLogo
 import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
+
+import styles from './CardList.less';
+import Ellipsis from 'components/Ellipsis';
 
 const Panel = Collapse.Panel;
 
@@ -81,7 +85,297 @@ const fehelperData = [
     description: '在这里，你可以随意定制属于你自己的FeHelper常用功能！',
   },
 ];
+// const dataSource = [
+//   {
+//     "id": "fake-list-0",
+//     "owner": "付小小",
+//     "title": "Alipay",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png",
+//     "status": "active",
+//     "percent": 81,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-07-01T05:42:27.643Z",
+//     "createdAt": "2018-07-01T05:42:27.643Z",
+//     "subDescription": "那是一种内在的东西， 他们到达不了，也无法触及的",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 184390,
+//     "newUser": 1370,
+//     "star": 149,
+//     "like": 157,
+//     "message": 20,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-1",
+//     "owner": "曲丽丽",
+//     "title": "Angular",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
+//     "status": "exception",
+//     "percent": 82,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-07-01T03:42:27.643Z",
+//     "createdAt": "2018-07-01T03:42:27.643Z",
+//     "subDescription": "希望是一个好东西，也许是最好的，好东西是不会消亡的",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 100339,
+//     "newUser": 1746,
+//     "star": 194,
+//     "like": 147,
+//     "message": 15,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-2",
+//     "owner": "林东东",
+//     "title": "Ant Design",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/uVZonEtjWwmUZPBQfycs.png",
+//     "status": "normal",
+//     "percent": 66,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-07-01T01:42:27.643Z",
+//     "createdAt": "2018-07-01T01:42:27.643Z",
+//     "subDescription": "生命就像一盒巧克力，结果往往出人意料",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 130027,
+//     "newUser": 1841,
+//     "star": 181,
+//     "like": 148,
+//     "message": 15,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-3",
+//     "owner": "周星星",
+//     "title": "Ant Design Pro",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png",
+//     "status": "active",
+//     "percent": 83,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-06-30T23:42:27.643Z",
+//     "createdAt": "2018-06-30T23:42:27.643Z",
+//     "subDescription": "城镇中有那么多的酒馆，她却偏偏走进了我的酒馆",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 157571,
+//     "newUser": 1646,
+//     "star": 192,
+//     "like": 183,
+//     "message": 15,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-4",
+//     "owner": "吴加好",
+//     "title": "Bootstrap",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png",
+//     "status": "exception",
+//     "percent": 77,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-06-30T21:42:27.643Z",
+//     "createdAt": "2018-06-30T21:42:27.643Z",
+//     "subDescription": "那时候我只会想自己想要什么，从不想自己拥有什么",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 118133,
+//     "newUser": 1545,
+//     "star": 135,
+//     "like": 124,
+//     "message": 15,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-5",
+//     "owner": "朱偏右",
+//     "title": "React",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/uVZonEtjWwmUZPBQfycs.png",
+//     "status": "normal",
+//     "percent": 83,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-06-30T19:42:27.643Z",
+//     "createdAt": "2018-06-30T19:42:27.643Z",
+//     "subDescription": "那是一种内在的东西， 他们到达不了，也无法触及的",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 186172,
+//     "newUser": 1361,
+//     "star": 169,
+//     "like": 105,
+//     "message": 13,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-6",
+//     "owner": "鱼酱",
+//     "title": "Vue",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
+//     "status": "active",
+//     "percent": 56,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-06-30T17:42:27.643Z",
+//     "createdAt": "2018-06-30T17:42:27.643Z",
+//     "subDescription": "希望是一个好东西，也许是最好的，好东西是不会消亡的",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 121947,
+//     "newUser": 1040,
+//     "star": 144,
+//     "like": 113,
+//     "message": 15,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   },
+//   {
+//     "id": "fake-list-7",
+//     "owner": "乐哥",
+//     "title": "Webpack",
+//     "avatar": "https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png",
+//     "cover": "https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png",
+//     "status": "exception",
+//     "percent": 72,
+//     "logo": "https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png",
+//     "href": "https://ant.design",
+//     "updatedAt": "2018-06-30T15:42:27.643Z",
+//     "createdAt": "2018-06-30T15:42:27.643Z",
+//     "subDescription": "生命就像一盒巧克力，结果往往出人意料",
+//     "description": "在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。",
+//     "activeUser": 178854,
+//     "newUser": 1749,
+//     "star": 191,
+//     "like": 167,
+//     "message": 18,
+//     "content": "段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。",
+//     "members": [
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png",
+//         "name": "曲丽丽"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png",
+//         "name": "王昭君"
+//       },
+//       {
+//         "avatar": "https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png",
+//         "name": "董娜娜"
+//       }
+//     ]
+//   }
+// ]
 
+const dataSource = [
+  {
+    "id": "fake-list-11",
+    "title": "谷歌访问助手",
+    "avatar": ggfwzsLogo,
+    "description": "谷歌chrome浏览器商店，gmail邮箱提供加速服务，解决偶尔打不开的问题",
+  },
+]
 
 
 @connect(state => ({
@@ -97,71 +391,41 @@ export default class ToolList extends PureComponent {
         title="工具模块"
         content="收藏一些常用工具，但是没有入库"
       >
-        <Collapse accordion>
-          <Panel header="谷歌访问助手" key="1">
-            <div>
-              <div>
-                网站：
-                <a href="http://www.ggfwzs.com/" target="_blank">
-                  http://www.ggfwzs.com/
-                </a>
-              </div>
-              <div>
-                说明：
-                仅为香港地区用户提供谷歌chrome商店，gmail邮箱提供加速服务，解决偶尔打不开的问题
-                仅为学生，外贸人群，chrome扩展商店用户等需要的用户，提供加速服务。
-                不可避免有可能短暂的无法使用，还请理解，我们会及时维护，保证95%的可用率
-              </div>
-            </div>
-          </Panel>
-          <Panel header="FeHelper，Chrome浏览器插件，包含一些前端实用的工具，欢迎安装使用！" key="2">
-            <div>
-              <div>
-                <List
-                  itemLayout="horizontal"
-                  dataSource={fehelperData}
-                  renderItem={item => (
-                    <List.Item>
-                      <List.Item.Meta
-                        // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                        title={<div>{item.title}</div>}
-                        description={
-                          <div>
-                            <p><a href={item.href} target="_blank"> {item.href} </a></p>
-                            {
-                              item.icon?<p style={{ width: '128px' }}><img src={item.icon} /></p>:null
-                            }
-                            <p>{item.description}</p>
-                          </div>
-                        }
-                      />
-                    </List.Item>
-                  )}
-                />
-
-              </div>
-            </div>
-          </Panel>
-          <Panel header="switchHosts" key="3">
-            <div>
-              <div>
-                网站：
-                <a href="http://oldj.github.io/SwitchHosts/#cn" target="_blank">
-                  http://oldj.github.io/SwitchHosts/#cn
-                </a>
-                <p>
-                  Logo：<img style={{ width: '128px' }} src={switchHostsLogo} />
-                </p>
-              </div>
-              <div>
-                说明：
-                SwitchHosts! 是一个管理、切换多个 hosts 方案的工具。
-
-                它是一个免费开源软件。
-              </div>
-            </div>
-          </Panel>
-        </Collapse>
+        <div className={styles.cardList}>
+          <List
+            rowKey="id"
+            grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
+            dataSource={['', ...dataSource]}
+            renderItem={item =>
+              item ? (
+                <List.Item key={item.id}>
+                  <Card hoverable className={styles.card} actions={
+                    [
+                      <a>详情</a>,
+                      <a href='http://www.ggfwzs.com/' target='_blank' >官网</a>
+                    ]
+                  }>
+                    <Card.Meta
+                      avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
+                      title={<a href="#">{item.title}</a>}
+                      description={
+                        <Ellipsis className={styles.item} lines={3}>
+                          {item.description}
+                        </Ellipsis>
+                      }
+                    />
+                  </Card>
+                </List.Item>
+              ) : (
+                <List.Item>
+                  <Button type="dashed" className={styles.newButton}>
+                    <Icon type="plus" /> 新增产品
+                  </Button>
+                </List.Item>
+              )
+            }
+          />
+        </div>
       </PageHeaderLayout>
     );
   }
