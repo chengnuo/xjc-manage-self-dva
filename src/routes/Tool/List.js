@@ -5,6 +5,7 @@ import { Collapse, Divider, List, Card, Button, Icon } from 'antd';
 import ggfwzsLogo from './../../assets/images/ggfwzsLogo.png'; // ggfwzsLogo
 import fehelperLogo from './../../assets/images/fehelperLogo.png'; // fehelperLogo
 import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
+import postmanLogo from './../../assets/images/postmanLogo.png'; // postmanLogo
 
 import styles from './CardList.less';
 import Ellipsis from 'components/Ellipsis';
@@ -384,11 +385,18 @@ const dataSource = [
     "url": "https://www.baidufe.com/fehelper",
   },
   {
-    "id": "fake-list-12",
+    "id": "fake-list-13",
     "title": "SwitchHosts",
     "avatar": switchHostsLogo,
     "description": "SwitchHosts! 是一个管理、切换多个 hosts 方案的工具。它是一个免费开源软件。",
     "url": "http://oldj.github.io/SwitchHosts/#cn",
+  },
+  {
+    "id": "fake-list-14",
+    "title": "postman",
+    "avatar": postmanLogo,
+    "description": "Postman Makes API Development Simple.Developers use Postman to build modern software for the API-first world.",
+    "url": "https://www.getpostman.com/",
   },
 ]
 
