@@ -7,6 +7,8 @@ import fehelperLogo from './../../assets/images/fehelperLogo.png'; // fehelperLo
 import switchHostsLogo from './../../assets/images/switchHostsLogo.png'; // switchHostsLogo
 import postmanLogo from './../../assets/images/postmanLogo.png'; // postmanLogo
 import charlesLogo from './../../assets/images/charlesLogo.png'; // charlesLogo
+import photoshopLogo from './../../assets/images/photoshopLogo.png'; // photoshopLogo
+import xclientInfoLogo from './../../assets/images/xclientInfoLogo.png'; // xclientInfoLogo
 
 import styles from './CardList.less';
 import Ellipsis from 'components/Ellipsis';
@@ -123,6 +125,20 @@ const dataSource = [
     "avatar": charlesLogo,
     "description": "Charles is an HTTP proxy / HTTP monitor / Reverse Proxy that enables a developer to view all of the HTTP and SSL / HTTPS traffic between their machine and the Internet. This includes requests, responses and the HTTP headers (which contain the cookies and caching information).",
     "url": "https://www.charlesproxy.com/",
+  },
+  {
+    "id": "fake-list-16",
+    "title": "photoshop",
+    "avatar": photoshopLogo,
+    "description": "Photoshop CC（Creative Cloud）。除去Photoshop CS6中所包含的功能，Photoshop CC新增相机防抖动功能、CameraRAW功能改进、图像提升采样、属性面板改进、Behance集成等功能，以及Creative Cloud，即云功能。",
+    "url": "http://xclient.info/s/adobe-photoshop-cc.html?t=18bfae921446edd7f3e5f3589f62593d73674f6d",
+  },
+  {
+    "id": "fake-list-17",
+    "title": "xclientInfo",
+    "avatar": xclientInfoLogo,
+    "description": "http://xclient.info/ mac 专业破解软件 本站并不以盈利为目的，所有软件均来源于网络，旨在推广苹果电脑在国内的应用，并为大家带来更好的下载体验。",
+    "url": "http://xclient.info/",
   },
 ]
 
