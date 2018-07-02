@@ -306,6 +306,17 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '公司项目管理',
+    icon: 'tag-o',
+    path: 'plans11',
+    children: [
+      {
+        name: '项目列表（项目/负责人）',
+        path: 'list',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
