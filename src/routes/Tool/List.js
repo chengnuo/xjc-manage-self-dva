@@ -224,6 +224,7 @@ export default class ToolList extends PureComponent {
         title="工具模块"
         content="收藏一些常用工具"
       >
+        {/*<a>详情</a>,*/}
         <div className={styles.cardList}>
           <List
             rowKey="id"
@@ -234,7 +235,6 @@ export default class ToolList extends PureComponent {
                 <List.Item key={item.id}>
                   <Card hoverable className={styles.card} actions={
                     [
-                      <a>详情</a>,
                       <a href={item.url} target='_blank' >官网</a>
                     ]
                   }>
@@ -243,7 +243,7 @@ export default class ToolList extends PureComponent {
                       //   backgroundImage: `url(${item.avatar})`,
                       // }} />}
                       avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
-                      title={<a href="#">{item.title}</a>}
+                      title={<a href={item.url} target='_blank'>{item.title}</a>}
                       description={
                         <Ellipsis className={styles.item} lines={3}>
                           {item.description}
