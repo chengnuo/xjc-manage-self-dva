@@ -231,7 +231,7 @@ export const getRouterData = app => {
     },
     // 工具管理
     '/tools/list': {
-      component: dynamicWrapper(app, ['plans'], () => import('../routes/Tool/List')),
+      component: dynamicWrapper(app, ['tools'], () => import('../routes/Tool/List')),
     },
     '/tools/list2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Tool/List2')),

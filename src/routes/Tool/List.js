@@ -163,14 +163,62 @@ const dataSource = [
   },
 ]
 
-@connect(state => ({
-  isloading: state.error.isloading,
+@connect(({ tools, loading }) => ({
+  tools,
 }))
 export default class ToolList extends PureComponent {
   state = {
     isloading: false,
   };
+  componentDidMount() {
+    console.log('this-1',this)
+    this.fetchGetTools({
+      pageCurrent: 1,
+      pageSize: 10,
+    });
+  }
+  get pagination() {
+
+    const { pageCurrent, pageSize, total = 0 } = this.props.tools;
+
+    const self = this;
+    const pagination = {
+      showTotal: total => `共 ${total} 条`,
+      total: total || 0,
+      current: pageCurrent,
+      pageSize,
+      showSizeChanger: true,
+      pageSizeOptions: ['10', '20', '50', '100'],
+      onShowSizeChange: self.handleShowSizeChange.bind(self),
+      onChange: self.handleChange.bind(self)
+    };
+    return pagination
+  }
+  fetchGetTools(payload) {
+    this.props.dispatch({
+      type: 'tools/fetchGetTools',
+      payload: Object.assign({},{
+        pageCurrent: 1,
+        pageSize: 10,
+      },payload),
+    });
+  }
+  // pageSize 变化的回调
+  handleShowSizeChange(pageCurrent, pageSize) {
+    this.fetchGetTools({
+      pageCurrent,
+      pageSize,
+    });
+  }
+  // 点击当前页面
+  handleChange(pageCurrent) {
+    this.fetchGetTools({
+      pageCurrent,
+    });
+  }
   render() {
+    const { tools } = this.props;
+    const { list = [] } = tools;
     return (
       <PageHeaderLayout
         title="工具模块"
@@ -180,7 +228,7 @@ export default class ToolList extends PureComponent {
           <List
             rowKey="id"
             grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
-            dataSource={['', ...dataSource]}
+            dataSource={['', ...list]}
             renderItem={item =>
               item ? (
                 <List.Item key={item.id}>
@@ -191,6 +239,9 @@ export default class ToolList extends PureComponent {
                     ]
                   }>
                     <Card.Meta
+                      // avatar={<div alt="" className={styles.cardAvatar} style={{
+                      //   backgroundImage: `url(${item.avatar})`,
+                      // }} />}
                       avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
                       title={<a href="#">{item.title}</a>}
                       description={
