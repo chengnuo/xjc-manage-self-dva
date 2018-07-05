@@ -174,7 +174,7 @@ export default class ToolList extends PureComponent {
     console.log('this-1',this)
     this.fetchGetTools({
       pageCurrent: 1,
-      pageSize: 10,
+      pageSize: 10000, // 暂时显示全部，TODO:
     });
   }
   get pagination() {
@@ -222,7 +222,7 @@ export default class ToolList extends PureComponent {
     return (
       <PageHeaderLayout
         title="工具模块"
-        content="收藏一些常用工具，但是没有入库"
+        content="收藏一些常用工具"
       >
         <div className={styles.cardList}>
           <List
