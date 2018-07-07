@@ -242,7 +242,7 @@ export default class ToolList extends PureComponent {
                       // avatar={<div alt="" className={styles.cardAvatar} style={{
                       //   backgroundImage: `url(${item.avatar})`,
                       // }} />}
-                      avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
+                      avatar={<img alt="" className={styles.cardAvatar} src={`http://localhost:7001/public/images/${item.avatar}`} />}
                       title={<a href={item.url} target='_blank'>{item.title}</a>}
                       description={
                         <Ellipsis className={styles.item} lines={3}>
