@@ -233,6 +233,9 @@ export const getRouterData = app => {
     '/tools/list': {
       component: dynamicWrapper(app, ['tools'], () => import('../routes/Tool/List')),
     },
+    '/tools/create': {
+      component: dynamicWrapper(app, ['tools'], () => import('../routes/Tool/Create')),
+    },
     '/tools/list2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Tool/List2')),
     },

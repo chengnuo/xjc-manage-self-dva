@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { Collapse, Divider, List, Card, Button, Icon } from 'antd';
 import ggfwzsLogo from './../../assets/images/ggfwzsLogo.png'; // ggfwzsLogo
@@ -216,6 +217,10 @@ export default class ToolList extends PureComponent {
       pageCurrent,
     });
   }
+  // 跳转到新增
+  handleCreate = () =>{
+    this.props.dispatch(routerRedux.push(`/tools/create`));
+  }
   render() {
     const { tools } = this.props;
     const { list = [] } = tools;
@@ -254,7 +259,7 @@ export default class ToolList extends PureComponent {
                 </List.Item>
               ) : (
                 <List.Item>
-                  <Button type="dashed" className={styles.newButton}>
+                  <Button type="dashed" className={styles.newButton} onClick={this.handleCreate}>
                     <Icon type="plus" /> 新增产品
                   </Button>
                 </List.Item>
