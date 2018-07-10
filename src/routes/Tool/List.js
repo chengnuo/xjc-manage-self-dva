@@ -11,7 +11,7 @@ import charlesLogo from './../../assets/images/charlesLogo.png'; // charlesLogo
 import photoshopLogo from './../../assets/images/photoshopLogo.png'; // photoshopLogo
 import xclientInfoLogo from './../../assets/images/xclientInfoLogo.png'; // xclientInfoLogo
 
-import styles from './CardList.less';
+import styles from './style.less';
 import Ellipsis from 'components/Ellipsis';
 
 const Panel = Collapse.Panel;
