@@ -21,7 +21,7 @@ export default {
       // Login successfully
       if (response.status === 200) {
         reloadAuthorized();
-        yield put(routerRedux.push('/'));
+        yield put(routerRedux.push('/users/users/list'));
       }
     },
     *logout(_, { put, select }) {

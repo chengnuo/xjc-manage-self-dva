@@ -230,8 +230,8 @@ class BasicLayout extends React.PureComponent {
                   redirectPath="/exception/403"
                 />
               ))}
-              {/* <Redirect exact from="/" to={bashRedirect} /> */}
-              <Redirect exact from="/" to={'/users/users/list'} />
+               <Redirect exact from="/" to={bashRedirect} />
+              {/*<Redirect exact from="/" to={'/users/users/list'} />*/}
               <Route render={NotFound} />
             </Switch>
           </Content>
