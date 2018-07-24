@@ -121,6 +121,14 @@ export default class List extends PureComponent {
         <div>{text}</div>
       ),
     },{
+      title: 'type',
+      dataIndex: 'type',
+      key: 'type',
+      width: 120,
+      render: (text, record) => (
+        <div>{text}</div>
+      ),
+    },{
       title: '状态',
       dataIndex: 'status',
       key: 'status',

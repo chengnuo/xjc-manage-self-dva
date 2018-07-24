@@ -91,6 +91,20 @@ export default class Create extends PureComponent {
                 ],
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
+            <FormItem {...formItemLayout} label="权限类型">
+              {getFieldDecorator('type', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请选择权限类型',
+                  },
+                ],
+              })(<Select  style={{ width: 120 }}>
+                <Option value="api">api</Option>
+                <Option value="menu">menu</Option>
+                <Option value="button">button</Option>
+              </Select>)}
+            </FormItem>
             <FormItem {...formItemLayout} label="权限状态">
               {getFieldDecorator('status', {
                 valuePropName: 'checked',
