@@ -239,6 +239,13 @@ export const getRouterData = app => {
     '/tools/list2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Tool/List2')),
     },
+    // 测试页面权限
+    '/test/index': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Test/index')),
+    },
+    '/test/index2': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Test/index2')),
+    },
 
   };
   // Get name from ./menu.js or just set it in the router data.

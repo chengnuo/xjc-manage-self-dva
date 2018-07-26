@@ -317,6 +317,21 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '测试',
+    icon: 'tag-o',
+    path: 'test',
+    children: [
+      {
+        name: '测试1',
+        path: 'index',
+      },
+      {
+        name: '测试2',
+        path: 'index2',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
