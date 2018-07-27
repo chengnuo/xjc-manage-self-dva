@@ -332,6 +332,17 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '邮箱',
+    icon: 'tag-o',
+    path: 'email',
+    children: [
+      {
+        name: 'email',
+        path: 'index',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {

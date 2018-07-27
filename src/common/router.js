@@ -246,6 +246,10 @@ export const getRouterData = app => {
     '/test/index2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Test/index2')),
     },
+    // 邮箱
+    '/email/index': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Email/index')),
+    },
 
   };
   // Get name from ./menu.js or just set it in the router data.
