@@ -110,30 +110,31 @@ const menuData = [
   //     },
   //   ],
   // },
-  // {
-  //   name: '异常页',
-  //   icon: 'warning',
-  //   path: 'exception',
-  //   children: [
-  //     {
-  //       name: '403',
-  //       path: '403',
-  //     },
-  //     {
-  //       name: '404',
-  //       path: '404',
-  //     },
-  //     {
-  //       name: '500',
-  //       path: '500',
-  //     },
-  //     {
-  //       name: '触发异常',
-  //       path: 'trigger',
-  //       hideInMenu: true,
-  //     },
-  //   ],
-  // },
+  {
+    name: '异常页',
+    icon: 'warning',
+    path: 'exception',
+    children: [
+      {
+        name: '403',
+        path: '403',
+        authority: 'test',
+      },
+      {
+        name: '404',
+        path: '404',
+      },
+      {
+        name: '500',
+        path: '500',
+      },
+      {
+        name: '触发异常',
+        path: 'trigger',
+        hideInMenu: true,
+      },
+    ],
+  },
   {
     name: '账户',
     icon: 'user',
@@ -177,6 +178,7 @@ const menuData = [
     name: '博客管理',
     icon: 'book',
     path: 'blogs',
+    authority: 'blogs',
     children: [
       {
         name: '博客列表',
@@ -321,19 +323,44 @@ const menuData = [
     name: '测试',
     icon: 'tag-o',
     path: 'test',
+    authority: 'test',
     children: [
       {
         name: '测试1',
         path: 'index',
+        authority: 'test1',
       },
       {
         name: '测试2',
         path: 'index2',
+        authority: 'test2',
       },
     ],
   },
   {
     name: '邮箱',
+    icon: 'tag-o',
+    path: 'email',
+    children: [
+      {
+        name: 'email',
+        path: 'index',
+      },
+    ],
+  },
+  {
+    name: '打卡签到系统',
+    icon: 'tag-o',
+    path: 'email',
+    children: [
+      {
+        name: 'email',
+        path: 'index',
+      },
+    ],
+  },
+  {
+    name: 'markdown开发',
     icon: 'tag-o',
     path: 'email',
     children: [

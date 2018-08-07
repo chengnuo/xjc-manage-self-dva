@@ -15,7 +15,7 @@ export default {
 
   effects: {
     // 列表
-    *fetchGetBlogs({ payload },{ call, put }) {
+    *fetchGetBlogs({ payload, callback },{ call, put }) {
       const response = yield call(getBlogs, payload);
       yield put({
         type: 'list',
@@ -24,6 +24,7 @@ export default {
           payload,
         },
       });
+      if (callback) callback();
     },
     // 新增
     *fetchPostBlogs({ payload, callback },{ call, put }) {

@@ -36,6 +36,9 @@ const getRedirect = item => {
     }
   }
 };
+
+
+
 getMenuData().forEach(getRedirect);
 
 /**
@@ -184,7 +187,32 @@ class BasicLayout extends React.PureComponent {
     } = this.props;
     const bashRedirect = this.getBashRedirect();
 
-    console.log('bashRedirect', bashRedirect);
+
+    // console.log('this.props.user', this.props.user);
+    // console.log('this.props.global', this.props.global);
+    // console.log('this.props.login', this.props.login);
+
+
+
+    let filterMenuData = null;
+
+    if(this.props.login.userInfo.userId == 1){
+      filterMenuData = getMenuData(); // 如果是admin，就显示全部
+    }else{
+      filterMenuData = getMenuData().filter((item)=>{
+        // console.log('item', item)
+        if(item.authority == 'test' || item.authority == 'blogs' || item.authority == 'test1' || item.authority == 'admin'){
+          return item
+        }
+      })
+    }
+
+
+
+    // console.log('bashRedirect', bashRedirect);
+    // console.log('getMenuData()', getMenuData());
+    // console.log('filterMenuData', filterMenuData);
+    // console.log('routerData', routerData);
 
     const layout = (
       <Layout>
@@ -194,7 +222,7 @@ class BasicLayout extends React.PureComponent {
           // If you do not have the Authorized parameter
           // you will be forced to jump to the 403 interface without permission
           Authorized={Authorized}
-          menuData={getMenuData()}
+          menuData={filterMenuData}
           collapsed={collapsed}
           location={location}
           isMobile={this.state.isMobile}
@@ -226,6 +254,7 @@ class BasicLayout extends React.PureComponent {
                   path={item.path}
                   component={item.component}
                   exact={item.exact}
+                  // authority={item.authority}
                   authority={item.authority}
                   redirectPath="/exception/403"
                 />
@@ -278,9 +307,10 @@ class BasicLayout extends React.PureComponent {
   }
 }
 
-export default connect(({ user, global, loading }) => ({
+export default connect(({ user, global, loading, login }) => ({
   currentUser: user.currentUser,
   collapsed: global.collapsed,
   fetchingNotices: loading.effects['global/fetchNotices'],
   notices: global.notices,
+  login: login,
 }))(BasicLayout);

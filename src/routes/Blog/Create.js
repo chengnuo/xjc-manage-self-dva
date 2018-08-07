@@ -15,38 +15,11 @@ import {
   Popover,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-
-const ReactMarkdown = require('react-markdown');
-import CodeBlock from './code-block';
-import MarkdownControls from './markdown-controls';
-import {Controlled as CodeMirror} from 'react-codemirror2';
-
 import FooterToolbar from 'components/FooterToolbar'; // 底下导航
-
-
-
-
-const hljs = window.hljs;
-
-
 import styles from './style.less';
-
-
-import '../../../node_modules/codemirror/lib/codemirror.css';
-import '../../../node_modules/codemirror/theme/material.css';
-import '../../../node_modules/codemirror/theme/xq-light.css';
-import '../../../node_modules/codemirror/theme/monokai.css';
-
-
-require('../../../node_modules/codemirror/mode/xml/xml');
-require('../../../node_modules/codemirror/mode/javascript/javascript');
-require('../../../node_modules/codemirror/mode/markdown/markdown'); // 需要加载 markdown
-
-
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+
+let testEditor = null;
 
 @connect(({ loading }) => ({
   submitting: loading.effects['form/submitRegularForm'],
@@ -60,6 +33,32 @@ export default class Create extends PureComponent {
       htmlMode: 'raw',
     }
   }
+  componentDidMount(){
+    testEditor = editormd("test-editormd", {
+      width: "90%",
+      height: 740,
+      path : './../public/lib/',
+      markdown: '', // 新增是空
+      onload : function() {
+        console.log('onload', this);
+        //this.fullscreen();
+        //this.unwatch();
+        //this.watch().fullscreen();
+
+        //this.setMarkdown("#PHP");
+        //this.width("100%");
+        //this.height(480);
+        //this.resize("100%", 640);
+      }
+    });
+  }
+  componentWillUnmount(){
+    testEditor = null;
+    this.setState({
+      content: '',
+    })
+  }
+
   handleControlsChange = (mode) =>{
     this.setState({htmlMode: mode})
   }
@@ -116,7 +115,7 @@ export default class Create extends PureComponent {
 
           const fetchData = Object.assign({},{
             title: values.title,
-            content: this.state.content,
+            content: testEditor.getMarkdown(),
           });
 
 
@@ -188,51 +187,13 @@ export default class Create extends PureComponent {
                 ],
               })(<Input placeholder="请输入用户名" style={{'width': '250px'}} />)}
             </FormItem>
-            {/*<FormItem {...formItemLayout} label="请输入文章内容">*/}
-              {/*{getFieldDecorator('content', {*/}
-                {/*rules: [*/}
-                  {/*{*/}
-                    {/*required: true,*/}
-                    {/*message: '请输入文章内容',*/}
-                  {/*},*/}
-                {/*],*/}
-              {/*})(<TextArea rows={4} />)}*/}
-            {/*</FormItem>*/}
-            {/*<FormItem {...submitFormLayout} style={{ marginTop: 32 }}>*/}
-              {/*<Button type="primary" htmlType="submit" loading={submitting}>*/}
-                {/*提交*/}
-              {/*</Button>*/}
-            {/*</FormItem>*/}
           </Form>
-          <div className="demo">
-            {/* 博客输入 */}
-            <div className="editor-pane">
-              <MarkdownControls onChange={this.handleControlsChange} mode={this.state.htmlMode} />
-              <CodeMirror
-                value={this.state.content}
-                options={{
-                  mode: 'markdown',
-                  theme: 'monokai',
-                  lineNumbers: true,
-                }}
-                onBeforeChange={(editor, data, value) => {
-                  this.setState({content: value});
-                }}
-                onChange={(editor, data, value) => {
-                }}
-              />
-            </div>
-            {/* 博客展示 */}
-            <div className="result-pane">
-              <ReactMarkdown
-                className="result"
-                source={this.state.content}
-                renderers={{code: CodeBlock}}
-                skipHtml={this.state.htmlMode === 'skip'}
-                escapeHtml={this.state.htmlMode === 'escape'}
-              />
-            </div>
+
+          {/* markdown */}
+          <div id="test-editormd">
+<textarea style={{display: 'none'}} value={this.state.content}></textarea>
           </div>
+
         </Card>
         <FooterToolbar style={{ width: this.state.width }}>
           {getErrorInfo()}

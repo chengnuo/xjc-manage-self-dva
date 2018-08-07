@@ -8,6 +8,7 @@ export default {
 
   state: {
     status: undefined,
+    userInfo: {},
   },
 
   effects: {
@@ -21,7 +22,7 @@ export default {
       // Login successfully
       if (response.status === 200) {
         reloadAuthorized();
-        yield put(routerRedux.push('/users/users/list'));
+        yield put(routerRedux.push('/test/index'));
       }
     },
     *logout(_, { put, select }) {
@@ -38,6 +39,7 @@ export default {
           payload: {
             status: false,
             currentAuthority: 'guest',
+            userInfo: {},
           },
         });
         reloadAuthorized();
@@ -48,11 +50,13 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority('admin');
+      setAuthority(['test','test1','blogs']);
+      console.log('payload---',payload)
       return {
         ...state,
         status: payload.status,
         type: payload.type,
+        userInfo: payload.data,
       };
     },
   },

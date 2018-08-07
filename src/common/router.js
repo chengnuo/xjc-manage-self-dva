@@ -239,16 +239,16 @@ export const getRouterData = app => {
     '/tools/list2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Tool/List2')),
     },
+    // 邮箱
+    '/email/index': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/Email/index')),
+    },
     // 测试页面权限
     '/test/index': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Test/index')),
     },
     '/test/index2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Test/index2')),
-    },
-    // 邮箱
-    '/email/index': {
-      component: dynamicWrapper(app, ['plans'], () => import('../routes/Email/index')),
     },
 
   };
