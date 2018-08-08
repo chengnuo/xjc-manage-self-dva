@@ -31,7 +31,6 @@ export default class Create extends PureComponent {
     super(props)
     this.state = {
       content: '',
-      htmlMode: 'raw',
     }
   }
   componentDidMount(){
@@ -60,48 +59,33 @@ export default class Create extends PureComponent {
       callback:()=>{
 
         const { list = [] } = this.props.blogs;
+
+        testEditor = editormd("test-editormd", {
+          width: "90%",
+          height: 740,
+          path : './../public/lib/',
+          // markdown: list.length > 0 && list[0].content,
+          markdown: list.length > 0 && list[0].content,
+          onload : function() {
+            console.log('onload', this);
+            //this.fullscreen();
+            //this.unwatch();
+            //this.watch().fullscreen();
+
+            //this.setMarkdown("#PHP");
+            //this.width("100%");
+            //this.height(480);
+            //this.resize("100%", 640);
+          }
+        });
         this.setState({
           content: list.length > 0 && list[0].content,
         });
 
 
-          testEditor = editormd("test-editormd", {
-            width: "90%",
-            height: 740,
-            path : './../public/lib/',
-            markdown: list.length > 0 && list[0].content,
-            onload : function() {
-              console.log('onload', this);
-              //this.fullscreen();
-              //this.unwatch();
-              //this.watch().fullscreen();
-
-              //this.setMarkdown("#PHP");
-              //this.width("100%");
-              //this.height(480);
-              //this.resize("100%", 640);
-            }
-          });
-
       }
     });
-
-
   }
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'blogs/fetchPutBlogs',
-          payload: values,
-          callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/blogs/list`));
-          },
-        });
-      }
-    });
-  };
   render() {
     const { form, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError, getFieldValue } = form;
@@ -150,7 +134,8 @@ export default class Create extends PureComponent {
             type: 'blogs/fetchPutBlogs',
             payload: fetchData,
             callback: ()=>{
-              this.props.dispatch(routerRedux.push(`/blogs/list`));
+              this.props.dispatch(routerRedux.push(`/blogs/list`)); // 不刷新编辑的时候加载不了
+              window.location.reload()
             },
           });
         }
@@ -203,7 +188,7 @@ export default class Create extends PureComponent {
         // content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
       >
         <Card bordered={false} className="blog">
-          <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }} layout={'inline'}>
+          <Form hideRequiredMark style={{ marginTop: 8 }} layout={'inline'}>
             <FormItem {...formItemLayout} label="id">
               {getFieldDecorator('id', {
                 rules: [
@@ -230,7 +215,7 @@ export default class Create extends PureComponent {
 
           {/* markdown */}
           <div id="test-editormd">
-            <textarea style={{display: 'none'}} value={this.state.content}></textarea>
+            {/*<textarea style={{display: 'none'}} value={this.state.content}></textarea>*/}
           </div>
 
         </Card>

@@ -30,7 +30,6 @@ export default class Create extends PureComponent {
     super(props)
     this.state = {
       content: '',
-      htmlMode: 'raw',
     }
   }
   componentDidMount(){
@@ -53,30 +52,10 @@ export default class Create extends PureComponent {
     });
   }
   componentWillUnmount(){
-    testEditor = null;
     this.setState({
       content: '',
     })
   }
-
-  handleControlsChange = (mode) =>{
-    this.setState({htmlMode: mode})
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'blogs/fetchPostBlogs',
-          payload: values,
-          callback: ()=>{
-            this.props.dispatch(routerRedux.push(`/blogs/list`));
-          },
-        });
-      }
-    });
-  };
   render() {
     const { form, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError, getFieldValue } = form;
@@ -123,7 +102,8 @@ export default class Create extends PureComponent {
             type: 'blogs/fetchPostBlogs',
             payload: fetchData,
             callback: ()=>{
-              this.props.dispatch(routerRedux.push(`/blogs/list`));
+              this.props.dispatch(routerRedux.push(`/blogs/list`)); // 不刷新编辑的时候加载不了
+              window.location.reload()
             },
           });
         }
@@ -176,7 +156,7 @@ export default class Create extends PureComponent {
         // content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
       >
         <Card bordered={false} className="blog">
-          <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }} layout={'inline'}>
+          <Form hideRequiredMark style={{ marginTop: 8 }} layout={'inline'}>
             <FormItem {...formItemLayout} label="标题">
               {getFieldDecorator('title', {
                 rules: [
@@ -191,7 +171,7 @@ export default class Create extends PureComponent {
 
           {/* markdown */}
           <div id="test-editormd">
-<textarea style={{display: 'none'}} value={this.state.content}></textarea>
+            {/*<textarea style={{display: 'none'}} value={this.state.content}></textarea>*/}
           </div>
 
         </Card>
