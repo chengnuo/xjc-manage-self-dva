@@ -6,7 +6,7 @@ export default class Test extends PureComponent {
 
     return (
       <div>
-        test-测试
+        test-测试1
       </div>
     );
   }

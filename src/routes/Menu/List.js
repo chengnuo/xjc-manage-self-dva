@@ -112,14 +112,6 @@ export default class List extends PureComponent {
       render: (text, record) => (
         <div>{text}</div>
       ),
-    },{
-      title: 'name',
-      dataIndex: 'name',
-      key: 'name',
-      width: 120,
-      render: (text, record) => (
-        <div>{text}</div>
-      ),
     }, {
       title: 'urls',
       dataIndex: 'urls',

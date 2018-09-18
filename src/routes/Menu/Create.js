@@ -81,16 +81,6 @@ export default class Create extends PureComponent {
                 ],
               })(<Input placeholder="请输入用户名" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="权限name判断值">
-              {getFieldDecorator('name', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入权限name',
-                  },
-                ],
-              })(<Input placeholder="请输入权限name判断值" />)}
-            </FormItem>
             <FormItem {...formItemLayout} label="权限urls">
               {getFieldDecorator('urls', {
                 rules: [
@@ -99,7 +89,7 @@ export default class Create extends PureComponent {
                     message: '请输入权限urls',
                   },
                 ],
-              })(<Input placeholder="请输入权限urls" />)}
+              })(<Input placeholder="请输入用户名" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="权限类型">
               {getFieldDecorator('type', {

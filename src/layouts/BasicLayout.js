@@ -201,7 +201,7 @@ class BasicLayout extends React.PureComponent {
     }else{
       filterMenuData = getMenuData().filter((item)=>{
         // console.log('item', item)
-        if(item.authority == 'test' || item.authority == 'blogs' || item.authority == 'test1' || item.authority == 'admin'){
+        if(item.authority == 'test' || item.authority == 'blog' || item.authority == 'blogList' || item.authority == 'test1' || item.authority == 'test2'){
           return item
         }
       })

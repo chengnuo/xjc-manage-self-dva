@@ -113,6 +113,17 @@ export default class Editor extends PureComponent {
                 initialValue: list.length > 0 && list[0].title,
               })(<Input placeholder="请输入权限title" />)}
             </FormItem>
+            <FormItem {...formItemLayout} label="权限name判断值">
+              {getFieldDecorator('name', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入权限name',
+                  },
+                ],
+                initialValue: list.length > 0 && list[0].name,
+              })(<Input placeholder="请输入权限title" />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="权限urls">
               {getFieldDecorator('urls', {
                 rules: [

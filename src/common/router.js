@@ -209,6 +209,9 @@ export const getRouterData = app => {
     '/users/access/editor/:id': {
       component: dynamicWrapper(app, ['access'], () => import('../routes/Access/Editor')),
     },
+    '/users/menu/list': {
+      component: dynamicWrapper(app, ['access'], () => import('../routes/Menu/List')),
+    },
     // 博客管理
     '/blogs/list': {
       component: dynamicWrapper(app, ['blogs'], () => import('../routes/Blog/List')),

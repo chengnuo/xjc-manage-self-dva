@@ -35,7 +35,7 @@ export default {
         window.history.replaceState(null, 'login', urlParams.href);
       } finally {
         yield put({
-          type: 'changeLoginStatus',
+          type: 'changeLoginOutStatus',
           payload: {
             status: false,
             currentAuthority: 'guest',
@@ -50,8 +50,17 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(['test','test1','blogs']);
-      console.log('payload---',payload)
+      let authority = payload.data.resultAccessMenu.map((item)=>item.name)
+      setAuthority(authority);
+      return {
+        ...state,
+        status: payload.status,
+        type: payload.type,
+        userInfo: payload.data,
+      };
+    },
+    changeLoginOutStatus(state, { payload }) {
+      setAuthority('guest');
       return {
         ...state,
         status: payload.status,

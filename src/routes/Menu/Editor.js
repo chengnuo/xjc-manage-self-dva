@@ -22,17 +22,26 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-@connect(({ loading }) => ({
+@connect(({ access,loading }) => ({
+  access,
   submitting: loading.effects['form/submitRegularForm'],
 }))
 @Form.create()
-export default class Create extends PureComponent {
+export default class Editor extends PureComponent {
+  componentDidMount() {
+    console.log('this',this)
+    this.fetchGetAccess({
+      pageCurrent: 1,
+      pageSize: 10,
+      id: this.props.match.params.id,
+    });
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'access/fetchPostAccess',
+          type: 'access/fetchPutAccess',
           payload: values,
           callback: ()=>{
             this.props.dispatch(routerRedux.push(`/users/access/list`));
@@ -41,9 +50,20 @@ export default class Create extends PureComponent {
       }
     });
   };
+  fetchGetAccess(payload) {
+    this.props.dispatch({
+      type: 'access/fetchGetAccess',
+      payload: Object.assign({},{
+        pageCurrent: 1,
+        pageSize: 10,
+      },payload),
+    });
+  }
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { list = [] } = this.props.access;
+
 
     const formItemLayout = {
       labelCol: {
@@ -67,10 +87,21 @@ export default class Create extends PureComponent {
     return (
       <PageHeaderLayout
         title="基础表单"
-        content="表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
+        content="表单页用于向权限收集或验证信息，基础表单常见于数据项较少的表单场景。"
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+            <FormItem {...formItemLayout} label="id">
+              {getFieldDecorator('id', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入id',
+                  },
+                ],
+                initialValue: list.length > 0 && list[0].id,
+              })(<Input placeholder="请输入权限id" disabled />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="权限title">
               {getFieldDecorator('title', {
                 rules: [
@@ -79,17 +110,8 @@ export default class Create extends PureComponent {
                     message: '请输入权限title',
                   },
                 ],
-              })(<Input placeholder="请输入用户名" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="权限name判断值">
-              {getFieldDecorator('name', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入权限name',
-                  },
-                ],
-              })(<Input placeholder="请输入权限name判断值" />)}
+                initialValue: list.length > 0 && list[0].title,
+              })(<Input placeholder="请输入权限title" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="权限urls">
               {getFieldDecorator('urls', {
@@ -99,6 +121,7 @@ export default class Create extends PureComponent {
                     message: '请输入权限urls',
                   },
                 ],
+                initialValue: list.length > 0 && list[0].urls,
               })(<Input placeholder="请输入权限urls" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="权限类型">
@@ -109,12 +132,14 @@ export default class Create extends PureComponent {
                     message: '请选择权限类型',
                   },
                 ],
+                initialValue: list.length > 0 && list[0].type,
               })(<Select  style={{ width: 120 }}>
                 <Option value="api">api</Option>
                 <Option value="menu">menu</Option>
                 <Option value="button">button</Option>
               </Select>)}
             </FormItem>
+
             <FormItem {...formItemLayout} label="权限状态">
               {getFieldDecorator('status', {
                 valuePropName: 'checked',
@@ -124,7 +149,7 @@ export default class Create extends PureComponent {
                     message: '请输入权限名',
                   },
                 ],
-                initialValue: true ? 1 : 0,
+                initialValue: list.length > 0 && list[0].status,
               })(
                 <Switch />
               )}

@@ -172,17 +172,22 @@ const menuData = [
         name: '权限列表',
         path: 'access/list',
       },
+      {
+        name: '菜单',
+        path: 'menu/list',
+      },
     ],
   },
   {
     name: '博客管理',
     icon: 'book',
     path: 'blogs',
-    authority: 'blogs',
+    authority: 'blog',
     children: [
       {
         name: '博客列表',
         path: 'list',
+        authority: 'blogList',
       },
     ],
   },
