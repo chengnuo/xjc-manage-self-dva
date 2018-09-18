@@ -51,7 +51,9 @@ export default {
   reducers: {
     changeLoginStatus(state, { payload }) {
       let authority = payload.data.resultAccessMenu.map((item)=>item.name)
+      let allAccessMenu = payload.data.resultAllAccessMenu.map((item)=>item.name)
       setAuthority(authority);
+      window.localStorage.setItem('allAccessMenu', allAccessMenu);
       return {
         ...state,
         status: payload.status,
@@ -61,6 +63,7 @@ export default {
     },
     changeLoginOutStatus(state, { payload }) {
       setAuthority('guest');
+      window.localStorage.removeItem('allAccessMenu');
       return {
         ...state,
         status: payload.status,

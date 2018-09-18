@@ -193,15 +193,29 @@ class BasicLayout extends React.PureComponent {
     // console.log('this.props.login', this.props.login);
 
 
+    console.log('login', this.props.login)
+
+
 
     let filterMenuData = null;
 
-    if(this.props.login.userInfo.userId == 1){
+    const antdProAuthority = window.localStorage.getItem('antd-pro-authority');
+
+    if(antdProAuthority.includes('admin')){
       filterMenuData = getMenuData(); // 如果是admin，就显示全部
     }else{
       filterMenuData = getMenuData().filter((item)=>{
         // console.log('item', item)
-        if(item.authority == 'test' || item.authority == 'blog' || item.authority == 'blogList' || item.authority == 'test1' || item.authority == 'test2'){
+        const allAccessMenu = window.localStorage.getItem('allAccessMenu');
+        let allAccessMenuArr = allAccessMenu.split(',').map((allAccessMenuItem)=>{
+          return allAccessMenuItem
+        });
+        // if(item.authority == 'test' || item.authority == 'blog' || item.authority == 'blogList' || item.authority == 'test1' || item.authority == 'test2'){
+        //   return item
+        // }
+
+        // 解决方案1
+        if(allAccessMenuArr.includes(item.authority)){
           return item
         }
       })
