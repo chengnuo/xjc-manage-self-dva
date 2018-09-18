@@ -33,6 +33,7 @@
     "dva": "^2.2.3",
     "dva-loading": "^1.0.4",
     "enquire-js": "^0.2.1",
+    "js-base64": "^2.4.9",
     "lodash": "^4.17.4",
     "lodash-decorators": "^4.4.1",
     "md5": "^2.2.1",

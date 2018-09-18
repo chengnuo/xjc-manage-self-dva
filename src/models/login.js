@@ -2,6 +2,7 @@ import { routerRedux } from 'dva/router';
 import { fakeAccountLogin } from '../services/api';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
+import { Base64 } from 'js-base64'; // base64加密
 
 export default {
   namespace: 'login',
@@ -53,7 +54,7 @@ export default {
       let authority = payload.data.resultAccessMenu.map((item)=>item.name)
       let allAccessMenu = payload.data.resultAllAccessMenu.map((item)=>item.name)
       setAuthority(authority);
-      window.localStorage.setItem('allAccessMenu', allAccessMenu);
+      window.localStorage.setItem('allAccessMenu', Base64.encode(allAccessMenu));
       return {
         ...state,
         status: payload.status,

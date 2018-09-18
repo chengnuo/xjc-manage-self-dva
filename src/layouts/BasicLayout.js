@@ -15,6 +15,7 @@ import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import { getMenuData } from '../common/menu';
 import logo from '../assets/logo.svg';
+import { Base64 } from 'js-base64'; // base64加密
 
 const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -200,13 +201,14 @@ class BasicLayout extends React.PureComponent {
     let filterMenuData = null;
 
     const antdProAuthority = window.localStorage.getItem('antd-pro-authority');
-
+    // const antdProAuthority = Base64.decode(window.localStorage.getItem('allAccessMenu'));
+    console.log('antdProAuthority', antdProAuthority)
     if(antdProAuthority.includes('admin')){
       filterMenuData = getMenuData(); // 如果是admin，就显示全部
     }else{
       filterMenuData = getMenuData().filter((item)=>{
         // console.log('item', item)
-        const allAccessMenu = window.localStorage.getItem('allAccessMenu');
+        const allAccessMenu = Base64.decode(window.localStorage.getItem('allAccessMenu'));
         let allAccessMenuArr = allAccessMenu.split(',').map((allAccessMenuItem)=>{
           return allAccessMenuItem
         });
