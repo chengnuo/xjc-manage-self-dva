@@ -121,7 +121,7 @@ export default class Editor extends PureComponent {
                   },
                 ],
                 initialValue: list.length > 0 && list[0].content,
-              })(<TextArea rows={4} />)}
+              })(<TextArea rows={10} />)}
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>

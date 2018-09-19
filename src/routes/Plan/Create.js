@@ -88,7 +88,7 @@ export default class Create extends PureComponent {
                     message: '请输入文章内容',
                   },
                 ],
-              })(<TextArea rows={4} />)}
+              })(<TextArea rows={10} />)}
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
