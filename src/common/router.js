@@ -255,7 +255,7 @@ export const getRouterData = app => {
     },
     // 朋友画像
     '/friendPortrait/list': {
-      component: dynamicWrapper(app, ['plans'], () => import('../routes/FriendPortrait/List')),
+      component: dynamicWrapper(app, ['friendPortrait'], () => import('../routes/FriendPortrait/List')),
     },
 
   };
