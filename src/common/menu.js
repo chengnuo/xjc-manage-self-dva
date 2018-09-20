@@ -260,10 +260,10 @@ const menuData = [
   {
     name: '朋友画像管理',
     icon: 'tag-o',
-    path: 'plans7',
+    path: 'friendPortrait',
     children: [
       {
-        name: '计划列表',
+        name: '朋友画像',
         path: 'list',
       },
     ],

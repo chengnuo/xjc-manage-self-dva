@@ -253,6 +253,10 @@ export const getRouterData = app => {
     '/test/index2': {
       component: dynamicWrapper(app, ['plans'], () => import('../routes/Test/index2')),
     },
+    // 朋友画像
+    '/friendPortrait/list': {
+      component: dynamicWrapper(app, ['plans'], () => import('../routes/FriendPortrait/List')),
+    },
 
   };
   // Get name from ./menu.js or just set it in the router data.
