@@ -9,6 +9,7 @@ const { Meta } = Card;
 
 @connect(({ friendPortrait, loading }) => ({
   friendPortrait,
+  loading: loading.models.friendPortrait,
 }))
 export default class FriendPortrait extends PureComponent {
   state = {
@@ -66,27 +67,13 @@ export default class FriendPortrait extends PureComponent {
   }
   render() {
 
-    const { friendPortrait } = this.props;
+    const { friendPortrait, loading } = this.props;
     const { list = [] } = friendPortrait;
-
 
     return (
       <div>
         <PageHeaderLayout>
           <Row gutter={16}>
-            {/*<Col span={6}>*/}
-              {/*<Card*/}
-                {/*hoverable*/}
-                {/*style={{ width: 240 }}*/}
-                {/*cover={<img alt="example" src={xujunchao} />}*/}
-              {/*>*/}
-                {/*<Meta*/}
-                  {/*title="许俊超"*/}
-                  {/*description="1号画像"*/}
-                {/*/>*/}
-              {/*</Card>*/}
-            {/*</Col>*/}
-
             {
               list.map((item)=>{
                 return (
@@ -95,6 +82,7 @@ export default class FriendPortrait extends PureComponent {
                       hoverable
                       style={{ width: 240 }}
                       cover={<img alt={item.name} src={`http://localhost:7001/public/images/${item.avatar}`} />}
+                      loading={loading}
                     >
                       <Meta
                         title={item.name}
@@ -105,10 +93,7 @@ export default class FriendPortrait extends PureComponent {
                 )
               })
             }
-
           </Row>
-
-
         </PageHeaderLayout>
       </div>
     );
