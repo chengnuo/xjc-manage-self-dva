@@ -1,7 +1,12 @@
 export default {
   'menu.home': 'Home',
   'menu.system': 'system',
-  'menu.system.userList': 'UserList',
+  'menu.system.user': 'userManagement',
+  'menu.system.user.userList': 'userList',
+  'menu.system.role': 'roleManagement',
+  'menu.system.role.roleList': 'roleList',
+  'menu.system.access': 'accessManagement',
+  'menu.system.access.accessList': 'accessList',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',

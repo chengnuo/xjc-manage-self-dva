@@ -27,8 +27,36 @@ export default [
         routes: [
           {
             path: '/system/UserList',
-            name: 'userList',
-            component: './System/UserList',
+            name: 'user',
+            routes: [
+              {
+                path: '/system/UserList',
+                name: 'userList',
+                component: './System/UserList',
+              },
+            ],
+          },
+          {
+            path: '/system/RoleList',
+            name: 'role',
+            routes: [
+              {
+                path: '/system/RoleList',
+                name: 'roleList',
+                component: './System/RoleList',
+              },
+            ],
+          },
+          {
+            path: '/system/AccessList',
+            name: 'access',
+            routes: [
+              {
+                path: '/system/AccessList',
+                name: 'accessList',
+                component: './System/AccessList',
+              },
+            ],
           },
         ],
       },

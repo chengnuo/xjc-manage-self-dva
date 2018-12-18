@@ -1,7 +1,12 @@
 export default {
   'menu.home': '首页',
   'menu.system': '系统管理',
-  'menu.system.userList': '用户列表',
+  'menu.system.user': '用户管理',
+  'menu.system.user.userList': '用户列表',
+  'menu.system.role': '角色管理',
+  'menu.system.role.roleList': '角色列表',
+  'menu.system.access': '权限管理',
+  'menu.system.access.accessList': '权限列表',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
