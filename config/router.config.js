@@ -19,6 +19,19 @@ export default [
     routes: [
       // dashboard
       { path: '/', redirect: '/dashboard/analysis' },
+      // system
+      {
+        path: '/system',
+        name: 'system',
+        icon: 'appstore',
+        routes: [
+          {
+            path: '/system/UserList',
+            name: 'userList',
+            component: './System/UserList',
+          },
+        ],
+      },
       {
         path: '/dashboard',
         name: 'dashboard',

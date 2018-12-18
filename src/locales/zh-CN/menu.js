@@ -1,5 +1,7 @@
 export default {
   'menu.home': '首页',
+  'menu.system': '系统管理',
+  'menu.system.userList': '用户列表',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
