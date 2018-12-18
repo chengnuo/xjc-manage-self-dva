@@ -20,8 +20,8 @@ const FooterView = () => (
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
+          key: 'Xu Jun Chao',
+          title: 'Xu Jun Chao',
           href: 'https://ant.design',
           blankTarget: true,
         },
