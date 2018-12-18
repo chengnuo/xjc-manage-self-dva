@@ -7,6 +7,8 @@ export default {
   'menu.system.role.roleList': '角色列表',
   'menu.system.access': '权限管理',
   'menu.system.access.accessList': '权限列表',
+  'menu.system.test': '测试管理',
+  'menu.system.test.testList': '测试列表',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',

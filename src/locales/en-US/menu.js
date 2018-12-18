@@ -7,6 +7,8 @@ export default {
   'menu.system.role.roleList': 'roleList',
   'menu.system.access': 'accessManagement',
   'menu.system.access.accessList': 'accessList',
+  'menu.system.test': 'testManagement',
+  'menu.system.test.testList': 'testList',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',

@@ -58,6 +58,17 @@ export default [
               },
             ],
           },
+          {
+            path: '/system/TestList',
+            name: 'test',
+            routes: [
+              {
+                path: '/system/TestList',
+                name: 'testList',
+                component: './System/TestList',
+              },
+            ],
+          },
         ],
       },
       {
