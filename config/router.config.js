@@ -49,7 +49,7 @@ export default [
           },
           {
             path: '/system/AccessList',
-            name: 'access',
+              name: 'access',
             routes: [
               {
                 path: '/system/AccessList',

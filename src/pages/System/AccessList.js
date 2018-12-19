@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Tree } from 'antd';
+import { Tree, Modal, Button } from 'antd';
+import styles from './AccessList.less';
+
+console.log('styles', styles)
 
 const { TreeNode } = Tree;
 
@@ -10,29 +13,22 @@ const { TreeNode } = Tree;
 }))
 class AccessList extends Component {
   state = {
-    expandedKeys: [],
-    autoExpandParent: true,
     checkedKeys: [],
     selectedKeys: [],
+    visibleTreeEditor: false,
   };
 
   componentDidMount() {
+    this.loadData();
+  }
+
+  loadData = () =>{
     const { dispatch } = this.props;
     dispatch({
       type: 'system/fetchAuthMenuList',
       // payload: {
       //   count: 8,
       // },
-    });
-  }
-
-  onExpand = expandedKeys => {
-    console.log('onExpand', expandedKeys);
-    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-    // or, you can remove all expanded children keys.
-    this.setState({
-      expandedKeys,
-      autoExpandParent: false,
     });
   };
 
@@ -42,7 +38,10 @@ class AccessList extends Component {
   };
 
   onSelect = (selectedKeys, info) => {
-    console.log('onSelect', info);
+    this.setState({
+      visibleTreeEditor: true,
+    });
+    console.log('onSelect', selectedKeys, info);
     this.setState({ selectedKeys });
   };
 
@@ -51,37 +50,90 @@ class AccessList extends Component {
       // console.log('item.children', item.children)
       if (item.children) {
         return (
-          <TreeNode title={item.name} key={item.id}>
+          <div className={styles.treeChildrens} title={item.title} key={item.id}>
+            <span className={styles.treeChildrensTitle}>{item.title}</span>
+            <span className={styles.treeChildrensRightBar}>
+              <Button type="primary" className={styles.treeChildrensRightBarButton} onClick={this.handleCreate}>添加</Button>
+              <Button type="primary" className={styles.treeChildrensRightBarButton}>编辑</Button>
+              <Button type="primary" className={styles.treeChildrensRightBarButton}>删除</Button>
+            </span>
             {this.renderTreeNodes(item.children)}
-          </TreeNode>
+          </div>
         );
       }
       // console.log('TreeNodeitem', item)
-      return <TreeNode title={item.name} key={item.id} />;
+      return (
+        <div className={styles.treeChildren} title={item.title} key={item.id} >
+          <span className={styles.treeChildrensTitle}>{item.title}</span>
+          <span className={styles.treeChildrensRightBar}>
+            <Button type="primary" className={styles.treeChildrensRightBarButton}>添加</Button>
+            <Button type="primary" className={styles.treeChildrensRightBarButton}>编辑</Button>
+            <Button type="primary" className={styles.treeChildrensRightBarButton}>删除</Button>
+          </span>
+        </div>
+      );
     });
 
-  render() {
-    const { authMenuList = [] } = this.props.system;
+  handleOkTree = (e) => {
+    console.log(e);
+    this.setState({
+      visibleTreeEditor: false,
+    });
+  }
 
-    console.log('authMenuList', authMenuList);
+  handleCancelTree = (e) => {
+    console.log(e);
+    this.setState({
+      visibleTreeEditor: false,
+    });
+  }
+
+  // 点击添加的时候
+  handleCreate = () => {
+    this.setState({
+      visibleTreeEditor: true,
+    });
+    console.log('点击添加的时候')
+  }
+
+  // 点击编辑的时候
+  handleCreate = () => {
+    this.setState({
+      visibleTreeEditor: true,
+    });
+    console.log('点击编辑的时候')
+  }
+
+  // 点击删除的时候
+  handleCreate = () => {
+    this.setState({
+      visibleTreeEditor: true,
+    });
+    console.log('点击删除的时候')
+  }
+
+  render() {
+    const { authMenuListTree = [] } = this.props.system;
 
     return (
-      <div>
+      <div className={styles.accessList}>
         {/* 树节点 */}
         <div>
-          <Tree
-            checkable
-            onExpand={this.onExpand}
-            expandedKeys={this.state.expandedKeys}
-            autoExpandParent={this.state.autoExpandParent}
-            onCheck={this.onCheck}
-            checkedKeys={this.state.checkedKeys}
-            onSelect={this.onSelect}
-            selectedKeys={this.state.selectedKeys}
-          >
-            {this.renderTreeNodes(authMenuList)}
-          </Tree>
+          <div>
+            {this.renderTreeNodes(authMenuListTree)}
+          </div>
         </div>
+        {/* 编辑弹出层 */}
+        <Modal
+          title="编辑"
+          visible={this.state.visibleTreeEditor}
+          onOk={this.handleOkTree}
+          onCancel={this.handleCancelTree}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
       </div>
     );
   }
