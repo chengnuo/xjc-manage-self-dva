@@ -181,3 +181,8 @@ export function formatWan(val) {
 export function isAntdPro() {
   return window.location.hostname === 'preview.pro.ant.design';
 }
+
+// origin: "http://localhost:7001"
+export const apiLocation = {
+  origin: 'http://localhost:7001',
+};

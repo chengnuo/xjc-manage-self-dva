@@ -59,13 +59,19 @@ export default [
             ],
           },
           {
-            path: '/system/TestList',
+            path: '/system/test',
             name: 'test',
+            component: './System/TestListLayout',
             routes: [
               {
-                path: '/system/TestList',
+                path: '/system/test/TestList',
                 name: 'testList',
                 component: './System/TestList',
+              },
+              {
+                path: '/system/test/TestList2',
+                name: 'testList2',
+                component: './System/TestList2',
               },
             ],
           },

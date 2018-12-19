@@ -9,6 +9,7 @@ export default {
   'menu.system.access.accessList': 'accessList',
   'menu.system.test': 'testManagement',
   'menu.system.test.testList': 'testList',
+  'menu.system.test.testList2': 'testList2',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',
