@@ -333,7 +333,7 @@ class AccessList extends Component {
                 type="primary"
                 className={styles.treeChildrensRightBarButton}
                 onClick={() => {
-                  this.handleCreate({ id: 0 });
+                  this.handleEditor({ id: 0 }, 'create');
                 }}
                 size={size}
               >
@@ -345,7 +345,7 @@ class AccessList extends Component {
         </div>
         {/* 编辑弹出层 */}
         <Modal
-          title="编辑"
+          title={this.state.editorType=='create' ? '新增' : '编辑'}
           visible={this.state.visibleTreeEditor}
           onOk={this.handleOkTreeEditor}
           onCancel={this.handleCancelTreeEditor}
