@@ -4,14 +4,14 @@ export default {
   namespace: 'system',
 
   state: {
-    authMenuListTree: [],
-    authMenuListArr: [],
+    dataSource: [],
+    // authMenuListArr: [],
   },
 
   effects: {
-    // 菜单列表
-    *fetchAuthMenuList({ callback }, { call, put }) {
-      const response = yield call(authMenuList);
+    // 菜单-列表
+    *fetchAuthMenuList({ callback, payload }, { call, put }) {
+      const response = yield call(authMenuList, payload);
       yield put({
         type: 'authMenuList',
         payload: response,
@@ -19,7 +19,43 @@ export default {
 
       console.log('response', response);
 
-      if (callback && response.status === 200) callback(); // 新增的时候必须等于200才跳转
+      callback && callback(response); // 回调
+    },
+    // 菜单-新增
+    *fetchAuthMenuCreate({ callback, payload }, { call, put }) {
+      const response = yield call(authMenuCreate, payload);
+      yield put({
+        type: 'authMenuCreate',
+        payload: response,
+      });
+
+      console.log('response', response);
+
+      callback && callback(response); // 回调
+    },
+    // 菜单-更新
+    *fetchAuthMenuUpdate({ callback, payload }, { call, put }) {
+      const response = yield call(authMenuUpdate, payload);
+      yield put({
+        type: 'authMenuUpdate',
+        payload: response,
+      });
+
+      console.log('response', response);
+
+      callback && callback(response); // 回调
+    },
+    // 菜单-删除
+    *fetchAuthMenuDelete({ callback, payload }, { call, put }) {
+      const response = yield call(authMenuDelete, payload);
+      yield put({
+        type: 'authMenuDelete',
+        payload: response,
+      });
+
+      console.log('response', response);
+
+      callback && callback(response); // 回调
     },
   },
 
@@ -27,8 +63,23 @@ export default {
     authMenuList(state, action) {
       return {
         ...state,
-        authMenuListTree: action.payload.data.fnList,
-        authMenuListArr: action.payload.data.list,
+        dataSource: action.payload.data.fnList,
+        // authMenuListArr: action.payload.data.list,
+      };
+    },
+    authMenuCreate(state, action) {
+      return {
+        ...state,
+      };
+    },
+    authMenuUpdate(state, action) {
+      return {
+        ...state,
+      };
+    },
+    authMenuDelete(state, action) {
+      return {
+        ...state,
       };
     },
   },
