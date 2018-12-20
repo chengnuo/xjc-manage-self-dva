@@ -282,6 +282,7 @@ class AccessList extends Component {
         this.setState({
           visibleTreeEditor: false,
         });
+        this.props.form.resetFields(); // 重置值
       }
     });
   };
@@ -292,6 +293,7 @@ class AccessList extends Component {
     this.setState({
       visibleTreeEditor: false,
     });
+    this.props.form.resetFields(); // 重置值
   };
 
   // 点击删除的时候 ================删除====================
