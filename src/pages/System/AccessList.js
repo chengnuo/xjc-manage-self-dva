@@ -8,7 +8,6 @@ const size = 'small';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-
 @connect(({ system, loading }) => ({
   system,
   loading: loading.models.authMenuList,
@@ -21,7 +20,6 @@ class AccessList extends Component {
     visibleTreeCreate: false,
     dataSourceItem: {},
     editorType: 'create', // 新增或者编辑
-
   };
 
   componentDidMount() {
@@ -39,47 +37,46 @@ class AccessList extends Component {
   };
 
   // 删除
-  apiFetchAuthMenuDelete = (item) =>{
+  apiFetchAuthMenuDelete = item => {
     const { dispatch } = this.props;
     dispatch({
       type: 'system/fetchAuthMenuDelete',
       payload: {
         ...item,
       },
-      callback: (response)=>{
-        if(response.status === 200){
+      callback: response => {
+        if (response.status === 200) {
           this.apiFetchAuthMenuList();
           notification.success({
             message: '系统提示',
             description: `${response.message}`,
           });
-        }else{
+        } else {
           notification.error({
             message: '系统提示',
             description: `${response.message}`,
           });
         }
-
       },
     });
-  }
+  };
 
   // 添加
-  apiFetchAuthMenuCreate = (item) =>{
+  apiFetchAuthMenuCreate = item => {
     const { dispatch } = this.props;
     dispatch({
       type: 'system/fetchAuthMenuCreate',
       payload: {
         ...item,
       },
-      callback: (response)=>{
-        if(response.status === 200){
+      callback: response => {
+        if (response.status === 200) {
           this.apiFetchAuthMenuList();
           notification.success({
             message: '系统提示',
             description: `${response.message}`,
           });
-        }else{
+        } else {
           notification.error({
             message: '系统提示',
             description: `${response.message}`,
@@ -87,24 +84,24 @@ class AccessList extends Component {
         }
       },
     });
-  }
+  };
 
   // 编辑
-  apiFetchAuthMenuUpdate = (item) =>{
+  apiFetchAuthMenuUpdate = item => {
     const { dispatch } = this.props;
     dispatch({
       type: 'system/fetchAuthMenuUpdate',
       payload: {
         ...item,
       },
-      callback: (response)=>{
-        if(response.status === 200){
+      callback: response => {
+        if (response.status === 200) {
           this.apiFetchAuthMenuList();
           notification.success({
             message: '系统提示',
             description: `${response.message}`,
           });
-        }else{
+        } else {
           notification.error({
             message: '系统提示',
             description: `${response.message}`,
@@ -112,7 +109,7 @@ class AccessList extends Component {
         }
       },
     });
-  }
+  };
 
   onCheck = checkedKeys => {
     console.log('onCheck', checkedKeys);
@@ -140,8 +137,8 @@ class AccessList extends Component {
               <Button
                 type="primary"
                 className={styles.treeChildrensRightBarButton}
-                onClick={()=>{
-                  this.handleEditor(item, 'create')
+                onClick={() => {
+                  this.handleEditor(item, 'create');
                 }}
                 size={size}
               >
@@ -151,8 +148,8 @@ class AccessList extends Component {
                 type="primary"
                 className={styles.treeChildrensRightBarButton}
                 size={size}
-                onClick={()=>{
-                  this.handleEditor(item, 'editor')
+                onClick={() => {
+                  this.handleEditor(item, 'editor');
                 }}
               >
                 编辑
@@ -161,8 +158,8 @@ class AccessList extends Component {
                 type="primary"
                 className={styles.treeChildrensRightBarButton}
                 size={size}
-                onClick={()=>{
-                  this.handleDelete(item)
+                onClick={() => {
+                  this.handleDelete(item);
                 }}
               >
                 删除
@@ -182,8 +179,8 @@ class AccessList extends Component {
               type="primary"
               className={styles.treeChildrensRightBarButton}
               size={size}
-              onClick={()=>{
-                this.handleEditor(item, 'create')
+              onClick={() => {
+                this.handleEditor(item, 'create');
               }}
             >
               添加
@@ -192,8 +189,8 @@ class AccessList extends Component {
               type="primary"
               className={styles.treeChildrensRightBarButton}
               size={size}
-              onClick={()=>{
-                this.handleEditor(item, 'editor')
+              onClick={() => {
+                this.handleEditor(item, 'editor');
               }}
             >
               编辑
@@ -202,8 +199,8 @@ class AccessList extends Component {
               type="primary"
               className={styles.treeChildrensRightBarButton}
               size={size}
-              onClick={()=>{
-                this.handleDelete(item)
+              onClick={() => {
+                this.handleDelete(item);
               }}
             >
               删除
@@ -214,7 +211,7 @@ class AccessList extends Component {
     });
 
   // 点击添加的时候 ================添加====================
-  handleCreate = (item) => {
+  handleCreate = item => {
     this.setState({
       visibleTreeCreate: true,
       dataSourceItem: item,
@@ -228,8 +225,7 @@ class AccessList extends Component {
     const _this = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-
-        console.log('err, values', err, values)
+        console.log('err, values', err, values);
         this.apiFetchAuthMenuCreate({
           title: values.title,
           name: values.name,
@@ -240,7 +236,6 @@ class AccessList extends Component {
         });
       }
     });
-
   };
 
   // 添加-取消
@@ -266,18 +261,19 @@ class AccessList extends Component {
     const _this = this;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        if(this.state.editorType === 'create'){ // 添加的时候
+        if (this.state.editorType === 'create') {
+          // 添加的时候
           this.apiFetchAuthMenuCreate({
             title: values.title,
             name: values.name,
             pid: this.state.dataSourceItem.id,
           });
-        }else if(this.state.editorType === 'editor'){
+        } else if (this.state.editorType === 'editor') {
           this.apiFetchAuthMenuUpdate({
             title: values.title,
             name: values.name,
             id: this.state.dataSourceItem.id,
-          })
+          });
         }
         this.setState({
           visibleTreeEditor: false,
@@ -297,7 +293,7 @@ class AccessList extends Component {
   };
 
   // 点击删除的时候 ================删除====================
-  handleDelete = (item) => {
+  handleDelete = item => {
     this.setState({
       visibleTreeDelete: true,
       dataSourceItem: item,
@@ -336,8 +332,8 @@ class AccessList extends Component {
               <Button
                 type="primary"
                 className={styles.treeChildrensRightBarButton}
-                onClick={()=>{
-                  this.handleCreate({id: 0})
+                onClick={() => {
+                  this.handleCreate({ id: 0 });
                 }}
                 size={size}
               >
@@ -347,40 +343,6 @@ class AccessList extends Component {
           </div>
           <div>{this.renderTreeNodes(dataSource)}</div>
         </div>
-        {/* 添加弹出层 */}
-        {/*<Modal*/}
-          {/*title="添加"*/}
-          {/*visible={this.state.visibleTreeCreate}*/}
-          {/*onOk={this.handleOkTreeCreate}*/}
-          {/*onCancel={this.handleCancelTreeCreate}*/}
-        {/*>*/}
-          {/*<div>*/}
-            {/*<Form onSubmit={this.handleOkTreeCreate}>*/}
-              {/*<FormItem*/}
-                {/*label="title"*/}
-                {/*labelCol={{ span: 5 }}*/}
-                {/*wrapperCol={{ span: 12 }}*/}
-              {/*>*/}
-                {/*{getFieldDecorator('title', {*/}
-                  {/*rules: [{ required: true, message: '请输入菜单标题' }],*/}
-                {/*})(*/}
-                  {/*<Input />*/}
-                {/*)}*/}
-              {/*</FormItem>*/}
-              {/*<FormItem*/}
-                {/*label="name"*/}
-                {/*labelCol={{ span: 5 }}*/}
-                {/*wrapperCol={{ span: 12 }}*/}
-              {/*>*/}
-                {/*{getFieldDecorator('name', {*/}
-                  {/*rules: [{ required: true, message: '请输入菜单名字英文' }],*/}
-                {/*})(*/}
-                  {/*<Input />*/}
-                {/*)}*/}
-              {/*</FormItem>*/}
-            {/*</Form>*/}
-          {/*</div>*/}
-        {/*</Modal>*/}
         {/* 编辑弹出层 */}
         <Modal
           title="编辑"
@@ -390,47 +352,27 @@ class AccessList extends Component {
         >
           <div>
             <Form onSubmit={this.handleOkTreeEditor}>
-              {
-                this.state.editorType === 'editor'
-                ?
-                  <FormItem
-                    label="id"
-                    labelCol={{ span: 5 }}
-                    wrapperCol={{ span: 12 }}
-                  >
-                    {getFieldDecorator('id', {
-                      rules: [{ required: true, message: '请输入菜单id' }],
-                      initialValue: this.state.dataSourceItem.id,
-                    })(
-                      <Input disabled />
-                    )}
-                  </FormItem>
-                  :
-                  null
-              }
-              <FormItem
-                label="title"
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 12 }}
-              >
+              {this.state.editorType === 'editor' ? (
+                <FormItem label="id" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+                  {getFieldDecorator('id', {
+                    rules: [{ required: true, message: '请输入菜单id' }],
+                    initialValue: this.state.dataSourceItem.id,
+                  })(<Input disabled />)}
+                </FormItem>
+              ) : null}
+              <FormItem label="title" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
                 {getFieldDecorator('title', {
                   rules: [{ required: true, message: '请输入菜单标题' }],
-                  initialValue: this.state.editorType === 'editor' ? this.state.dataSourceItem.title : '',
-                })(
-                  <Input />
-                )}
+                  initialValue:
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.title : '',
+                })(<Input />)}
               </FormItem>
-              <FormItem
-                label="name"
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 12 }}
-              >
+              <FormItem label="name" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
                 {getFieldDecorator('name', {
                   rules: [{ required: true, message: '请输入菜单名字英文' }],
-                  initialValue: this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
-                })(
-                  <Input />
-                )}
+                  initialValue:
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
+                })(<Input />)}
               </FormItem>
             </Form>
           </div>
@@ -443,7 +385,9 @@ class AccessList extends Component {
           onCancel={this.handleCancelTreeDelete}
         >
           确定删除
-          <Tag style={{ margin: "0 2px" }} color="#108ee9">{this.state.dataSourceItem.title}</Tag>
+          <Tag style={{ margin: '0 2px' }} color="#108ee9">
+            {this.state.dataSourceItem.title}
+          </Tag>
           ？
         </Modal>
       </div>
