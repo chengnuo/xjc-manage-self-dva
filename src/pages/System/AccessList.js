@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Tree, Modal, Button } from 'antd';
+import { Tree, Modal, Button, Icon } from 'antd';
 import styles from './AccessList.less';
 
-console.log('styles', styles)
+console.log('styles', styles);
 
 const { TreeNode } = Tree;
+const size = 'small';
 
 @connect(({ system, loading }) => ({
   system,
@@ -22,7 +23,7 @@ class AccessList extends Component {
     this.loadData();
   }
 
-  loadData = () =>{
+  loadData = () => {
     const { dispatch } = this.props;
     dispatch({
       type: 'system/fetchAuthMenuList',
@@ -51,11 +52,31 @@ class AccessList extends Component {
       if (item.children) {
         return (
           <div className={styles.treeChildrens} title={item.title} key={item.id}>
+            <Icon type="caret-down" />
             <span className={styles.treeChildrensTitle}>{item.title}</span>
             <span className={styles.treeChildrensRightBar}>
-              <Button type="primary" className={styles.treeChildrensRightBarButton} onClick={this.handleCreate}>添加</Button>
-              <Button type="primary" className={styles.treeChildrensRightBarButton}>编辑</Button>
-              <Button type="primary" className={styles.treeChildrensRightBarButton}>删除</Button>
+              <Button
+                type="primary"
+                className={styles.treeChildrensRightBarButton}
+                onClick={this.handleCreate}
+                size={size}
+              >
+                添加
+              </Button>
+              <Button
+                type="primary"
+                className={styles.treeChildrensRightBarButton}
+                size={size}
+              >
+                编辑
+              </Button>
+              <Button
+                type="primary"
+                className={styles.treeChildrensRightBarButton}
+                size={size}
+              >
+                删除
+              </Button>
             </span>
             {this.renderTreeNodes(item.children)}
           </div>
@@ -63,54 +84,72 @@ class AccessList extends Component {
       }
       // console.log('TreeNodeitem', item)
       return (
-        <div className={styles.treeChildren} title={item.title} key={item.id} >
+        <div className={styles.treeChildren} title={item.title} key={item.id}>
           <span className={styles.treeChildrensTitle}>{item.title}</span>
           <span className={styles.treeChildrensRightBar}>
-            <Button type="primary" className={styles.treeChildrensRightBarButton}>添加</Button>
-            <Button type="primary" className={styles.treeChildrensRightBarButton}>编辑</Button>
-            <Button type="primary" className={styles.treeChildrensRightBarButton}>删除</Button>
+            <Button
+              type="primary"
+              className={styles.treeChildrensRightBarButton}
+              size={size}
+            >
+              添加
+            </Button>
+            <Button
+              type="primary"
+              className={styles.treeChildrensRightBarButton}
+              size={size}
+            >
+              编辑
+            </Button>
+            <Button
+              type="primary"
+              className={styles.treeChildrensRightBarButton}
+              size={size}
+            >
+              删除
+            </Button>
           </span>
         </div>
       );
     });
 
-  handleOkTree = (e) => {
+  handleOkTree = e => {
     console.log(e);
     this.setState({
       visibleTreeEditor: false,
     });
-  }
+  };
 
-  handleCancelTree = (e) => {
+  handleCancelTree = e => {
     console.log(e);
     this.setState({
       visibleTreeEditor: false,
     });
-  }
+  };
 
   // 点击添加的时候
   handleCreate = () => {
     this.setState({
       visibleTreeEditor: true,
     });
-    console.log('点击添加的时候')
-  }
+    console.log('点击添加的时候');
+  };
 
   // 点击编辑的时候
   handleCreate = () => {
     this.setState({
       visibleTreeEditor: true,
     });
-    console.log('点击编辑的时候')
-  }
+    console.log('点击编辑的时候');
+  };
 
   // 点击删除的时候
   handleCreate = () => {
     this.setState({
       visibleTreeEditor: true,
     });
-    console.log('点击删除的时候')
-  }
+    console.log('点击删除的时候');
+  };
 
   render() {
     const { authMenuListTree = [] } = this.props.system;
@@ -119,9 +158,7 @@ class AccessList extends Component {
       <div className={styles.accessList}>
         {/* 树节点 */}
         <div>
-          <div>
-            {this.renderTreeNodes(authMenuListTree)}
-          </div>
+          <div>{this.renderTreeNodes(authMenuListTree)}</div>
         </div>
         {/* 编辑弹出层 */}
         <Modal

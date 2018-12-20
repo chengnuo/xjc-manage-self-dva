@@ -17,9 +17,9 @@ export default {
         payload: response,
       });
 
-      console.log('response', response)
+      console.log('response', response);
 
-      if (callback && response.status === 200 ) callback(); // 新增的时候必须等于200才跳转
+      if (callback && response.status === 200) callback(); // 新增的时候必须等于200才跳转
     },
   },
 
