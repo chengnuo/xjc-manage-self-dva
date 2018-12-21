@@ -42,7 +42,7 @@ export default {
     },
     // 菜单-更新
     *fetchAuthUserUpdate({ callback, payload }, { call, put }) {
-      const response = yield call(authUserUpdate, );
+      const response = yield call(authUserUpdate, payload);
       yield put({
         type: 'authUserUpdate',
         payload: response,
