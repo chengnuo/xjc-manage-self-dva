@@ -60,7 +60,7 @@ class UserList extends Component {
 
   // 点击当前页面
   handleChangePageCurrent = (pageCurrent) =>{
-    console.log('pageCurrent', pageCurrent)\
+    console.log('pageCurrent', pageCurrent);
   }
 
   render() {
