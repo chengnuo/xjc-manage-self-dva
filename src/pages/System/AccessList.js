@@ -26,13 +26,11 @@ class AccessList extends Component {
     this.apiFetchAuthMenuList();
   }
 
+  // 列表
   apiFetchAuthMenuList = () => {
     const { dispatch } = this.props;
     dispatch({
       type: 'systemAccess/fetchAuthMenuList',
-      // payload: {
-      //   count: 8,
-      // },
     });
   };
 

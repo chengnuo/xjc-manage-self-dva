@@ -1,4 +1,4 @@
-import { authMenuList, authMenuCreate, authMenuUpdate, authMenuDelete } from '@/services/system';
+import { authUserList, authUserCreate, authUserUpdate, authUserDelete } from '@/services/system';
 
 export default {
   namespace: 'systemUser',
@@ -7,16 +7,21 @@ export default {
     dataSource: [],
     pageCurrent: 1,
     pageSize: 10,
+    total: 0,
     // authMenuListArr: [],
   },
 
   effects: {
     // 菜单-列表
-    *fetchAuthMenuList({ callback, payload }, { call, put }) {
-      const response = yield call(authMenuList, payload);
+    *fetchAuthUserList({ callback, payload }, { call, put }) {
+      const response = yield call(authUserList, payload);
       yield put({
-        type: 'authMenuList',
-        payload: response,
+        type: 'authUserList',
+        payload: {
+          response,
+          payload,
+        },
+
       });
 
       console.log('response', response);
@@ -24,10 +29,10 @@ export default {
       callback && callback(response); // 回调
     },
     // 菜单-新增
-    *fetchAuthMenuCreate({ callback, payload }, { call, put }) {
-      const response = yield call(authMenuCreate, payload);
+    *fetchAuthUserCreate({ callback, payload }, { call, put }) {
+      const response = yield call(authUserCreate, payload);
       yield put({
-        type: 'authMenuCreate',
+        type: 'authUserCreate',
         payload: response,
       });
 
@@ -36,10 +41,10 @@ export default {
       callback && callback(response); // 回调
     },
     // 菜单-更新
-    *fetchAuthMenuUpdate({ callback, payload }, { call, put }) {
-      const response = yield call(authMenuUpdate, );
+    *fetchAuthUserUpdate({ callback, payload }, { call, put }) {
+      const response = yield call(authUserUpdate, );
       yield put({
-        type: 'authMenuUpdate',
+        type: 'authUserUpdate',
         payload: response,
       });
 
@@ -48,10 +53,10 @@ export default {
       callback && callback(response); // 回调
     },
     // 菜单-删除
-    *fetchAuthMenuDelete({ callback, payload }, { call, put }) {
-      const response = yield call(authMenuDelete, payload);
+    *fetchAuthUserDelete({ callback, payload }, { call, put }) {
+      const response = yield call(authUserDelete, payload);
       yield put({
-        type: 'authMenuDelete',
+        type: 'authUserDelete',
         payload: response,
       });
 
@@ -62,24 +67,27 @@ export default {
   },
 
   reducers: {
-    authMenuList(state, action) {
+    authUserList(state, action) {
+      console.log('action.payload', action.payload)
       return {
         ...state,
-        dataSource: action.payload.data.fnList,
-        // authMenuListArr: action.payload.data.list,
+        dataSource: action.payload.response.data.list,
+        total: action.payload.response.data.total,
+        pageCurrent: action.payload.payload.pageCurrent,
+        pageSize: action.payload.payload.pageSize,
       };
     },
-    authMenuCreate(state, action) {
+    authUserCreate(state, action) {
       return {
         ...state,
       };
     },
-    authMenuUpdate(state, action) {
+    authUserUpdate(state, action) {
       return {
         ...state,
       };
     },
-    authMenuDelete(state, action) {
+    authUserDelete(state, action) {
       return {
         ...state,
       };
