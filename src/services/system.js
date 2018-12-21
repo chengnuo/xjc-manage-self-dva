@@ -68,3 +68,36 @@ export async function authUserDelete(params) {
     body: params,
   });
 }
+
+
+// 角色列表 ================角色================
+export async function authRoleList(params) {
+  return request(`${apiLocation.origin}/api/authRole/list`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 角色新增
+export async function authRoleCreate(params) {
+  return request(`${apiLocation.origin}/api/authRole/create`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 角色更新
+export async function authRoleUpdate(params) {
+  return request(`${apiLocation.origin}/api/authRole/update`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
+// 角色删除
+export async function authRoleDelete(params) {
+  return request(`${apiLocation.origin}/api/authRole/delete`, {
+    method: 'POST',
+    body: params,
+  });
+}
