@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Table, Button } from 'antd';
+import { Table, Button, Form, Input, Icon } from 'antd';
 
 import { pagination } from '@/utils/utils';
 
+
+const FormItem = Form.Item;
 
 
 
@@ -12,6 +14,7 @@ import { pagination } from '@/utils/utils';
   systemUser,
   loading: loading.models.authMenuList,
 }))
+@Form.create()
 class UserList extends Component {
   state = {
     selectedRowKeys: [], // Check here to configure the default column
@@ -22,6 +25,10 @@ class UserList extends Component {
     {
       title: '用户id',
       dataIndex: 'id',
+    },
+    {
+      title: '用户名',
+      dataIndex: 'username',
     },
     {
       title: '用户名称',
@@ -53,6 +60,7 @@ class UserList extends Component {
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
+        username: '',
       }, payload),
     });
   };
@@ -80,10 +88,23 @@ class UserList extends Component {
     });
   }
 
+  // 查询
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.apiFetchAuthUserList({
+          username: values.username,
+        });
+      }
+    });
+  }
+
 
   render() {
     const { loading, selectedRowKeys } = this.state;
     const { dataSource } = this.props.systemUser;
+    const { getFieldDecorator } = this.props.form;
 
     // 多选
     const rowSelection = {
@@ -93,16 +114,26 @@ class UserList extends Component {
 
     return (
       <div>
-        <div>
-          <Button
-            type="primary"
-            size={'small'}
-            onClick={()=>{
-              this.apiFetchAuthUserList();
-            }}
-          >
-            查询
-          </Button>
+        <div style={{ padding: 16 }}>
+          <Form layout="inline" onSubmit={this.handleSubmit} className="login-form">
+            <FormItem
+              label="用户名"
+            >
+              {getFieldDecorator('username', {
+                rules: [{ required: false, message: '请输入用户名' }],
+              })(
+                <Input placeholder="请输入用户名" />
+              )}
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                htmlType="submit"
+              >
+                查询
+              </Button>
+            </FormItem>
+          </Form>
         </div>
         <Table
           rowSelection={rowSelection}
