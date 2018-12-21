@@ -1,10 +1,12 @@
 import { authMenuList, authMenuCreate, authMenuUpdate, authMenuDelete } from '@/services/system';
 
 export default {
-  namespace: 'system',
+  namespace: 'systemUser',
 
   state: {
     dataSource: [],
+    pageCurrent: 1,
+    pageSize: 10,
     // authMenuListArr: [],
   },
 

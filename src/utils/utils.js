@@ -186,3 +186,19 @@ export function isAntdPro() {
 export const apiLocation = {
   origin: 'http://localhost:7001',
 };
+
+// 封装页码
+export function  pagination(self, obj) {
+  const { pageCurrent, pageSize, total = 0 } = obj;
+  const pagination = {
+    showTotal: (total) => `共 ${total} 条`,
+    total: total || 0,
+    current: pageCurrent,
+    pageSize,
+    showSizeChanger: true,
+    pageSizeOptions: ['10', '20', '50', '100'],
+    onShowSizeChange: self.handleShowSizeChange.bind(self),
+    onChange: self.handleChangePageCurrent.bind(self)
+  };
+  return pagination
+}

@@ -1,7 +1,7 @@
 import { authMenuList, authMenuCreate, authMenuUpdate, authMenuDelete } from '@/services/system';
 
 export default {
-  namespace: 'system',
+  namespace: 'systemAccess',
 
   state: {
     dataSource: [],

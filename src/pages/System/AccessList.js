@@ -8,8 +8,8 @@ const size = 'small';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-@connect(({ system, loading }) => ({
-  system,
+@connect(({ systemAccess, loading }) => ({
+  systemAccess,
   loading: loading.models.authMenuList,
 }))
 @Form.create()
@@ -29,7 +29,7 @@ class AccessList extends Component {
   apiFetchAuthMenuList = () => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'system/fetchAuthMenuList',
+      type: 'systemAccess/fetchAuthMenuList',
       // payload: {
       //   count: 8,
       // },
@@ -40,7 +40,7 @@ class AccessList extends Component {
   apiFetchAuthMenuDelete = item => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'system/fetchAuthMenuDelete',
+      type: 'systemAccess/fetchAuthMenuDelete',
       payload: {
         ...item,
       },
@@ -65,7 +65,7 @@ class AccessList extends Component {
   apiFetchAuthMenuCreate = item => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'system/fetchAuthMenuCreate',
+      type: 'systemAccess/fetchAuthMenuCreate',
       payload: {
         ...item,
       },
@@ -90,7 +90,7 @@ class AccessList extends Component {
   apiFetchAuthMenuUpdate = item => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'system/fetchAuthMenuUpdate',
+      type: 'systemAccess/fetchAuthMenuUpdate',
       payload: {
         ...item,
       },
@@ -319,7 +319,7 @@ class AccessList extends Component {
   };
 
   render() {
-    const { dataSource = [] } = this.props.system;
+    const { dataSource = [] } = this.props.systemAccess;
     const { getFieldDecorator } = this.props.form;
 
     return (
