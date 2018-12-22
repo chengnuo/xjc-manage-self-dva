@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Table, Button, Form, Input, Icon, Divider, Modal, Tag, notification } from 'antd';
+import { Table, Button, Form, Input, Icon, Divider, Modal, Tag, notification, Checkbox, Row, Col, } from 'antd';
 
 import { pagination } from '@/utils/utils';
 
@@ -18,10 +18,11 @@ const FormItem = Form.Item;
 class UserList extends Component {
   state = {
     selectedRowKeys: [], // Check here to configure the default column
-    loading: false,
-    visibleEditor: false,
-    visibleDelete: false,
-    dataSourceItem: {},
+    loading: false, // loading
+    visibleEditor: false, // 编辑
+    visibleDelete: false, // 删除
+    visibleSetRole: false, // 设置角色
+    dataSourceItem: {}, // 当前table行
     editorType: 'create', // 新增或者编辑
   };
 
@@ -31,6 +32,14 @@ class UserList extends Component {
       key: 'action',
       render: (text, record, index) => (
         <span>
+          <a href="javascript:;"
+             onClick={()=>{
+               this.handleSetRole(record)
+             }}
+          >
+            设置角色
+          </a>
+          <Divider type="vertical" />
           <a href="javascript:;"
              onClick={()=>{
                this.handleEditor(record, 'editor')
@@ -279,6 +288,27 @@ class UserList extends Component {
     });
   };
 
+  // 点击设置角色的时候 ================设置角色====================
+  handleSetRole =(item)=> {
+    this.setState({
+      visibleSetRole: true,
+      dataSourceItem: item,
+    });
+  }
+  // 设置角色-确定
+  handleOkSetRole = e => {
+    this.setState({
+      visibleSetRole: false,
+    });
+  };
+
+  // 设置角色-取消
+  handleCancelSetRole = e => {
+    this.setState({
+      visibleSetRole: false,
+    });
+  };
+
 
   render() {
     const { loading, selectedRowKeys } = this.state;
@@ -383,6 +413,33 @@ class UserList extends Component {
             {this.state.dataSourceItem.name}/{this.state.dataSourceItem.username}
           </Tag>
           ?
+        </Modal>
+
+        {/* 设置角色 */}
+        <Modal
+          title="设置角色"
+          visible={this.state.visibleSetRole}
+          onOk={this.handleOkSetRole}
+          onCancel={this.handleCancelSetRole}
+        >
+          <Form onSubmit={this.handleOkEditor}>
+            <Form.Item
+              label="设置权限"
+            >
+              {getFieldDecorator("checkbox-group", {
+                initialValue: ["A", "B"],
+              })(
+                <Checkbox.Group style={{ width: "100%" }}>
+                  <Row>
+                    <Col span={8}><Checkbox value="A">A</Checkbox></Col>
+                    <Col span={8}><Checkbox value="C">C</Checkbox></Col>
+                    <Col span={8}><Checkbox value="D">D</Checkbox></Col>
+                    <Col span={8}><Checkbox value="E">E</Checkbox></Col>
+                  </Row>
+                </Checkbox.Group>
+              )}
+            </Form.Item>
+          </Form>
         </Modal>
       </div>
     );
