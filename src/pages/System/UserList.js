@@ -60,6 +60,10 @@ class UserList extends Component {
       dataIndex: 'email',
     },
     {
+      title: '用户角色',
+      dataIndex: 'todo',
+    },
+    {
       title: '创建时间',
       dataIndex: 'created_time',
     },

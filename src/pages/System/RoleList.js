@@ -31,6 +31,13 @@ class RoleList extends Component {
       key: 'action',
       render: (text, record, index) => (
         <span>
+
+          <a href="javascript:;"
+
+          >
+            角色权限
+          </a>
+          <Divider type="vertical" />
           <a href="javascript:;"
              onClick={()=>{
                this.handleEditor(record, 'editor')
