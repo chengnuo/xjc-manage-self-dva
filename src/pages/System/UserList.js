@@ -61,7 +61,7 @@ class UserList extends Component {
     },
     {
       title: '用户角色',
-      dataIndex: 'todo',
+      dataIndex: 'rolename',
     },
     {
       title: '创建时间',
