@@ -69,6 +69,14 @@ export async function authUserDelete(params) {
   });
 }
 
+// 用户-设置角色
+export async function authUserSetRoles(params) {
+  return request(`${apiLocation.origin}/api/authUser/setRoles`, {
+    method: 'POST',
+    body: params,
+  });
+}
+
 
 // 角色列表 ================角色================
 export async function authRoleList(params) {

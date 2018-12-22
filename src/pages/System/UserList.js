@@ -10,8 +10,9 @@ const FormItem = Form.Item;
 
 
 
-@connect(({ systemUser, loading }) => ({
+@connect(({ systemUser, systemRole, loading }) => ({
   systemUser,
+  systemRole,
   loading: loading.models.authMenuList,
 }))
 @Form.create()
@@ -84,6 +85,30 @@ class UserList extends Component {
 
   componentDidMount(){
     this.apiFetchAuthUserList();
+  };
+
+  valuesData = (values) =>{
+    let valuesRoles = values['rolenameId'] || [];
+    let fetchData = valuesRoles.map((item)=>{
+      return {
+        uid: parseInt(this.state.dataSourceItem.id ,10),
+        role_id: item,
+      }
+    });
+    return fetchData;
+  }
+
+  // 权限列表
+  apiFetchAuthRoleList = (payload) => {
+    const { dispatch } = this.props;
+    const { pageCurrent, pageSize, total = 0 } = this.props.systemRole;
+    dispatch({
+      type: 'systemRole/fetchAuthRoleList',
+      payload: Object.assign({},{
+        pageCurrent: 1,
+        pageSize: 9999,
+      }, payload),
+    });
   };
 
   // 列表
@@ -161,6 +186,29 @@ class UserList extends Component {
       payload: {
         ...item,
       },
+      callback: response => {
+        if (response.status === 200) {
+          this.apiFetchAuthUserList();
+          notification.success({
+            message: '系统提示',
+            description: `${response.message}`,
+          });
+        } else {
+          notification.error({
+            message: '系统提示',
+            description: `${response.message}`,
+          });
+        }
+      },
+    });
+  };
+
+  // 用户-设置角色
+  apiFetchAuthUserSetRoles = item => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'systemUser/fetchAuthUserSetRoles',
+      payload: item,
       callback: response => {
         if (response.status === 200) {
           this.apiFetchAuthUserList();
@@ -290,16 +338,34 @@ class UserList extends Component {
 
   // 点击设置角色的时候 ================设置角色====================
   handleSetRole =(item)=> {
+    this.apiFetchAuthRoleList(); // 获取权限列表
     this.setState({
       visibleSetRole: true,
       dataSourceItem: item,
     });
+    this.props.form.setFieldsValue({
+      rolenameId: item.rolenameId,
+    });
   }
+
   // 设置角色-确定
   handleOkSetRole = e => {
-    this.setState({
-      visibleSetRole: false,
+    e.preventDefault();
+    const _this = this;
+    this.props.form.validateFields(['rolenameId'],(err, values) => {
+      if (!err) {
+
+        let fetchData = this.valuesData(values);
+
+        console.log('fetchData', fetchData)
+        this.apiFetchAuthUserSetRoles(fetchData)
+        this.setState({
+          visibleSetRole: false,
+        });
+        this.props.form.resetFields(); // 重置值
+      }
     });
+
   };
 
   // 设置角色-取消
@@ -313,7 +379,10 @@ class UserList extends Component {
   render() {
     const { loading, selectedRowKeys } = this.state;
     const { dataSource } = this.props.systemUser;
+    const dataSourceSystemRole = this.props.systemRole.dataSource || []; // 权限列表
     const { getFieldDecorator } = this.props.form;
+
+    console.log('dataSourceSystemRole', dataSourceSystemRole)
 
     // 多选
     const rowSelection = {
@@ -426,15 +495,19 @@ class UserList extends Component {
             <Form.Item
               label="设置权限"
             >
-              {getFieldDecorator("checkbox-group", {
-                initialValue: ["A", "B"],
+              {getFieldDecorator("rolenameId", {
+                // initialValue: this.state.dataSourceItem.rolenameId,
+                rules: [{ required: true, message: '请选择设置权限' }],
               })(
                 <Checkbox.Group style={{ width: "100%" }}>
                   <Row>
-                    <Col span={8}><Checkbox value="A">A</Checkbox></Col>
-                    <Col span={8}><Checkbox value="C">C</Checkbox></Col>
-                    <Col span={8}><Checkbox value="D">D</Checkbox></Col>
-                    <Col span={8}><Checkbox value="E">E</Checkbox></Col>
+                    {
+                      dataSourceSystemRole.map((item)=>{
+                        return (
+                          <Col key={item.id} span={8}><Checkbox value={String(item.id)}>{item.name}</Checkbox></Col>
+                        )
+                      })
+                    }
                   </Row>
                 </Checkbox.Group>
               )}

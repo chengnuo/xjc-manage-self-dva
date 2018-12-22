@@ -1,4 +1,4 @@
-import { authUserList, authUserCreate, authUserUpdate, authUserDelete } from '@/services/system';
+import { authUserList, authUserCreate, authUserUpdate, authUserDelete, authUserSetRoles } from '@/services/system';
 
 export default {
   namespace: 'systemUser',
@@ -12,7 +12,7 @@ export default {
   },
 
   effects: {
-    // 菜单-列表
+    // 用户-列表
     *fetchAuthUserList({ callback, payload }, { call, put }) {
       const response = yield call(authUserList, payload);
       yield put({
@@ -28,7 +28,7 @@ export default {
 
       callback && callback(response); // 回调
     },
-    // 菜单-新增
+    // 用户-新增
     *fetchAuthUserCreate({ callback, payload }, { call, put }) {
       const response = yield call(authUserCreate, payload);
       yield put({
@@ -40,7 +40,7 @@ export default {
 
       callback && callback(response); // 回调
     },
-    // 菜单-更新
+    // 用户-更新
     *fetchAuthUserUpdate({ callback, payload }, { call, put }) {
       const response = yield call(authUserUpdate, payload);
       yield put({
@@ -52,7 +52,7 @@ export default {
 
       callback && callback(response); // 回调
     },
-    // 菜单-删除
+    // 用户-删除
     *fetchAuthUserDelete({ callback, payload }, { call, put }) {
       const response = yield call(authUserDelete, payload);
       yield put({
@@ -64,6 +64,19 @@ export default {
 
       callback && callback(response); // 回调
     },
+    // 用户-设置角色
+    *fetchAuthUserSetRoles({ callback, payload }, { call, put }) {
+      const response = yield call(authUserSetRoles, payload);
+      yield put({
+        type: 'authUserSetRoles',
+        payload: response,
+      });
+
+      console.log('response', response);
+
+      callback && callback(response); // 回调
+    },
+
   },
 
   reducers: {
@@ -88,6 +101,11 @@ export default {
       };
     },
     authUserDelete(state, action) {
+      return {
+        ...state,
+      };
+    },
+    authUserSetRoles(state, action) {
       return {
         ...state,
       };
