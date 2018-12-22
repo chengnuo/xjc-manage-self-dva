@@ -281,15 +281,15 @@ class RoleList extends Component {
       <div>
         <div style={{ padding: 16 }}>
           <Form layout="inline" onSubmit={this.handleSubmit} className="login-form">
-            <FormItem
-              label="角色名"
-            >
-              {getFieldDecorator('searchRolename', {
-                rules: [{ required: false, message: '请输入角色名' }],
-              })(
-                <Input placeholder="请输入角色名" />
-              )}
-            </FormItem>
+            {/*<FormItem*/}
+              {/*label="角色名"*/}
+            {/*>*/}
+              {/*{getFieldDecorator('searchRolename', {*/}
+                {/*rules: [{ required: false, message: '请输入角色名' }],*/}
+              {/*})(*/}
+                {/*<Input placeholder="请输入角色名" />*/}
+              {/*)}*/}
+            {/*</FormItem>*/}
             <FormItem>
               <Button
                 type="primary"
