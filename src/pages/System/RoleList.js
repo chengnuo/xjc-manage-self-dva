@@ -73,7 +73,10 @@ class RoleList extends Component {
   ];
 
   componentDidMount(){
-    this.apiFetchAuthRoleList();
+    this.apiFetchAuthRoleList({
+      pageCurrent: 1,
+      pageSize: 10,
+    });
   };
 
   // 列表
