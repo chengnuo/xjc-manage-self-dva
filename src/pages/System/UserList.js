@@ -379,7 +379,7 @@ class UserList extends Component {
   render() {
     const { loading, selectedRowKeys } = this.state;
     const { dataSource } = this.props.systemUser;
-    const dataSourceSystemRole = this.props.systemRole.dataSource || []; // 权限列表
+    const dataSourceSystemRole = this.props.systemRole.dataSource || []; // 角色列表
     const { getFieldDecorator } = this.props.form;
 
     console.log('dataSourceSystemRole', dataSourceSystemRole)

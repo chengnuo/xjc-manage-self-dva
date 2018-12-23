@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Table, Button, Form, Input, Icon, Divider, Modal, Tag, notification } from 'antd';
+import { Table, Button, Form, Input, Icon, Divider, Modal, Tag, notification, Tree } from 'antd';
 
 import { pagination } from '@/utils/utils';
 
 
 const FormItem = Form.Item;
+const { TreeNode } = Tree;
 
 
 
 
-@connect(({ systemRole, loading }) => ({
+@connect(({ systemRole, systemAccess, loading }) => ({
   systemRole,
+  systemAccess,
   loading: loading.models.authMenuList,
 }))
 @Form.create()
 class RoleList extends Component {
   state = {
     selectedRowKeys: [], // Check here to configure the default column
-    loading: false,
-    visibleEditor: false,
-    visibleDelete: false,
-    dataSourceItem: {},
+    loading: false, // loading
+    visibleEditor: false, // 编辑
+    visibleDelete: false, // 删除
+    visibleSetAccess: false, // 角色设置权限
+    dataSourceItem: {}, // 选择tableItem
     editorType: 'create', // 新增或者编辑
+    checkedKeys: [], // 树组件值
+    selectedKeys: [],
   };
 
   tableColumns = [
@@ -31,9 +36,10 @@ class RoleList extends Component {
       key: 'action',
       render: (text, record, index) => (
         <span>
-
           <a href="javascript:;"
-
+             onClick={()=>{
+               this.handleSetAccess(record, 'editor')
+             }}
           >
             角色权限
           </a>
@@ -76,6 +82,63 @@ class RoleList extends Component {
     this.apiFetchAuthRoleList({
       pageCurrent: 1,
       pageSize: 10,
+    });
+  };
+
+  valuesData = (values) =>{
+    console.log('values', values)
+    let valuesRoles = values || [];
+    let fetchData = valuesRoles.map((item)=>{
+      return {
+        role_id: parseInt(this.state.dataSourceItem.id ,10),
+        access_id: item,
+      }
+    });
+    return fetchData;
+  }
+
+
+  tempalteOptionsDefaul = () =>{
+    const  { userAccessList = [] } = this.props.systemRole;
+
+    let result = userAccessList.map((item)=>{
+      return String(item.access_id);
+    })
+
+    console.log('result-', result);
+
+    return result;
+  }
+
+  // 角色权限-设置回选
+  apiFetchAuthRoleSetAccessList = (item, callback) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'systemRole/fetchAuthRoleSetAccessList',
+      payload: {
+        ...item,
+      },
+      callback: ()=>{
+        callback && callback();
+      }
+    });
+  };
+
+  // 角色权限-设置
+  apiFetchAuthRoleSetAccess = (payload) => {
+    console.log('payload', payload)
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'systemRole/fetchAuthRoleSetAccess',
+      payload,
+    });
+  };
+
+  // 权限菜单列表
+  apiFetchAuthMenuList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'systemAccess/fetchAuthMenuList',
     });
   };
 
@@ -275,11 +338,72 @@ class RoleList extends Component {
     });
   };
 
+  // 点击角色设置权限的时候 ================角色设置权限====================
+  handleSetAccess = item => {
+    this.apiFetchAuthMenuList();
+    this.apiFetchAuthRoleSetAccessList({
+      role_id: item.id,
+    }, ()=>{
+      this.setState({
+        visibleSetAccess: true,
+        dataSourceItem: item,
+        checkedKeys: this.tempalteOptionsDefaul(),
+      });
+    });
+
+  };
+
+  // 角色设置权限-确定
+  handleOkSetAccess = e => {
+
+    let fetchData = this.valuesData(this.state.checkedKeys);
+
+    this.apiFetchAuthRoleSetAccess(fetchData)
+    this.setState({
+      visibleSetAccess: false,
+    });
+  };
+
+  // 角色设置权限-取消
+  handleCancelSetAccess = e => {
+    console.log(e);
+    this.setState({
+      visibleSetAccess: false,
+    });
+  };
+
+  // 树
+  renderTreeNodes = data =>
+    data.map(item => {
+      // console.log('item.children', item.children)
+      if (item.children) {
+        return (
+          <TreeNode title={item.title} key={item.id}>
+            {this.renderTreeNodes(item.children)}
+          </TreeNode>
+        );
+      }
+      // console.log('TreeNodeitem', item)
+      return <TreeNode title={item.title} key={item.id} />;
+    });
+
+
+  onCheck = (checkedKeys) => {
+    console.log('onCheck', checkedKeys);
+    this.setState({ checkedKeys });
+  }
+
+  onSelect = (selectedKeys, info) => {
+    console.log('onSelect', info);
+    this.setState({ selectedKeys });
+  }
+
 
   render() {
     const { loading, selectedRowKeys } = this.state;
     const { dataSource } = this.props.systemRole;
     const { getFieldDecorator } = this.props.form;
+    const dataSourceSystemAccess = this.props.systemAccess.dataSource || []; // 权限菜单列表
 
     // 多选
     const rowSelection = {
@@ -367,6 +491,28 @@ class RoleList extends Component {
             {this.state.dataSourceItem.name}/{this.state.dataSourceItem.username}
           </Tag>
           ?
+        </Modal>
+
+        {/* 设置角色权限 selectedKeys={this.tempalteOptionsDefaul()} */}
+        <Modal
+          title="角色设置权限"
+          visible={this.state.visibleSetAccess}
+          onOk={this.handleOkSetAccess}
+          onCancel={this.handleCancelSetAccess}
+        >
+          <div style={{ height: 300, overflowY: 'scroll', }}>
+            <Tree
+              checkable
+              defaultExpandAll
+              key={'id'}
+              onSelect={this.onSelect}
+              onCheck={this.onCheck}
+              checkedKeys={this.state.checkedKeys}
+              selectedKeys={this.state.selectedKeys}
+            >
+              {this.renderTreeNodes(dataSourceSystemAccess)}
+            </Tree>
+          </div>
         </Modal>
       </div>
     );

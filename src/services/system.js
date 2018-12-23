@@ -109,3 +109,18 @@ export async function authRoleDelete(params) {
     body: params,
   });
 }
+
+// 角色设置权限列表
+export async function authRoleSetAccessList(params) {
+  return request(`${apiLocation.origin}/api/authRole/setAccessList`, {
+    method: 'POST',
+    body: params,
+  });
+}
+// 角色设置权限
+export async function authRoleSetAccess(params) {
+  return request(`${apiLocation.origin}/api/authRole/setAccess`, {
+    method: 'POST',
+    body: params,
+  });
+}

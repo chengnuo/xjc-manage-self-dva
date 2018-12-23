@@ -1,4 +1,4 @@
-import { authRoleList, authRoleCreate, authRoleUpdate, authRoleDelete } from '@/services/system';
+import { authRoleList, authRoleCreate, authRoleUpdate, authRoleDelete, authRoleSetAccessList, authRoleSetAccess } from '@/services/system';
 
 export default {
   namespace: 'systemRole',
@@ -9,10 +9,11 @@ export default {
     pageSize: 10,
     total: 0,
     // authMenuListArr: [],
+    userAccessList: [],
   },
 
   effects: {
-    // 菜单-列表
+    // 角色-列表
     *fetchAuthRoleList({ callback, payload }, { call, put }) {
       const response = yield call(authRoleList, payload);
       yield put({
@@ -28,7 +29,7 @@ export default {
 
       callback && callback(response); // 回调
     },
-    // 菜单-新增
+    // 角色-新增
     *fetchAuthRoleCreate({ callback, payload }, { call, put }) {
       const response = yield call(authRoleCreate, payload);
       yield put({
@@ -40,7 +41,7 @@ export default {
 
       callback && callback(response); // 回调
     },
-    // 菜单-更新
+    // 角色-更新
     *fetchAuthRoleUpdate({ callback, payload }, { call, put }) {
       const response = yield call(authRoleUpdate, payload);
       yield put({
@@ -52,7 +53,7 @@ export default {
 
       callback && callback(response); // 回调
     },
-    // 菜单-删除
+    // 角色-删除
     *fetchAuthRoleDelete({ callback, payload }, { call, put }) {
       const response = yield call(authRoleDelete, payload);
       yield put({
@@ -64,6 +65,31 @@ export default {
 
       callback && callback(response); // 回调
     },
+    // 角色权限-列表
+    *fetchAuthRoleSetAccessList({ callback, payload }, { call, put }) {
+      const response = yield call(authRoleSetAccessList, payload);
+      yield put({
+        type: 'authRoleSetAccessList',
+        payload: response,
+      });
+
+      console.log('response', response);
+
+      callback && callback(response); // 回调
+    },
+    // 角色权限-设置
+    *fetchAuthRoleSetAccess({ callback, payload }, { call, put }) {
+      const response = yield call(authRoleSetAccess, payload);
+      yield put({
+        type: 'authRoleSetAccess',
+        payload: response,
+      });
+
+      console.log('response', response);
+
+      callback && callback(response); // 回调
+    },
+
   },
 
   reducers: {
@@ -92,5 +118,18 @@ export default {
         ...state,
       };
     },
+    authRoleSetAccessList(state, action) {
+      console.log('action', action)
+      return {
+        ...state,
+        userAccessList: action.payload.data.userAccessList,
+      };
+    },
+    authRoleSetAccess(state, action) {
+      return {
+        ...state,
+      };
+    },
+
   },
 };
