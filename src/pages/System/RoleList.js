@@ -87,7 +87,7 @@ class RoleList extends Component {
 
   valuesData = (values) =>{
     console.log('values', values)
-    let valuesRoles = values || [];
+    let valuesRoles = values.checked || [];
     let fetchData = valuesRoles.map((item)=>{
       return {
         role_id: parseInt(this.state.dataSourceItem.id ,10),
@@ -503,6 +503,7 @@ class RoleList extends Component {
           <div style={{ height: 300, overflowY: 'scroll', }}>
             <Tree
               checkable
+              checkStrictly
               defaultExpandAll
               key={'id'}
               onSelect={this.onSelect}
