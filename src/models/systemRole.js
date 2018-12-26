@@ -25,7 +25,7 @@ export default {
 
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -37,7 +37,7 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -49,7 +49,7 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -61,7 +61,7 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -73,7 +73,7 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -85,7 +85,7 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -94,7 +94,7 @@ export default {
 
   reducers: {
     authRoleList(state, action) {
-      console.log('action.payload', action.payload)
+
       return {
         ...state,
         dataSource: action.payload.response.data.list,
@@ -119,7 +119,6 @@ export default {
       };
     },
     authRoleSetAccessList(state, action) {
-      console.log('action', action)
       return {
         ...state,
         userAccessList: action.payload.data.userAccessList,

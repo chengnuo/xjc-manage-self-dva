@@ -127,8 +127,9 @@ class AccessList extends Component {
       // console.log('item.children', item.children)
       if (item.children) {
         return (
-          <div className={styles.treeChildrens}>
+          <div key={item.id} className={styles.treeChildrens}>
             <Icon type="caret-down" />
+            <span className={styles.treeChildrensTitle}>{item.menuname}</span>
             <span className={styles.treeChildrensTitle}>{item.name}</span>
             <span className={styles.treeChildrensTitle}>{item.path}</span>
             <span className={styles.treeChildrensRightBar}>
@@ -169,7 +170,8 @@ class AccessList extends Component {
       }
       // console.log('TreeNodeitem', item)
       return (
-        <div className={styles.treeChildren}>
+        <div key={item.id} className={styles.treeChildren}>
+          <span className={styles.treeChildrensTitle}>{item.menuname}</span>
           <span className={styles.treeChildrensTitle}>{item.name}</span>
           <span className={styles.treeChildrensTitle}>{item.path}</span>
           <span className={styles.treeChildrensRightBar}>
@@ -208,42 +210,6 @@ class AccessList extends Component {
       );
     });
 
-  // 点击添加的时候 ================添加====================
-  handleCreate = item => {
-    this.setState({
-      visibleTreeCreate: true,
-      dataSourceItem: item,
-    });
-    console.log('点击添加的时候');
-  };
-
-  // 添加-确定
-  handleOkTreeCreate = e => {
-    e.preventDefault();
-    const _this = this;
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('err, values', err, values);
-        this.apiFetchAuthMenuCreate({
-          path: values.path,
-          name: values.name,
-          pid: this.state.dataSourceItem.id,
-        });
-        this.setState({
-          visibleTreeCreate: false,
-        });
-      }
-    });
-  };
-
-  // 添加-取消
-  handleCancelTreeCreate = e => {
-    console.log(e);
-    this.setState({
-      visibleTreeCreate: false,
-    });
-  };
-
   // 点击编辑的时候 ================编辑====================
   handleEditor = (item, editorType) => {
     this.setState({
@@ -258,17 +224,22 @@ class AccessList extends Component {
     e.preventDefault();
     const _this = this;
     this.props.form.validateFields((err, values) => {
+
+      console.log('values', values)
+
       if (!err) {
         if (this.state.editorType === 'create') {
           // 添加的时候
           this.apiFetchAuthMenuCreate({
             path: values.path,
+            menuname: values.menuname,
             name: values.name,
             pid: this.state.dataSourceItem.id,
           });
         } else if (this.state.editorType === 'editor') {
           this.apiFetchAuthMenuUpdate({
             path: values.path,
+            menuname: values.menuname,
             name: values.name,
             id: this.state.dataSourceItem.id,
           });
@@ -362,14 +333,21 @@ class AccessList extends Component {
                 {getFieldDecorator('name', {
                   rules: [{ required: true, message: '请输入菜单名字' }],
                   initialValue:
-                    this.state.editorType === 'editor' ? this.state.dataSourceItem.title : '',
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
+                })(<Input />)}
+              </FormItem>
+              <FormItem label="menuname" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+                {getFieldDecorator('menuname', {
+                  rules: [{ required: true, message: '请输入菜单中文名字' }],
+                  initialValue:
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.menuname : '',
                 })(<Input />)}
               </FormItem>
               <FormItem label="path" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
                 {getFieldDecorator('path', {
                   rules: [{ required: true, message: '请输入菜单路径' }],
                   initialValue:
-                    this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.path : '',
                 })(<Input />)}
               </FormItem>
             </Form>

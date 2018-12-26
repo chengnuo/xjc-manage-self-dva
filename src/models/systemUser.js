@@ -24,7 +24,6 @@ export default {
 
       });
 
-      console.log('response', response);
 
       callback && callback(response); // 回调
     },
@@ -36,7 +35,6 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
 
       callback && callback(response); // 回调
     },
@@ -48,7 +46,6 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
 
       callback && callback(response); // 回调
     },
@@ -60,7 +57,6 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
 
       callback && callback(response); // 回调
     },
@@ -72,7 +68,6 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
 
       callback && callback(response); // 回调
     },
@@ -81,7 +76,6 @@ export default {
 
   reducers: {
     authUserList(state, action) {
-      console.log('action.payload', action.payload)
       return {
         ...state,
         dataSource: action.payload.response.data.list,

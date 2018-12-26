@@ -17,7 +17,7 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -29,19 +29,19 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
     // 菜单-更新
     *fetchAuthMenuUpdate({ callback, payload }, { call, put }) {
-      const response = yield call(authMenuUpdate, );
+      const response = yield call(authMenuUpdate, payload);
       yield put({
         type: 'authMenuUpdate',
         payload: response,
       });
 
-      console.log('response', response);
+
 
       callback && callback(response); // 回调
     },
@@ -53,7 +53,6 @@ export default {
         payload: response,
       });
 
-      console.log('response', response);
 
       callback && callback(response); // 回调
     },

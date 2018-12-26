@@ -14,24 +14,34 @@ function formatter(data, parentAuthority, parentName) {
       }
 
       let locale = 'menu';
+
+
       if (parentName) {
         locale = `${parentName}.${item.name}`;
       } else {
         locale = `menu.${item.name}`;
       }
 
+
+
       const result = {
         ...item,
+        // name: formatMessage({ id: locale, defaultMessage: item.name }),
         name: formatMessage({ id: locale, defaultMessage: item.name }),
         locale,
         authority: item.authority || parentAuthority,
       };
-      if (item.routes) {
-        const children = formatter(item.routes, item.authority, locale);
+
+
+      console.log('item.routes', item)
+
+      if (item.children) {
+        const children = formatter(item.children, item.authority, locale);
+
         // Reduce memory usage
         result.children = children;
       }
-      delete result.routes;
+      // delete result.routes;
       return result;
     })
     .filter(item => item);
@@ -99,7 +109,6 @@ export default {
     *getMenuData({ payload }, { put }) {
       const { routes, authority } = payload;
 
-      console.log('routes', routes , authority)
 
       let xxxRoutes = [
         {
@@ -159,73 +168,84 @@ export default {
         {
           "id": 18,
           "path": "/system",
-          "name": "系统管理",
+          "menuname": "系统管理",
+          "name": "system",
           "pid": 0,
           "children": [
             {
               "id": 19,
-              "path": "/user",
-              "name": "用户管理",
+              "path": "/system/UserList",
+              "menuname": "用户管理",
+              "name": "user",
               "pid": 18,
               "children": [
                 {
                   "id": 20,
                   "path": "/system/UserList",
-                  "name": "用户列表",
+                  "menuname": "用户列表",
+                  "name": "userList",
                   "pid": 19
                 }
               ]
             },
             {
               "id": 21,
-              "path": "/role",
-              "name": "角色管理",
+              "path": "/system/RoleList",
+              "menuname": "角色管理",
+              "name": "role",
               "pid": 18,
               "children": [
                 {
                   "id": 22,
                   "path": "/system/RoleList",
-                  "name": "角色列表",
+                  "menuname": "角色列表",
+                  "name": "roleList",
                   "pid": 21
                 }
               ]
             },
             {
               "id": 23,
-              "path": "/access",
-              "name": "权限管理",
+              "path": "/system/AccessList",
+              "menuname": "权限管理",
+              "name": "access",
               "pid": 18,
               "children": [
                 {
                   "id": 24,
                   "path": "/system/AccessList",
-                  "name": "权限列表",
+                  "menuname": "权限列表",
+                  "name": "accessList",
                   "pid": 23
                 }
               ]
             },
             {
               "id": 25,
-              "path": "/test",
-              "name": "测试管理",
+              "path": "/system/test",
+              "menuname": "测试管理",
+              "name": "test",
               "pid": 18,
               "children": [
                 {
                   "id": 26,
                   "path": "/system/test/TestList",
-                  "name": "测试列表",
+                  "menuname": "测试列表",
+                  "name": "testList",
                   "pid": 25
                 },
                 {
                   "id": 27,
                   "path": "/system/test/TestList2",
-                  "name": "测试列表2",
+                  "menuname": "测试列表2",
+                  "name": "testList2",
                   "pid": 25
                 },
                 {
                   "id": 30,
                   "path": null,
-                  "name": "测试3",
+                  "menuname": "测试3",
+                  "name": null,
                   "pid": 25
                 }
               ]
@@ -235,10 +255,11 @@ export default {
       ]
 
       // const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
-      const menuData = xxxRoutes2;
+      const menuData = filterMenuData(memoizeOneFormatter(xxxRoutes2, authority));
 
-      console.log('menuData', xxxRoutes)
-      const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
+      console.log('menuData', menuData)
+
+      const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData, authority);
       yield put({
         type: 'save',
         payload: { menuData, breadcrumbNameMap },
