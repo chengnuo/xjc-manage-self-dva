@@ -98,7 +98,146 @@ export default {
   effects: {
     *getMenuData({ payload }, { put }) {
       const { routes, authority } = payload;
-      const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
+
+      console.log('routes', routes , authority)
+
+      let xxxRoutes = [
+        {
+          path: '/system',
+          name: '系统管理',
+          icon: 'appstore',
+          children: [
+            {
+              path: '/system/UserList',
+              name: 'user',
+              children: [
+                {
+                  path: '/system/UserList',
+                  name: 'userList',
+                },
+              ],
+            },
+            {
+              path: '/system/RoleList',
+              name: 'role',
+              children: [
+                {
+                  path: '/system/RoleList',
+                  name: 'roleList',
+                },
+              ],
+            },
+            {
+              path: '/system/AccessList',
+              name: 'access',
+              children: [
+                {
+                  path: '/system/AccessList',
+                  name: 'accessList',
+                },
+              ],
+            },
+            {
+              path: '/system/test',
+              name: 'test',
+              children: [
+                {
+                  path: '/system/test/TestList',
+                  name: 'testList',
+                },
+                {
+                  path: '/system/test/TestList2',
+                  name: 'testList2',
+                },
+              ],
+            },
+          ],
+        },
+      ]
+
+      let xxxRoutes2 = [
+        {
+          "id": 18,
+          "path": "/system",
+          "name": "系统管理",
+          "pid": 0,
+          "children": [
+            {
+              "id": 19,
+              "path": "/user",
+              "name": "用户管理",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 20,
+                  "path": "/system/UserList",
+                  "name": "用户列表",
+                  "pid": 19
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "path": "/role",
+              "name": "角色管理",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 22,
+                  "path": "/system/RoleList",
+                  "name": "角色列表",
+                  "pid": 21
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "path": "/access",
+              "name": "权限管理",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 24,
+                  "path": "/system/AccessList",
+                  "name": "权限列表",
+                  "pid": 23
+                }
+              ]
+            },
+            {
+              "id": 25,
+              "path": "/test",
+              "name": "测试管理",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 26,
+                  "path": "/system/test/TestList",
+                  "name": "测试列表",
+                  "pid": 25
+                },
+                {
+                  "id": 27,
+                  "path": "/system/test/TestList2",
+                  "name": "测试列表2",
+                  "pid": 25
+                },
+                {
+                  "id": 30,
+                  "path": null,
+                  "name": "测试3",
+                  "pid": 25
+                }
+              ]
+            }
+          ]
+        }
+      ]
+
+      // const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
+      const menuData = xxxRoutes2;
+
+      console.log('menuData', xxxRoutes)
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
       yield put({
         type: 'save',

@@ -127,10 +127,10 @@ class AccessList extends Component {
       // console.log('item.children', item.children)
       if (item.children) {
         return (
-          <div className={styles.treeChildrens} title={item.title} key={item.id}>
+          <div className={styles.treeChildrens}>
             <Icon type="caret-down" />
-            <span className={styles.treeChildrensTitle}>{item.title}</span>
             <span className={styles.treeChildrensTitle}>{item.name}</span>
+            <span className={styles.treeChildrensTitle}>{item.path}</span>
             <span className={styles.treeChildrensRightBar}>
               <Button
                 type="primary"
@@ -169,9 +169,9 @@ class AccessList extends Component {
       }
       // console.log('TreeNodeitem', item)
       return (
-        <div className={styles.treeChildren} title={item.title} key={item.id}>
-          <span className={styles.treeChildrensTitle}>{item.title}</span>
+        <div className={styles.treeChildren}>
           <span className={styles.treeChildrensTitle}>{item.name}</span>
+          <span className={styles.treeChildrensTitle}>{item.path}</span>
           <span className={styles.treeChildrensRightBar}>
             <Button
               type="primary"
@@ -225,7 +225,7 @@ class AccessList extends Component {
       if (!err) {
         console.log('err, values', err, values);
         this.apiFetchAuthMenuCreate({
-          title: values.title,
+          path: values.path,
           name: values.name,
           pid: this.state.dataSourceItem.id,
         });
@@ -262,13 +262,13 @@ class AccessList extends Component {
         if (this.state.editorType === 'create') {
           // 添加的时候
           this.apiFetchAuthMenuCreate({
-            title: values.title,
+            path: values.path,
             name: values.name,
             pid: this.state.dataSourceItem.id,
           });
         } else if (this.state.editorType === 'editor') {
           this.apiFetchAuthMenuUpdate({
-            title: values.title,
+            path: values.path,
             name: values.name,
             id: this.state.dataSourceItem.id,
           });
@@ -358,16 +358,16 @@ class AccessList extends Component {
                   })(<Input disabled />)}
                 </FormItem>
               ) : null}
-              <FormItem label="title" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
-                {getFieldDecorator('title', {
-                  rules: [{ required: true, message: '请输入菜单标题' }],
+              <FormItem label="name" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+                {getFieldDecorator('name', {
+                  rules: [{ required: true, message: '请输入菜单名字' }],
                   initialValue:
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.title : '',
                 })(<Input />)}
               </FormItem>
-              <FormItem label="name" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
-                {getFieldDecorator('name', {
-                  rules: [{ required: true, message: '请输入菜单名字英文' }],
+              <FormItem label="path" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+                {getFieldDecorator('path', {
+                  rules: [{ required: true, message: '请输入菜单路径' }],
                   initialValue:
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
                 })(<Input />)}
