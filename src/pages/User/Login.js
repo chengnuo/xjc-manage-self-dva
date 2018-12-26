@@ -50,6 +50,23 @@ class LoginPage extends Component {
           type,
         },
       });
+
+      dispatch({
+        type: 'login/fetchSignIn',
+        payload: {
+          username: values.userName,
+          password: values.password,
+        },
+        callback: (response)=>{
+          console.log('response', response)
+          dispatch({
+            type: 'menu/fetchGetMenuList',
+            payload: {
+              id: response.id
+            },
+          });
+        },
+      });
     }
   };
 

@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/api';
+import { loginSignIn } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
@@ -63,6 +64,15 @@ export default {
         })
       );
     },
+    // 登录
+    *fetchSignIn({ callback, payload }, { call, put }) {
+      const response = yield call(loginSignIn, payload);
+      yield put({
+        type: 'signIn',
+        payload: response,
+      });
+      callback && callback(response); // 回调
+    },
   },
 
   reducers: {
@@ -72,6 +82,11 @@ export default {
         ...state,
         status: payload.status,
         type: payload.type,
+      };
+    },
+    signIn(state, action) {
+      return {
+        ...state,
       };
     },
   },
