@@ -28,11 +28,11 @@ function formatter(data, parentAuthority, parentName) {
         authority: item.authority || parentAuthority,
       };
       // 系统路由，先注释
-      // if (item.routes) {
-      //   const children = formatter(item.routes, item.authority, locale);
-      //   // Reduce memory usage
-      //   result.children = children;
-      // }
+      if (item.routes) {
+        const children = formatter(item.routes, item.authority, locale);
+        // Reduce memory usage
+        result.children = children;
+      }
       // 这里是自己的路由
       if (item.children) {
         const children = formatter(item.children, item.authority, locale);
@@ -106,12 +106,18 @@ export default {
   effects: {
     *getMenuData({ payload }, { put }) {
       const { routes, authority } = payload;
-      const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
+      // const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
+
+      let xjc = JSON.parse(window.localStorage.getItem('xjc'));
+      let xjcMenu = xjc && xjc.menu || []
+
+      const menuData = filterMenuData(memoizeOneFormatter(xjcMenu, authority));
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
       yield put({
         type: 'save',
         payload: {
-          menuData,
+          // menuData, // 这里注释掉了，所以不会显示
+          menuData, // 这里注释掉了，所以不会显示
           breadcrumbNameMap
         },
       });
@@ -125,6 +131,14 @@ export default {
           response,
         },
       });
+      //
+      if(response.status === 200){
+        window.localStorage.setItem('xjc', JSON.stringify({
+          menu: response.farmatAccessMenu,
+        }));
+      }
+      // console.log('getMenuList', response)
+
       callback && callback(response); // 回调
     },
   },

@@ -43,13 +43,13 @@ class LoginPage extends Component {
     const { type } = this.state;
     if (!err) {
       const { dispatch } = this.props;
-      dispatch({
-        type: 'login/login',
-        payload: {
-          ...values,
-          type,
-        },
-      });
+      // dispatch({
+      //   type: 'login/login',
+      //   payload: {
+      //     ...values,
+      //     type,
+      //   },
+      // });
 
       dispatch({
         type: 'login/fetchSignIn',

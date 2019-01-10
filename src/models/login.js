@@ -55,6 +55,7 @@ export default {
         },
       });
       reloadAuthorized();
+      window.localStorage.removeItem('xjc')
       yield put(
         routerRedux.push({
           pathname: '/user/login',
@@ -71,13 +72,34 @@ export default {
         type: 'signIn',
         payload: response,
       });
-      callback && callback(response); // 回调
+      if (response.status === 200) {
+        callback && callback(response); // 回调
+        reloadAuthorized();
+        const urlParams = new URL(window.location.href);
+        const params = getPageQuery();
+        let { redirect } = params;
+        if (redirect) {
+          const redirectUrlParams = new URL(redirect);
+          if (redirectUrlParams.origin === urlParams.origin) {
+            redirect = redirect.substr(urlParams.origin.length);
+            if (redirect.match(/^\/.*#/)) {
+              redirect = redirect.substr(redirect.indexOf('#') + 1);
+            }
+          } else {
+            window.location.href = redirect;
+            return;
+          }
+        }
+        yield put(routerRedux.replace(redirect || '/'));
+      }
+
     },
   },
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      // setAuthority(payload.currentAuthority);
+      setAuthority('aa');
       return {
         ...state,
         status: payload.status,
