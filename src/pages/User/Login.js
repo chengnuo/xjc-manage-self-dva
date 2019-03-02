@@ -5,6 +5,7 @@ import Link from 'umi/link';
 import { Checkbox, Alert, Icon } from 'antd';
 import Login from '@/components/Login';
 import styles from './Login.less';
+import md5 from 'md5';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -55,16 +56,16 @@ class LoginPage extends Component {
         type: 'login/fetchSignIn',
         payload: {
           username: values.userName,
-          password: values.password,
+          password: md5(values.password),
         },
         callback: (response)=>{
-          console.log('response', response)
-          dispatch({
-            type: 'menu/fetchGetMenuList',
-            payload: {
-              id: response.id
-            },
-          });
+          // console.log('response', response)
+          // dispatch({
+          //   type: 'menu/fetchGetMenuList',
+          //   payload: {
+          //     id: response.id
+          //   },
+          // });
         },
       });
     }

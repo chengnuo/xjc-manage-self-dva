@@ -2,11 +2,12 @@
 import request from '@/utils/request';
 // 工具类
 import { apiLocation } from '@/utils/utils';
+import { stringify } from 'qs';
 
 // 菜单列表 ================菜单================
 export async function authMenuList(params) {
   return request(`${apiLocation.origin}/api/authMenu/list`, {
-    method: 'POST',
+    method: 'GET',
     body: params,
   });
 }
@@ -22,7 +23,7 @@ export async function authMenuCreate(params) {
 // 菜单更新
 export async function authMenuUpdate(params) {
   return request(`${apiLocation.origin}/api/authMenu/update`, {
-    method: 'POST',
+    method: 'PUT',
     body: params,
   });
 }
@@ -30,7 +31,7 @@ export async function authMenuUpdate(params) {
 // 菜单删除
 export async function authMenuDelete(params) {
   return request(`${apiLocation.origin}/api/authMenu/delete`, {
-    method: 'POST',
+    method: 'DELETE',
     body: params,
   });
 }
@@ -39,15 +40,15 @@ export async function authMenuDelete(params) {
 
 // 用户列表 ================用户================
 export async function authUserList(params) {
-  return request(`${apiLocation.origin}/api/authUser/list`, {
-    method: 'POST',
-    body: params,
+  return request(`${apiLocation.origin}/api/v1/user?${stringify(params)}`, {
+    method: 'GET',
+    // body: params,
   });
 }
 
 // 用户新增
 export async function authUserCreate(params) {
-  return request(`${apiLocation.origin}/api/authUser/create`, {
+  return request(`${apiLocation.origin}/api/v1/user`, {
     method: 'POST',
     body: params,
   });
@@ -55,16 +56,16 @@ export async function authUserCreate(params) {
 
 // 用户更新
 export async function authUserUpdate(params) {
-  return request(`${apiLocation.origin}/api/authUser/update`, {
-    method: 'POST',
+  return request(`${apiLocation.origin}/api/v1/user`, {
+    method: 'PUT',
     body: params,
   });
 }
 
 // 用户删除
 export async function authUserDelete(params) {
-  return request(`${apiLocation.origin}/api/authUser/delete`, {
-    method: 'POST',
+  return request(`${apiLocation.origin}/api/v1/user`, {
+    method: 'DELETE',
     body: params,
   });
 }
