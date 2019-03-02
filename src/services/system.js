@@ -56,7 +56,7 @@ export async function authUserCreate(params) {
 
 // 用户更新
 export async function authUserUpdate(params) {
-  return request(`${apiLocation.origin}/api/v1/user`, {
+  return request(`${apiLocation.origin}/api/v1/user/${params.id}`, {
     method: 'PUT',
     body: params,
   });
@@ -64,9 +64,9 @@ export async function authUserUpdate(params) {
 
 // 用户删除
 export async function authUserDelete(params) {
-  return request(`${apiLocation.origin}/api/v1/user`, {
+  return request(`${apiLocation.origin}/api/v1/user/${params.id}`, {
     method: 'DELETE',
-    body: params,
+    // body: params,
   });
 }
 

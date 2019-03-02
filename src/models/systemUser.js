@@ -2,7 +2,6 @@ import { authUserList, authUserCreate, authUserUpdate, authUserDelete, authUserS
 
 export default {
   namespace: 'systemUser',
-
   state: {
     dataSource: [],
     pageCurrent: 1,
@@ -10,7 +9,6 @@ export default {
     total: 0,
     // authMenuListArr: [],
   },
-
   effects: {
     // 用户-列表
     *fetchAuthUserList({ callback, payload }, { call, put }) {
@@ -21,7 +19,6 @@ export default {
           response,
           payload,
         },
-
       });
       callback && callback(response); // 回调
     },
@@ -32,8 +29,6 @@ export default {
         type: 'authUserCreate',
         payload: response,
       });
-
-
       callback && callback(response); // 回调
     },
     // 用户-更新
@@ -43,8 +38,6 @@ export default {
         type: 'authUserUpdate',
         payload: response,
       });
-
-
       callback && callback(response); // 回调
     },
     // 用户-删除
@@ -52,11 +45,11 @@ export default {
       const response = yield call(authUserDelete, payload);
       yield put({
         type: 'authUserDelete',
-        payload: response,
+        payload: {
+          response: JSON.parse(response)
+        },
       });
-
-
-      callback && callback(response); // 回调
+      callback && callback(JSON.parse(response)); // 回调
     },
     // 用户-设置角色
     *fetchAuthUserSetRoles({ callback, payload }, { call, put }) {
@@ -65,13 +58,9 @@ export default {
         type: 'authUserSetRoles',
         payload: response,
       });
-
-
       callback && callback(response); // 回调
     },
-
   },
-
   reducers: {
     authUserList(state, action) {
       console.log('action', action)

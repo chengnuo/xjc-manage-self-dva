@@ -140,6 +140,8 @@ class UserList extends Component {
         ...item,
       },
       callback: response => {
+        console.log('response', typeof response)
+        console.log('response.status', response.status)
         if (response.status === 200) {
           this.apiFetchAuthUserList();
           notification.success({
