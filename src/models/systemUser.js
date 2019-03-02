@@ -14,9 +14,6 @@ export default {
   effects: {
     // 用户-列表
     *fetchAuthUserList({ callback, payload }, { call, put }) {
-
-      console.log('authUserList', authUserList)
-
       const response = yield call(authUserList, payload);
       yield put({
         type: 'authUserList',
@@ -26,8 +23,6 @@ export default {
         },
 
       });
-
-
       callback && callback(response); // 回调
     },
     // 用户-新增

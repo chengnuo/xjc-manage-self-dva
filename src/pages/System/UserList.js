@@ -56,14 +56,17 @@ class UserList extends Component {
           >删除</a>
         </span>
       ),
+      width: 180,
     },
     {
       title: '用户id',
       dataIndex: 'id',
+      width: 100,
     },
     {
       title: '用户名',
       dataIndex: 'username',
+      width: 100,
     },
     {
       title: '邮箱',
@@ -72,14 +75,17 @@ class UserList extends Component {
     {
       title: '用户角色',
       dataIndex: 'rolename',
+      width: 130,
     },
     {
       title: '创建时间',
       dataIndex: 'created_time',
+      width: 200,
     },
     {
       title: '更新时间',
       dataIndex: 'updated_time',
+      width: 200,
     },
   ];
 
@@ -428,6 +434,7 @@ class UserList extends Component {
           dataSource={dataSource}
           pagination={pagination(this, this.props.systemUser)}
           rowKey={'id'}
+          scroll={{ x: 1300 }}
         />
 
         {/* 编辑 */}
