@@ -5,7 +5,6 @@ export default {
 
   state: {
     dataSource: [],
-    // authMenuListArr: [],
   },
 
   effects: {
@@ -16,9 +15,6 @@ export default {
         type: 'authMenuList',
         payload: response,
       });
-
-
-
       callback && callback(response); // 回调
     },
     // 菜单-新增
@@ -28,9 +24,6 @@ export default {
         type: 'authMenuCreate',
         payload: response,
       });
-
-
-
       callback && callback(response); // 回调
     },
     // 菜单-更新
@@ -60,10 +53,12 @@ export default {
 
   reducers: {
     authMenuList(state, action) {
+
+      console.log('action', action)
+
       return {
         ...state,
-        dataSource: action.payload.data.fnList,
-        // authMenuListArr: action.payload.data.list,
+        dataSource: action.payload.data.list,
       };
     },
     authMenuCreate(state, action) {

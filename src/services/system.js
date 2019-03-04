@@ -6,15 +6,15 @@ import { stringify } from 'qs';
 
 // 菜单列表 ================菜单================
 export async function authMenuList(params) {
-  return request(`${apiLocation.origin}/api/authMenu/list`, {
+  return request(`${apiLocation.origin}/api/v1/access?${stringify(params)}`, {
     method: 'GET',
-    body: params,
+    // body: params,
   });
 }
 
 // 菜单新增
 export async function authMenuCreate(params) {
-  return request(`${apiLocation.origin}/api/authMenu/create`, {
+  return request(`${apiLocation.origin}/api/v1/access`, {
     method: 'POST',
     body: params,
   });
@@ -22,7 +22,7 @@ export async function authMenuCreate(params) {
 
 // 菜单更新
 export async function authMenuUpdate(params) {
-  return request(`${apiLocation.origin}/api/authMenu/update`, {
+  return request(`${apiLocation.origin}/api/v1/access/${params.id}`, {
     method: 'PUT',
     body: params,
   });
@@ -30,7 +30,7 @@ export async function authMenuUpdate(params) {
 
 // 菜单删除
 export async function authMenuDelete(params) {
-  return request(`${apiLocation.origin}/api/authMenu/delete`, {
+  return request(`${apiLocation.origin}/api/v1/access/${params.id}`, {
     method: 'DELETE',
     body: params,
   });

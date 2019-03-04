@@ -31,6 +31,10 @@ class AccessList extends Component {
     const { dispatch } = this.props;
     dispatch({
       type: 'systemAccess/fetchAuthMenuList',
+      payload: {
+        pageCurrent: 1,
+        pageSize: 9999,
+      },
     });
   };
 
@@ -290,7 +294,6 @@ class AccessList extends Component {
   render() {
     const { dataSource = [] } = this.props.systemAccess;
     const { getFieldDecorator } = this.props.form;
-
     return (
       <div className={styles.accessList}>
         {/* 树节点 */}
