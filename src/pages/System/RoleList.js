@@ -449,6 +449,7 @@ class RoleList extends Component {
           dataSource={dataSource}
           pagination={pagination(this, this.props.systemRole)}
           rowKey={'id'}
+          scroll={{ x: 1300 }}
         />
 
         {/* 编辑 */}
@@ -488,7 +489,7 @@ class RoleList extends Component {
         >
           确定删除
           <Tag style={{ margin: '0 2px' }} color="#108ee9">
-            {this.state.dataSourceItem.name}/{this.state.dataSourceItem.username}
+            {this.state.dataSourceItem.name}
           </Tag>
           ?
         </Modal>

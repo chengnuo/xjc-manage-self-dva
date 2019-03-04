@@ -2,7 +2,6 @@ import { authRoleList, authRoleCreate, authRoleUpdate, authRoleDelete, authRoleS
 
 export default {
   namespace: 'systemRole',
-
   state: {
     dataSource: [],
     pageCurrent: 1,
@@ -11,7 +10,6 @@ export default {
     // authMenuListArr: [],
     userAccessList: [],
   },
-
   effects: {
     // 角色-列表
     *fetchAuthRoleList({ callback, payload }, { call, put }) {
@@ -24,9 +22,6 @@ export default {
         },
 
       });
-
-
-
       callback && callback(response); // 回调
     },
     // 角色-新增
@@ -58,12 +53,11 @@ export default {
       const response = yield call(authRoleDelete, payload);
       yield put({
         type: 'authRoleDelete',
-        payload: response,
+        payload: {
+          response: JSON.parse(response)
+        },
       });
-
-
-
-      callback && callback(response); // 回调
+      callback && callback(JSON.parse(response)); // 回调
     },
     // 角色权限-列表
     *fetchAuthRoleSetAccessList({ callback, payload }, { call, put }) {

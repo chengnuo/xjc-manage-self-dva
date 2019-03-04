@@ -70,6 +70,14 @@ export async function authUserDelete(params) {
   });
 }
 
+// 用户批量删除
+export async function authUserDeletes(params) {
+  return request(`${apiLocation.origin}/api/v1/user`, {
+    method: 'DELETE',
+    body: params,
+  });
+}
+
 // 用户-设置角色
 export async function authUserSetRoles(params) {
   return request(`${apiLocation.origin}/api/authUser/setRoles`, {
@@ -79,17 +87,18 @@ export async function authUserSetRoles(params) {
 }
 
 
+
 // 角色列表 ================角色================
 export async function authRoleList(params) {
-  return request(`${apiLocation.origin}/api/authRole/list`, {
-    method: 'POST',
-    body: params,
+  return request(`${apiLocation.origin}/api/v1/role?${stringify(params)}`, {
+    method: 'GET',
+    // body: params,
   });
 }
 
 // 角色新增
 export async function authRoleCreate(params) {
-  return request(`${apiLocation.origin}/api/authRole/create`, {
+  return request(`${apiLocation.origin}/api/v1/role`, {
     method: 'POST',
     body: params,
   });
@@ -97,19 +106,29 @@ export async function authRoleCreate(params) {
 
 // 角色更新
 export async function authRoleUpdate(params) {
-  return request(`${apiLocation.origin}/api/authRole/update`, {
-    method: 'POST',
+  return request(`${apiLocation.origin}/api/v1/role/${params.id}`, {
+    method: 'PUT',
     body: params,
   });
 }
 
 // 角色删除
 export async function authRoleDelete(params) {
-  return request(`${apiLocation.origin}/api/authRole/delete`, {
-    method: 'POST',
+  return request(`${apiLocation.origin}/api/v1/role/${params.id}`, {
+    method: 'DELETE',
+    // body: params,
+  });
+}
+
+// 角色批量删除
+export async function authRoleDeletes(params) {
+  return request(`${apiLocation.origin}/api/v1/role`, {
+    method: 'DELETE',
     body: params,
   });
 }
+
+
 
 // 角色设置权限列表
 export async function authRoleSetAccessList(params) {

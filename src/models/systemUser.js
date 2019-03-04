@@ -1,4 +1,4 @@
-import { authUserList, authUserCreate, authUserUpdate, authUserDelete, authUserSetRoles } from '@/services/system';
+import { authUserList, authUserCreate, authUserUpdate, authUserDelete, authUserDeletes, authUserSetRoles } from '@/services/system';
 
 export default {
   namespace: 'systemUser',
@@ -51,6 +51,17 @@ export default {
       });
       callback && callback(JSON.parse(response)); // 回调
     },
+    // 用户-批量删除
+    *fetchAuthUserDeletes({ callback, payload }, { call, put }) {
+      const response = yield call(authUserDeletes, payload);
+      yield put({
+        type: 'authUserDeletes',
+        payload: {
+          response: JSON.parse(response)
+        },
+      });
+      callback && callback(JSON.parse(response)); // 回调
+    },
     // 用户-设置角色
     *fetchAuthUserSetRoles({ callback, payload }, { call, put }) {
       const response = yield call(authUserSetRoles, payload);
@@ -83,6 +94,11 @@ export default {
       };
     },
     authUserDelete(state, action) {
+      return {
+        ...state,
+      };
+    },
+    authUserDeletes(state, action) {
       return {
         ...state,
       };

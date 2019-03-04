@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Table, Button, Form, Input, Icon, Divider, Modal, Tag, notification, Checkbox, Row, Col, } from 'antd';
-
 import { pagination } from '@/utils/utils';
-
-
 const FormItem = Form.Item;
-
-
-
-
+const confirm = Modal.confirm;
 @connect(({ systemUser, systemRole, loading }) => ({
   systemUser,
   systemRole,
@@ -140,14 +134,40 @@ class UserList extends Component {
         ...item,
       },
       callback: response => {
-        console.log('response', typeof response)
-        console.log('response.status', response.status)
         if (response.status === 200) {
           this.apiFetchAuthUserList();
           notification.success({
             message: '系统提示',
             description: `${response.message}`,
           });
+        } else {
+          notification.error({
+            message: '系统提示',
+            description: `${response.message}`,
+          });
+        }
+      },
+    });
+  };
+
+  // 删除-批量删除
+  apiFetchAuthUserDeletes = item => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'systemUser/fetchAuthUserDeletes',
+      payload: {
+        ...item,
+      },
+      callback: response => {
+        if (response.status === 200) {
+          this.apiFetchAuthUserList();
+          notification.success({
+            message: '系统提示',
+            description: `${response.message}`,
+          });
+          this.setState({
+            selectedRowKeys: [],
+          })
         } else {
           notification.error({
             message: '系统提示',
@@ -344,6 +364,34 @@ class UserList extends Component {
     });
   };
 
+  // 点击删除的时候 ================批量删除====================
+  handleDeletes = () => {
+    if(this.state.selectedRowKeys.length>0){
+      confirm({
+        title: '确定删除?',
+        content: `id ${this.state.selectedRowKeys.join(',')}`,
+        okText: '确认',
+        cancelText: '取消',
+        okType: 'danger',
+        onOk: ()=>{
+          console.log('OK');
+          this.apiFetchAuthUserDeletes({
+            ids: this.state.selectedRowKeys,
+          });
+        },
+        onCancel: ()=>{
+          console.log('Cancel');
+        },
+      });
+    }else{
+      notification.error({
+        message: '系统提示',
+        description: `请选择多选按钮`,
+      });
+    }
+
+  };
+
   // 点击设置角色的时候 ================设置角色====================
   handleSetRole =(item)=> {
     this.apiFetchAuthRoleList(); // 获取权限列表
@@ -428,6 +476,15 @@ class UserList extends Component {
                 新增
               </Button>
             </FormItem>
+            <FormItem>
+              <Button
+                onClick={()=>{
+                  this.handleDeletes();
+                }}
+              >
+                批量删除
+              </Button>
+            </FormItem>
           </Form>
         </div>
         <Table
@@ -488,7 +545,7 @@ class UserList extends Component {
         >
           确定删除
           <Tag style={{ margin: '0 2px' }} color="#108ee9">
-            {this.state.dataSourceItem.name}/{this.state.dataSourceItem.username}
+            {this.state.dataSourceItem.username}
           </Tag>
           ?
         </Modal>
