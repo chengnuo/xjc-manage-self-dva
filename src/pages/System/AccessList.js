@@ -135,7 +135,7 @@ class AccessList extends Component {
             <Icon type="caret-down" />
             <span className={styles.treeChildrensTitle}>{item.menuname}</span>
             <span className={styles.treeChildrensTitle}>{item.name}</span>
-            <span className={styles.treeChildrensTitle}>{item.path}</span>
+            <span className={styles.treeChildrensTitle}>{item.url}</span>
             <span className={styles.treeChildrensRightBar}>
               <Button
                 type="primary"
@@ -177,7 +177,7 @@ class AccessList extends Component {
         <div key={item.id} className={styles.treeChildren}>
           <span className={styles.treeChildrensTitle}>{item.menuname}</span>
           <span className={styles.treeChildrensTitle}>{item.name}</span>
-          <span className={styles.treeChildrensTitle}>{item.path}</span>
+          <span className={styles.treeChildrensTitle}>{item.url}</span>
           <span className={styles.treeChildrensRightBar}>
             <Button
               type="primary"
@@ -235,14 +235,14 @@ class AccessList extends Component {
         if (this.state.editorType === 'create') {
           // 添加的时候
           this.apiFetchAuthMenuCreate({
-            path: values.path,
+            url: values.url,
             menuname: values.menuname,
             name: values.name,
             pid: this.state.dataSourceItem.id,
           });
         } else if (this.state.editorType === 'editor') {
           this.apiFetchAuthMenuUpdate({
-            path: values.path,
+            url: values.url,
             menuname: values.menuname,
             name: values.name,
             id: this.state.dataSourceItem.id,
@@ -346,11 +346,11 @@ class AccessList extends Component {
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.menuname : '',
                 })(<Input />)}
               </FormItem>
-              <FormItem label="path" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
-                {getFieldDecorator('path', {
+              <FormItem label="url" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+                {getFieldDecorator('url', {
                   rules: [{ required: true, message: '请输入菜单路径' }],
                   initialValue:
-                    this.state.editorType === 'editor' ? this.state.dataSourceItem.path : '',
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.url : '',
                 })(<Input />)}
               </FormItem>
             </Form>
