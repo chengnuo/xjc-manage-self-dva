@@ -58,7 +58,7 @@ export default {
 
       return {
         ...state,
-        dataSource: action.payload.data.list,
+        dataSource: action.payload.data.fnList,
       };
     },
     authMenuCreate(state, action) {

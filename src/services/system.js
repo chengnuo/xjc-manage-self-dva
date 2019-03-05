@@ -80,7 +80,7 @@ export async function authUserDeletes(params) {
 
 // 用户-设置角色
 export async function authUserSetRoles(params) {
-  return request(`${apiLocation.origin}/api/authUser/setRoles`, {
+  return request(`${apiLocation.origin}/api/v1/user/setRoles`, {
     method: 'POST',
     body: params,
   });
@@ -132,14 +132,14 @@ export async function authRoleDeletes(params) {
 
 // 角色设置权限列表
 export async function authRoleSetAccessList(params) {
-  return request(`${apiLocation.origin}/api/authRole/setAccessList`, {
+  return request(`${apiLocation.origin}/api/v1/role/setAccessList`, {
     method: 'POST',
     body: params,
   });
 }
 // 角色设置权限
 export async function authRoleSetAccess(params) {
-  return request(`${apiLocation.origin}/api/authRole/setAccess`, {
+  return request(`${apiLocation.origin}/api/v1/role/setAccess`, {
     method: 'POST',
     body: params,
   });

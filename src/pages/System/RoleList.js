@@ -139,6 +139,10 @@ class RoleList extends Component {
     const { dispatch } = this.props;
     dispatch({
       type: 'systemAccess/fetchAuthMenuList',
+      payload: Object.assign({},{
+        pageCurrent: 1,
+        pageSize: 9999,
+      }),
     });
   };
 
@@ -378,13 +382,13 @@ class RoleList extends Component {
       // console.log('item.children', item.children)
       if (item.children) {
         return (
-          <TreeNode title={item.name} key={item.id}>
+          <TreeNode title={item.menuname} key={item.id}>
             {this.renderTreeNodes(item.children)}
           </TreeNode>
         );
       }
       // console.log('TreeNodeitem', item)
-      return <TreeNode title={item.name} key={item.id} />;
+      return <TreeNode title={item.menuname} key={item.id} />;
     });
 
 

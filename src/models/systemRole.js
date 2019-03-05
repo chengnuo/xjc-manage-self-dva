@@ -93,8 +93,6 @@ export default {
         ...state,
         dataSource: action.payload.response.data.list,
         total: action.payload.response.data.total,
-        pageCurrent: action.payload.payload.pageCurrent,
-        pageSize: action.payload.payload.pageSize,
       };
     },
     authRoleCreate(state, action) {
