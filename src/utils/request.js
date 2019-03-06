@@ -4,6 +4,13 @@ import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
 
+// 获取token
+function buildAuthorization  ()  {
+  const tokenVal = window.localStorage.getItem('token');
+  return (tokenVal !== '') ? `Bearer ${tokenVal}` : '';
+  // return 'Bearer aaa123'
+}
+
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -81,7 +88,14 @@ export default function request(url, option) {
   const defaultOptions = {
     credentials: 'include',
   };
-  const newOptions = { ...defaultOptions, ...options };
+  const newOptions = Object.assign({ ...defaultOptions, ...options}, {
+    headers: {
+      Authorization: ''
+    }
+  });
+
+
+
   if (
     newOptions.method === 'POST' ||
     newOptions.method === 'PUT' ||
@@ -95,6 +109,8 @@ export default function request(url, option) {
       };
       newOptions.body = JSON.stringify(newOptions.body);
     } else {
+      // newOptions.headers.Authorization = buildAuthorization(); // 增加的代码
+      // Authorization: buildAuthorization(),
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: 'application/json',
@@ -102,6 +118,7 @@ export default function request(url, option) {
       };
     }
   }
+
 
   const expirys = options.expirys && 60;
   // options.expirys !== false, return the cache,
@@ -118,6 +135,14 @@ export default function request(url, option) {
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
+
+  // Object.assign({}, newOptions, {
+  //   Authorization: buildAuthorization(), // 加上Authorization
+  // })
+
+  newOptions.headers.Authorization = buildAuthorization();
+
+  console.log('newOptions', newOptions)
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))

@@ -73,7 +73,7 @@ export default {
         payload: response,
       });
       if (response.status === 200) {
-        callback && callback(response); // 回调
+
         reloadAuthorized();
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -92,6 +92,7 @@ export default {
         }
         yield put(routerRedux.replace(redirect || '/'));
       }
+      callback && callback(response); // 回调
 
     },
   },

@@ -133,9 +133,9 @@ class AccessList extends Component {
         return (
           <div key={item.id} className={styles.treeChildrens}>
             <Icon type="caret-down" />
-            <span className={styles.treeChildrensTitle}>{item.menuname}</span>
             <span className={styles.treeChildrensTitle}>{item.name}</span>
             <span className={styles.treeChildrensTitle}>{item.url}</span>
+            <span className={styles.treeChildrensTitle}>{item.method}</span>
             <span className={styles.treeChildrensRightBar}>
               <Button
                 type="primary"
@@ -175,9 +175,9 @@ class AccessList extends Component {
       // console.log('TreeNodeitem', item)
       return (
         <div key={item.id} className={styles.treeChildren}>
-          <span className={styles.treeChildrensTitle}>{item.menuname}</span>
           <span className={styles.treeChildrensTitle}>{item.name}</span>
           <span className={styles.treeChildrensTitle}>{item.url}</span>
+          <span className={styles.treeChildrensTitle}>{item.method}</span>
           <span className={styles.treeChildrensRightBar}>
             <Button
               type="primary"
@@ -236,14 +236,14 @@ class AccessList extends Component {
           // 添加的时候
           this.apiFetchAuthMenuCreate({
             url: values.url,
-            menuname: values.menuname,
+            method: values.method,
             name: values.name,
             pid: this.state.dataSourceItem.id,
           });
         } else if (this.state.editorType === 'editor') {
           this.apiFetchAuthMenuUpdate({
             url: values.url,
-            menuname: values.menuname,
+            method: values.method,
             name: values.name,
             id: this.state.dataSourceItem.id,
           });
@@ -339,16 +339,16 @@ class AccessList extends Component {
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
                 })(<Input />)}
               </FormItem>
-              <FormItem label="menuname" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
-                {getFieldDecorator('menuname', {
-                  rules: [{ required: true, message: '请输入菜单中文名字' }],
+              <FormItem label="method" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
+                {getFieldDecorator('method', {
+                  rules: [{ required: false, message: '请输入method' }],
                   initialValue:
-                    this.state.editorType === 'editor' ? this.state.dataSourceItem.menuname : '',
+                    this.state.editorType === 'editor' ? this.state.dataSourceItem.method : '',
                 })(<Input />)}
               </FormItem>
               <FormItem label="url" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
                 {getFieldDecorator('url', {
-                  rules: [{ required: true, message: '请输入菜单路径' }],
+                  rules: [{ required: true, message: '请输入url' }],
                   initialValue:
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.url : '',
                 })(<Input />)}

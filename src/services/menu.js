@@ -5,7 +5,7 @@ import { apiLocation } from '@/utils/utils';
 
 // 登录获取菜单
 export async function menuGetMenuList(params) {
-  return request(`${apiLocation.origin}/api/getMenuList`, {
+  return request(`${apiLocation.origin}/api/v1/login/getMenuList`, {
     method: 'POST',
     body: params,
   });

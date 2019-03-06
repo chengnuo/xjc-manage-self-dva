@@ -43,11 +43,13 @@ export default {
       const response = yield call(authMenuDelete, payload);
       yield put({
         type: 'authMenuDelete',
-        payload: response,
+        payload: {
+          response: JSON.parse(response),
+        },
       });
 
 
-      callback && callback(response); // 回调
+      callback && callback(JSON.parse(response)); // 回调
     },
   },
 

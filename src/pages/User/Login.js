@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { formatMessage, FormattedMessage } from 'umi/locale';
 import Link from 'umi/link';
-import { Checkbox, Alert, Icon } from 'antd';
+import { Checkbox, Alert, Icon, notification } from 'antd';
 import Login from '@/components/Login';
 import styles from './Login.less';
 import md5 from 'md5';
@@ -59,13 +59,20 @@ class LoginPage extends Component {
           password: md5(values.password),
         },
         callback: (response)=>{
-          // console.log('response', response)
-          // dispatch({
-          //   type: 'menu/fetchGetMenuList',
-          //   payload: {
-          //     id: response.id
-          //   },
-          // });
+
+          if(response.status !== 200){
+            notification.error({
+              message: '系统提示',
+              description: `${response.message}`,
+            });
+          }
+          window.localStorage.setItem('token', response.token);
+          dispatch({
+            type: 'menu/fetchGetMenuList',
+            payload: {
+              token: response.token
+            },
+          });
         },
       });
     }

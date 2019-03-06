@@ -106,12 +106,12 @@ export default {
   effects: {
     *getMenuData({ payload }, { put }) {
       const { routes, authority } = payload;
-      const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
+      // const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
 
-      // let xjc = JSON.parse(window.localStorage.getItem('xjc'));
-      // let xjcMenu = xjc && xjc.menu || []
+      let xjc = JSON.parse(window.localStorage.getItem('xjc'));
+      let xjcMenu = xjc && xjc.menu || []
 
-      // const menuData = filterMenuData(memoizeOneFormatter(xjcMenu, authority));
+      const menuData = filterMenuData(memoizeOneFormatter(xjcMenu, authority));
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
       yield put({
         type: 'save',

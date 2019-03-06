@@ -382,13 +382,13 @@ class RoleList extends Component {
       // console.log('item.children', item.children)
       if (item.children) {
         return (
-          <TreeNode title={item.menuname} key={item.id}>
+          <TreeNode title={item.name} key={item.id}>
             {this.renderTreeNodes(item.children)}
           </TreeNode>
         );
       }
       // console.log('TreeNodeitem', item)
-      return <TreeNode title={item.menuname} key={item.id} />;
+      return <TreeNode title={item.name} key={item.id} />;
     });
 
 
