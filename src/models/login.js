@@ -46,6 +46,7 @@ export default {
       yield call(getFakeCaptcha, payload);
     },
 
+    // 退出登录
     *logout(_, { put }) {
       yield put({
         type: 'changeLoginStatus',
@@ -55,7 +56,9 @@ export default {
         },
       });
       reloadAuthorized();
-      window.localStorage.removeItem('xjc')
+      window.localStorage.removeItem('xjc');
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('antd-pro-authority');
       yield put(
         routerRedux.push({
           pathname: '/user/login',

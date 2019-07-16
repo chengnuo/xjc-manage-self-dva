@@ -184,7 +184,8 @@ export function isAntdPro() {
 
 // origin: "http://localhost:7001"
 export const apiLocation = {
-  origin: 'http://localhost:7001',
+  origin: 'http://localhost:7001', // 本地
+  // origin: 'http://139.199.221.174:7001', // 线上-后面用环境变量-https://github.com/umijs/umi/issues/1142
 };
 
 // 封装页码

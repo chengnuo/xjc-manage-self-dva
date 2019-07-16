@@ -60,19 +60,21 @@ class LoginPage extends Component {
         },
         callback: (response)=>{
 
-          if(response.status !== 200){
+          if(response.status === 200){
+            window.localStorage.setItem('token', response.token);
+            dispatch({
+              type: 'menu/fetchGetMenuList',
+              payload: {
+                token: response.token
+              },
+            });
+          }else {
             notification.error({
               message: '系统提示',
               description: `${response.message}`,
             });
           }
-          window.localStorage.setItem('token', response.token);
-          dispatch({
-            type: 'menu/fetchGetMenuList',
-            payload: {
-              token: response.token
-            },
-          });
+
         },
       });
     }

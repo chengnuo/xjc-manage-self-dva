@@ -28,17 +28,20 @@ function formatter(data, parentAuthority, parentName) {
         authority: item.authority || parentAuthority,
       };
       // 系统路由，先注释
-      if (item.routes) {
-        const children = formatter(item.routes, item.authority, locale);
-        // Reduce memory usage
-        result.children = children;
-      }
+      // if (item.routes) {
+      //   const children = formatter(item.routes, item.authority, locale);
+      //   // Reduce memory usage
+      //   result.children = children;
+      // }
+
       // 这里是自己的路由
       if (item.children) {
         const children = formatter(item.children, item.authority, locale);
         // Reduce memory usage
         result.children = children;
       }
+
+      console.log('result', result)
       delete result.routes;
       return result;
     })
@@ -111,7 +114,216 @@ export default {
       let xjc = JSON.parse(window.localStorage.getItem('xjc'));
       let xjcMenu = xjc && xjc.menu || []
 
+
+      // console.log('xjcMenu', xjcMenu)
+
+      let xxxRoutes2 = [
+        {
+          "id": 18,
+          "path": "/system",
+          "menuname": "系统管理",
+          "name": "system",
+          "pid": 0,
+          "children": [
+            {
+              "id": 19,
+              "path": "/system/UserList",
+              "menuname": "用户管理",
+              "name": "user",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 20,
+                  "path": "/system/UserList",
+                  "menuname": "用户列表",
+                  "name": "userList",
+                  "pid": 19
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "path": "/system/RoleList",
+              "menuname": "角色管理",
+              "name": "role",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 22,
+                  "path": "/system/RoleList",
+                  "menuname": "角色列表",
+                  "name": "roleList",
+                  "pid": 21
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "path": "/system/AccessList",
+              "menuname": "权限管理",
+              "name": "access",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 24,
+                  "path": "/system/AccessList",
+                  "menuname": "权限列表",
+                  "name": "accessList",
+                  "pid": 23
+                }
+              ]
+            },
+            {
+              "id": 25,
+              "path": "/system/test",
+              "menuname": "测试管理",
+              "name": "test",
+              "pid": 18,
+              "children": [
+                {
+                  "id": 26,
+                  "path": "/system/test/TestList",
+                  "menuname": "测试列表",
+                  "name": "testList",
+                  "pid": 25
+                },
+                {
+                  "id": 27,
+                  "path": "/system/test/TestList2",
+                  "menuname": "测试列表2",
+                  "name": "testList2",
+                  "pid": 25
+                },
+                {
+                  "id": 30,
+                  "path": null,
+                  "menuname": "测试3",
+                  "name": null,
+                  "pid": 25
+                }
+              ]
+            }
+          ]
+        }
+      ]
+
+      let xxxRoutes3 = [
+        {
+          "id": 6,
+          "url": "system",
+          "method": "",
+          "menuname": "system",
+          "name": "系统管理",
+          "pid": 0,
+          "path": "/system",
+          "children": [
+            {
+              "id": 7,
+              "url": "user",
+              "method": "",
+              "menuname": "user",
+              "name": "用户管理",
+              "pid": 6,
+              "path": "/system/UserList",
+              "children": [
+                {
+                  "id": 8,
+                  "url": "/api/v1/user",
+                  "method": "GET",
+                  "menuname": "/system/UserList",
+                  "name": "用户列表",
+                  "pid": 7,
+                  "path": "/system/UserList",
+                  "locale": "menu.system.user.userList"
+                }
+              ],
+              "locale": "menu.system.user"
+            },
+            {
+              "id": 12,
+              "url": "role",
+              "method": "",
+              "menuname": "role",
+              "name": "角色管理",
+              "pid": 6,
+              "path": "role",
+              "children": [
+                {
+                  "id": 13,
+                  "url": "/api/v1/role",
+                  "method": "GET",
+                  "menuname": "/system/RoleList",
+                  "name": "角色列表",
+                  "pid": 12,
+                  "path": "/system/RoleList",
+                  "locale": "menu.system.role.roleList"
+                }
+              ],
+              "locale": "menu.system.role"
+            },
+            {
+              "id": 17,
+              "url": "access",
+              "method": "",
+              "menuname": "access",
+              "name": "权限管理",
+              "pid": 6,
+              "path": "access",
+              "children": [
+                {
+                  "id": 18,
+                  "url": "/api/v1/access",
+                  "method": "GET",
+                  "menuname": "/system/AccessList",
+                  "name": "权限列表",
+                  "pid": 17,
+                  "path": "/system/AccessList",
+                  "locale": "menu.system.access.accessList"
+                }
+              ],
+              "locale": "menu.system.access"
+            },
+            {
+              "id": 22,
+              "url": "test",
+              "method": "",
+              "menuname": "test",
+              "name": "测试管理",
+              "pid": 6,
+              "path": "test",
+              "children": [
+                {
+                  "id": 23,
+                  "url": "ceshiliebiao",
+                  "method": "",
+                  "menuname": "/system/test/TestList",
+                  "name": "测试列表",
+                  "pid": 22,
+                  "path": "/system/test/TestList",
+                  "locale": "menu.system.test.testList"
+                },
+                {
+                  "id": 24,
+                  "url": "ceshiliebiao2",
+                  "method": "",
+                  "menuname": "/system/test/TestList2",
+                  "name": "测试列表2",
+                  "pid": 22,
+                  "path": "/system/test/TestList2",
+                  "locale": "menu.system.test.testList2"
+                }
+              ],
+              "locale": "menu.system.test"
+            }
+          ],
+          "locale": "menu.system"
+        }
+      ]
+
       const menuData = filterMenuData(memoizeOneFormatter(xjcMenu, authority));
+      // const menuData = filterMenuData(memoizeOneFormatter(xxxRoutes2, authority));
+      // const menuData = filterMenuData(memoizeOneFormatter(xxxRoutes3, authority));
+
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
       yield put({
         type: 'save',
