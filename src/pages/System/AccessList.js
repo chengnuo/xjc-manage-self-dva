@@ -339,12 +339,27 @@ class AccessList extends Component {
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.name : '',
                 })(<Input />)}
               </FormItem>
+              {/*<FormItem label="method" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>*/}
+                {/*{getFieldDecorator('method', {*/}
+                  {/*rules: [{ required: false, message: '请输入method' }],*/}
+                  {/*initialValue:*/}
+                    {/*this.state.editorType === 'editor' ? this.state.dataSourceItem.method : '',*/}
+                {/*})(<Input />)}*/}
+              {/*</FormItem>*/}
               <FormItem label="method" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
                 {getFieldDecorator('method', {
                   rules: [{ required: false, message: '请输入method' }],
                   initialValue:
                     this.state.editorType === 'editor' ? this.state.dataSourceItem.method : '',
-                })(<Input />)}
+                })(
+                  <Select placeholder="请选择method">
+                    <Option value="">请选择</Option>
+                    <Option value="GET">GET</Option>
+                    <Option value="POST">POST</Option>
+                    <Option value="PUT">PUT</Option>
+                    <Option value="DELETE">DELETE</Option>
+                  </Select>
+                )}
               </FormItem>
               <FormItem label="url" labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
                 {getFieldDecorator('url', {
