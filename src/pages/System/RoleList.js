@@ -105,7 +105,7 @@ class RoleList extends Component {
       return String(item.access_id);
     })
 
-    console.log('result-', result);
+    // console.log('result-', result);
 
     return result;
   }

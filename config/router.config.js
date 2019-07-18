@@ -78,6 +78,18 @@ export default [
         ],
       },
       {
+        path: '/mine',
+        name: 'mine',
+        icon: 'mine',
+        routes: [
+          {
+            path: '/mine/toolList',
+            name: 'toolList',
+            component: './mine/toolList',
+          }
+        ]
+      },
+      {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',

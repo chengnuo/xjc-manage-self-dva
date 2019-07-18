@@ -41,7 +41,7 @@ function formatter(data, parentAuthority, parentName) {
         result.children = children;
       }
 
-      console.log('result', result)
+      // console.log('result', result)
       delete result.routes;
       return result;
     })
