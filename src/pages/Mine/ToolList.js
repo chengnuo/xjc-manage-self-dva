@@ -59,6 +59,7 @@ class BasicList extends PureComponent {
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
+        title: '',
       },payload),
     });
   }
@@ -227,8 +228,10 @@ class BasicList extends PureComponent {
 
     const extraContent = (
       <div className={styles.extraContent}>
-        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => {
-          this.fetchGetTools()
+        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={(value) => {
+          this.fetchGetTools({
+            title: value
+          })
         }} />
       </div>
     );
