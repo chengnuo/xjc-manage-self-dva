@@ -347,6 +347,7 @@ export default {
       if(response.status === 200){
         window.localStorage.setItem('xjc', JSON.stringify({
           menu: response.farmatAccessMenu,
+          userInfo: response.userInfo,
         }));
       }
       // console.log('getMenuList', response)

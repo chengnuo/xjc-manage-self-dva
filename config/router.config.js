@@ -86,6 +86,11 @@ export default [
             path: '/mine/toolList',
             name: 'toolList',
             component: './mine/toolList',
+          },
+          {
+            path: '/mine/planList',
+            name: 'planList',
+            component: './mine/planList',
           }
         ]
       },
