@@ -20,7 +20,10 @@ import {
   DatePicker,
   Select,
   Upload,
+  Tag,
 } from 'antd';
+
+const { Option } = Select;
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import Result from '@/components/Result';
@@ -73,6 +76,7 @@ class BasicList extends PureComponent {
   };
 
   showEditModal = item => {
+    console.log('item', item)
     this.setState({
       visible: true,
       current: item,
@@ -114,7 +118,7 @@ class BasicList extends PureComponent {
       let xjc = JSON.parse(window.localStorage.getItem('xjc')) || {};
       const submitData = Object.assign({}, fieldsValue,{
         // avatar: filterAvatar
-        uid: xjc.userInfo.id
+        // id: xjc.userInfo.id
       })
 
       console.log('id', id)
@@ -241,12 +245,47 @@ class BasicList extends PureComponent {
     );
 
 
+    const planStateIdMap = (name, type) =>{
+      let resutl = null;
+      if(type === '1'){
+        resutl = (
+          <Tag color="red">{name}</Tag>
+        )
+      }else if (type === '2'){
+        resutl = (
+          <Tag color="lime">{name}</Tag>
+        )
+      }else if (type === '3'){
+        resutl = (
+          <Tag color="green">{name}</Tag>
+        )
+      }else if (type === '5'){
+        resutl = (
+          <Tag color="red">{name}</Tag>
+        )
+      }else if (type === '6'){
+        resutl = (
+          <Tag color="blue">{name}</Tag>
+        )
+      }else if (type === '7'){
+        resutl = (
+          <Tag>{name}</Tag>
+        )
+      }else{
+        resutl = (
+          <Tag>{name}</Tag>
+        )
+      }
+      return resutl;
+    }
 
-    const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
+    const ListContent = ({ data: { name, plan_state_id, percent, status } }) => (
       <div className={styles.listContent}>
-        <div className={styles.listContentItem}>
-          <span>Owner</span>
-          <p>{owner}</p>
+        <div className={styles.listContentItem} style={{ textAlign: 'right' }}>
+          <span>状态</span>
+          <div>
+            {planStateIdMap(name, plan_state_id)}
+          </div>
         </div>
       </div>
     );
@@ -294,6 +333,27 @@ class BasicList extends PureComponent {
               ],
               initialValue: current.description,
             })(<TextArea rows={4} />)}
+          </FormItem>
+          <FormItem label="状态" {...this.formLayout}>
+            {getFieldDecorator('plan_state_id', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入描述',
+                },
+              ],
+              initialValue: current.plan_state_id,
+            })(
+              <Select placeholder="请选择计划状态">
+                <Option value="1">未开始</Option>
+                <Option value="2">进行中</Option>
+                <Option value="3">保持为已解决</Option>
+                <Option value="4">已验证</Option>
+                <Option value="5">重新打开</Option>
+                <Option value="6">挂起</Option>
+                <Option value="7">已关闭</Option>
+              </Select>
+            )}
           </FormItem>
         </Form>
       );
@@ -355,7 +415,7 @@ class BasicList extends PureComponent {
                     title={<a href={item.url}>{item.title}</a>}
                     description={item.description}
                   />
-                  {/*<ListContent data={item} />*/}
+                  <ListContent data={item} />
                 </List.Item>
               )}
             />
