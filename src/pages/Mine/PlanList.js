@@ -32,7 +32,7 @@ import styles from './PlanList.less';
 
 const FormItem = Form.Item;
 const { Search, TextArea } = Input;
-// 工具类
+// 计划类
 import { apiLocation } from '@/utils/utils';
 
 @connect(({ minePlan, loading }) => ({
@@ -128,11 +128,13 @@ class BasicList extends PureComponent {
           type: 'minePlan/fetchPutPlans',
           payload: { id, ...submitData },
         });
+        this.fetchGetPlans(); // 请求
       }else{
         dispatch({
           type: 'minePlan/fetchPostPlans',
           payload: { ...submitData },
         });
+        this.fetchGetPlans(); // 请求
       }
 
 
@@ -145,12 +147,13 @@ class BasicList extends PureComponent {
       type: 'minePlan/fetchDeletePlans',
       payload: { id },
     });
+    this.fetchGetTools(); // 请求
   };
 
   handleDelete = (currentItem) => {
     Modal.confirm({
-      title: '删除工具',
-      content: '确定删除该工具吗？',
+      title: '删除计划',
+      content: '确定删除该计划吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => this.deleteItem(currentItem.id),
@@ -317,9 +320,9 @@ class BasicList extends PureComponent {
       }
       return (
         <Form onSubmit={this.handleSubmit}>
-          <FormItem label="工具名称" {...this.formLayout}>
+          <FormItem label="计划名称" {...this.formLayout}>
             {getFieldDecorator('title', {
-              rules: [{ required: true, message: '请输入工具名称' }],
+              rules: [{ required: true, message: '请输入计划名称' }],
               initialValue: current.title,
             })(<Input placeholder="请输入" />)}
           </FormItem>
@@ -365,7 +368,7 @@ class BasicList extends PureComponent {
           <Card
             className={styles.listCard}
             bordered={false}
-            title="工具列表"
+            title="计划列表"
             style={{ marginTop: 24 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
@@ -422,7 +425,7 @@ class BasicList extends PureComponent {
           </Card>
         </div>
         <Modal
-          title={done ? null : `工具${current ? '编辑' : '添加'}`}
+          title={done ? null : `计划${current ? '编辑' : '添加'}`}
           className={styles.standardListForm}
           width={640}
           bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}

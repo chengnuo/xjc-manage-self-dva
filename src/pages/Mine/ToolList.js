@@ -120,11 +120,13 @@ class BasicList extends PureComponent {
           type: 'mineTool/fetchPutTools',
           payload: { id, ...submitData },
         });
+        this.fetchGetTools(); // 请求
       }else{
         dispatch({
           type: 'mineTool/fetchPostTools',
           payload: { ...submitData },
         });
+        this.fetchGetTools(); // 请求
       }
 
 
@@ -137,6 +139,7 @@ class BasicList extends PureComponent {
       type: 'mineTool/fetchDeleteTools',
       payload: { id },
     });
+    this.fetchGetTools(); // 请求
   };
 
   handleDelete = (currentItem) => {
