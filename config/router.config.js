@@ -91,6 +91,11 @@ export default [
             path: '/mine/planList',
             name: 'planList',
             component: './mine/planList',
+          },
+          {
+            path: '/mine/audioList',
+            name: 'audioList',
+            component: './mine/audioList',
           }
         ]
       },
