@@ -95,12 +95,12 @@ Selected.prototype = {
     }, false);
 
     // initialize the background setting
-    document.getElementById('bg_dark').addEventListener('click', () => {
-      document.getElementsByTagName('html')[0].className = 'colorBg';
-    });
-    document.getElementById('bg_pic').addEventListener('click', () => {
-      document.getElementsByTagName('html')[0].className = 'imageBg';
-    });
+    // document.getElementById('bg_dark').addEventListener('click', () => {
+    //   document.getElementsByTagName('html')[0].className = 'colorBg';
+    // });
+    // document.getElementById('bg_pic').addEventListener('click', () => {
+    //   document.getElementsByTagName('html')[0].className = 'imageBg';
+    // });
     // initially start from a random song
     for (let i = allSongs.length - 1; i >= 0; i--) {
       allSongs[i].className = '';
