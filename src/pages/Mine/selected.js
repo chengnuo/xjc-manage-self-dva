@@ -33,6 +33,9 @@ Selected.prototype = {
 
     const allSongs = this.playlist.children[0].children;
 
+    console.log('allSongs', allSongs)
+
+    // return false; //  不执行
 
     let currentSong;
     let randomSong;
@@ -43,7 +46,8 @@ Selected.prototype = {
     const indexOfHashSong = (function () {
       let index = 0;
       Array.prototype.forEach.call(allSongs, (v, i, a) => {
-        if (v.children[0].getAttribute('data-name') == songName) {
+        // console.log('v', v)
+        if (v.children[0] && v.children[0].getAttribute('data-name') == songName) {
           index = i;
           return false;
         }
@@ -109,9 +113,41 @@ Selected.prototype = {
     currentSong.className = 'current-song';
     this.play(randomSong);
   },
+  // initialList(ctx) {
+  //   const xhttp = new XMLHttpRequest();
+  //   xhttp.open('GET', 'http://localhost:7001/public/mp3/content.json', false);
+  //   xhttp.onreadystatechange = function () {
+  //     if (xhttp.status == 200 && xhttp.readyState == 4) {
+  //       var fragment = document.createDocumentFragment();
+  //
+  //
+  //       const data = JSON.parse(xhttp.responseText).data;
+  //
+  //
+  //       const ol = ctx.playlist.getElementsByTagName('ol')[0];
+  //
+  //
+  //       var fragment = document.createDocumentFragment();
+  //
+  //       data.forEach((v, i, a) => {
+  //         const li = document.createElement('li');
+  //
+  //
+  //         var a = document.createElement('a');
+  //         a.href = 'javascript:void(0)';
+  //         a.dataset.name = v.lrc_name;
+  //         a.textContent = `${v.song_name}-${v.artist}`;
+  //         li.appendChild(a);
+  //         fragment.appendChild(li);
+  //       });
+  //       ol.appendChild(fragment);
+  //     }
+  //   };
+  //   xhttp.send();
+  // },
   initialList(ctx) {
     const xhttp = new XMLHttpRequest();
-    xhttp.open('GET', 'http://localhost:7001/public/mp3/content.json', false);
+    xhttp.open('GET', 'http://localhost:7001/public/mp3/mp3.json', false);
     xhttp.onreadystatechange = function () {
       if (xhttp.status == 200 && xhttp.readyState == 4) {
         var fragment = document.createDocumentFragment();
@@ -119,24 +155,56 @@ Selected.prototype = {
 
         const data = JSON.parse(xhttp.responseText).data;
 
+        console.log('data', data, ctx.playlist)
 
-        const ol = ctx.playlist.getElementsByTagName('ol')[0];
-
-
+        const playlistLayout = document.getElementById('playlistLayout');
         var fragment = document.createDocumentFragment();
+        var fragmentLi = document.createDocumentFragment();
 
         data.forEach((v, i, a) => {
-          const li = document.createElement('li');
+          const div = document.createElement('div');
+          div.textContent = v.title
+          fragment.appendChild(div);
+          let vItem = v.item || []
+          if(vItem.length>0){
+
+            vItem.forEach((vItemv, vItemi, vItema) => {
+              const li = document.createElement('li');
+
+              var a = document.createElement('a');
+              a.href = 'javascript:void(0)';
+              a.dataset.name = vItemv.lrc_name;
+              a.textContent = `${vItemv.song_name}-${vItemv.artist}`;
+              li.appendChild(a);
+              fragmentLi.appendChild(li);
+            })
+          }
+
+          fragment.appendChild(fragmentLi);
+
+        })
+        playlistLayout.appendChild(fragment);
 
 
-          var a = document.createElement('a');
-          a.href = 'javascript:void(0)';
-          a.dataset.name = v.lrc_name;
-          a.textContent = `${v.song_name}-${v.artist}`;
-          li.appendChild(a);
-          fragment.appendChild(li);
-        });
-        ol.appendChild(fragment);
+
+
+        // const ol = ctx.playlist.getElementsByTagName('ol')[0];
+        //
+        //
+        // var fragment = document.createDocumentFragment();
+        //
+        // data.forEach((v, i, a) => {
+        //   const li = document.createElement('li');
+        //
+        //
+        //   var a = document.createElement('a');
+        //   a.href = 'javascript:void(0)';
+        //   a.dataset.name = v.lrc_name;
+        //   a.textContent = `${v.song_name}-${v.artist}`;
+        //   li.appendChild(a);
+        //   fragment.appendChild(li);
+        // });
+        // ol.appendChild(fragment);
       }
     };
     xhttp.send();
@@ -196,9 +264,13 @@ Selected.prototype = {
     ;
     nextItem = allSongs[that.currentIndex].children[0];
     that.setClass(that.currentIndex);
-    const songName = nextItem.getAttribute('data-name');
-    window.location.hash = songName;
-    that.play(songName);
+    if(nextItem){
+      const songName = nextItem.getAttribute('data-name');
+      window.location.hash = songName;
+      that.play(songName);
+    }
+
+
   },
   setClass(index) {
     const allSongs = this.playlist.children[0].children;

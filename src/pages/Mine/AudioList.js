@@ -68,8 +68,7 @@ class BasicList extends PureComponent {
             <audio controls id="audio">!audio not supported :(</audio>
           </div>
           <div id="playlist">
-            <ol>
-            </ol>
+            <div id="playlistLayout"></div>
             <div className="info">
               {/*<div className="bg" id="bg_dark" title="use color for background"></div>*/}
               {/*<div className="bg" id="bg_pic" title="use image for background"></div>*/}
