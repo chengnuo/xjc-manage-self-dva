@@ -73,7 +73,7 @@ class BasicList extends PureComponent {
             <div className="info">
               <div className="bg" id="bg_dark" title="use color for background"></div>
               <div className="bg" id="bg_pic" title="use image for background"></div>
-              <small> view on <a target="_blank" href="https://github.com/wayou/selected/">GitHub</a></small>
+              {/*<small> view on <a target="_blank" href="https://github.com/wayou/selected/">GitHub</a></small>*/}
             </div>
           </div>
           <div id="lyricWrapper">
