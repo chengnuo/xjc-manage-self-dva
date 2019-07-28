@@ -158,7 +158,7 @@ Selected.prototype = {
         console.log('data', data, ctx.playlist)
 
         const playlistLayout = document.getElementById('playlistLayout');
-        var fragment = document.createDocumentFragment();
+        // var fragment = document.createDocumentFragment();
         var fragmentLi = document.createDocumentFragment();
 
         data.forEach((v, i, a) => {
@@ -180,10 +180,11 @@ Selected.prototype = {
             })
           }
 
-          fragment.appendChild(fragmentLi);
+          // fragment.appendChild(fragmentLi);
 
         })
-        playlistLayout.appendChild(fragment);
+        // playlistLayout.appendChild(fragment);
+        playlistLayout.appendChild(fragmentLi);
 
 
 
