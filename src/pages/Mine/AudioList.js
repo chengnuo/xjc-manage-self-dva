@@ -63,7 +63,7 @@ class BasicList extends PureComponent {
       <PageHeaderWrapper>
         测试
         {/*<audio src={taHeTa} id="audio" controls="controls">Your browser does not support the audio element.</audio>*/}
-        <div className="wrapper">
+        <div className="audioList">
           <div id="player">
             <audio controls id="audio">!audio not supported :(</audio>
           </div>

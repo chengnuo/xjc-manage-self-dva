@@ -211,7 +211,7 @@ Selected.prototype = {
   },
   play(songName) {
     const that = this;
-    this.audio.src = `http://localhost:7001/public/mp3/songs/${songName}.mp3`;
+    this.audio.src = `http://localhost:7001/public/mp3/${songName}.mp3`;
     // reset the position of the lyric container
     this.lyricContainer.style.top = '130px';
     // empty the lyric
