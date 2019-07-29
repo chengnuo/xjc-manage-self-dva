@@ -25,15 +25,15 @@ import {
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import Result from '@/components/Result';
 
-import styles from './ToolList.less';
+import styles from './MessageList.less';
 
 const FormItem = Form.Item;
 const { Search, TextArea } = Input;
-// 工具类
+// 消息类
 import { apiLocation } from '@/utils/utils';
 
-@connect(({ mineTool, loading }) => ({
-  mineTool,
+@connect(({ mineMessage, loading }) => ({
+  mineMessage,
   loading: loading.models.list,
 }))
 @Form.create()
@@ -50,12 +50,12 @@ class BasicList extends PureComponent {
   };
 
   componentDidMount() {
-    this.fetchGetTools(); // 请求
+    this.fetchGetMessages(); // 请求
   }
 
-  fetchGetTools = (payload)=> {
+  fetchGetMessages = (payload)=> {
     this.props.dispatch({
-      type: 'mineTool/fetchGetTools',
+      type: 'mineMessage/fetchGetMessages',
       payload: Object.assign({},{
         pageCurrent: 1,
         pageSize: 10,
@@ -109,27 +109,26 @@ class BasicList extends PureComponent {
       });
 
 
-      const filterAvatar = fieldsValue.avatar.file ? fieldsValue.avatar.file.response.url : fieldsValue.avatar
-
       const submitData = Object.assign({}, fieldsValue,{
-        avatar: filterAvatar
+
       })
 
       if(id){
         dispatch({
-          type: 'mineTool/fetchPutTools',
+          type: 'mineMessage/fetchPutMessages',
           payload: { id, ...submitData },
           callback: ()=>{
-            this.fetchGetTools(); // 请求
-          }
+            this.fetchGetMessages(); // 请求
+          },
         });
+
       }else{
         dispatch({
-          type: 'mineTool/fetchPostTools',
+          type: 'mineMessage/fetchPostMessages',
           payload: { ...submitData },
           callback: ()=>{
-            this.fetchGetTools(); // 请求
-          }
+            this.fetchGetMessages(); // 请求
+          },
         });
       }
 
@@ -140,10 +139,10 @@ class BasicList extends PureComponent {
   deleteItem = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'mineTool/fetchDeleteTools',
+      type: 'mineMessage/fetchDeleteMessages',
       payload: { id },
       callback: ()=>{
-        this.fetchGetTools(); // 请求
+        this.fetchGetMessages(); // 请求
       }
     });
 
@@ -151,8 +150,8 @@ class BasicList extends PureComponent {
 
   handleDelete = (currentItem) => {
     Modal.confirm({
-      title: '删除工具',
-      content: '确定删除该工具吗？',
+      title: '删除消息',
+      content: '确定删除该消息吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => this.deleteItem(currentItem.id),
@@ -161,8 +160,8 @@ class BasicList extends PureComponent {
 
   get pagination() {
 
-    const { mineTool, loading } = this.props;
-    const { list = [], pageCurrent, pageSize, total } = mineTool;
+    const { mineMessage, loading } = this.props;
+    const { list = [], pageCurrent, pageSize, total } = mineMessage;
 
     const self = this;
     const pagination = {
@@ -181,7 +180,7 @@ class BasicList extends PureComponent {
 
   // pageSize 变化的回调
   handleShowSizeChange = (pageCurrent, pageSize)=> {
-    this.fetchGetTools({
+    this.fetchGetMessages({
       pageCurrent,
       pageSize,
     });
@@ -189,7 +188,7 @@ class BasicList extends PureComponent {
 
   // 点击当前页面
   handleChange =(pageCurrent)=> {
-    this.fetchGetTools({
+    this.fetchGetMessages({
       pageCurrent,
     });
   }
@@ -217,8 +216,8 @@ class BasicList extends PureComponent {
   }
 
   render() {
-    const { mineTool, loading } = this.props;
-    const { list = [] } = mineTool;
+    const { mineMessage, loading } = this.props;
+    const { list = [] } = mineMessage;
     const {
       form: { getFieldDecorator },
     } = this.props;
@@ -239,7 +238,7 @@ class BasicList extends PureComponent {
     const extraContent = (
       <div className={styles.extraContent}>
         <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={(value) => {
-          this.fetchGetTools({
+          this.fetchGetMessages({
             title: value
           })
         }} />
@@ -284,34 +283,11 @@ class BasicList extends PureComponent {
       }
       return (
         <Form onSubmit={this.handleSubmit}>
-          <FormItem label="工具名称" {...this.formLayout}>
+          <FormItem label="消息名称" {...this.formLayout}>
             {getFieldDecorator('title', {
-              rules: [{ required: true, message: '请输入工具名称' }],
+              rules: [{ required: true, message: '请输入消息名称' }],
               initialValue: current.title,
             })(<Input placeholder="请输入" />)}
-          </FormItem>
-          <FormItem label="avatar" {...this.formLayout}>
-            {getFieldDecorator('avatar', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入avatar',
-                },
-              ],
-              initialValue: current.avatar,
-            })(
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action={`${apiLocation.origin}/api/upload`}
-                onChange={this.handleUploadChange}
-              >
-                {/*${apiLocation.origin}/public/images/${current.avatar}*/}
-                {imageUrl ? <img src={`${imageUrl}`} width={100} alt="avatar" /> : uploadButton}
-              </Upload>
-            )}
           </FormItem>
           <FormItem label="描述" {...this.formLayout}>
             {getFieldDecorator('description', {
@@ -324,17 +300,6 @@ class BasicList extends PureComponent {
               initialValue: current.description,
             })(<TextArea rows={4} />)}
           </FormItem>
-          <FormItem label="官网" {...this.formLayout}>
-            {getFieldDecorator('url', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入官网',
-                },
-              ],
-              initialValue: current.url,
-            })(<TextArea rows={4} />)}
-          </FormItem>
         </Form>
       );
     };
@@ -345,7 +310,7 @@ class BasicList extends PureComponent {
           <Card
             className={styles.listCard}
             bordered={false}
-            title="工具列表"
+            title="消息列表"
             style={{ marginTop: 24 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
@@ -402,7 +367,7 @@ class BasicList extends PureComponent {
           </Card>
         </div>
         <Modal
-          title={done ? null : `工具${current ? '编辑' : '添加'}`}
+          title={done ? null : `消息${current ? '编辑' : '添加'}`}
           className={styles.standardListForm}
           width={640}
           bodyStyle={done ? { padding: '72px 0' } : { padding: '28px 0 0' }}

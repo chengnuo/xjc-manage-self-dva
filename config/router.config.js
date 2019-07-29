@@ -96,7 +96,12 @@ export default [
             path: '/mine/audioList',
             name: 'audioList',
             component: './mine/audioList',
-          }
+          },
+          {
+            path: '/mine/messageList',
+            name: 'messageList',
+            component: './mine/messageList',
+          },
         ]
       },
       {

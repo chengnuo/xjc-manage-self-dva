@@ -127,14 +127,19 @@ class BasicList extends PureComponent {
         dispatch({
           type: 'minePlan/fetchPutPlans',
           payload: { id, ...submitData },
+          callback: ()=>{
+            this.fetchGetPlans(); // 请求
+          }
         });
         this.fetchGetPlans(); // 请求
       }else{
         dispatch({
           type: 'minePlan/fetchPostPlans',
           payload: { ...submitData },
+          callback: ()=>{
+            this.fetchGetPlans(); // 请求
+          }
         });
-        this.fetchGetPlans(); // 请求
       }
 
 
@@ -146,8 +151,10 @@ class BasicList extends PureComponent {
     dispatch({
       type: 'minePlan/fetchDeletePlans',
       payload: { id },
+      callback: ()=>{
+        this.fetchGetPlans(); // 请求
+      }
     });
-    this.fetchGetTools(); // 请求
   };
 
   handleDelete = (currentItem) => {
