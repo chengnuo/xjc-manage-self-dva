@@ -42,10 +42,6 @@ class BasicList extends PureComponent {
     visible: false,
     done: false,
     imageUrl: '',
-    socketData: {
-      list: [],
-      total: 0,
-    },
   };
 
   formLayout = {
@@ -55,113 +51,6 @@ class BasicList extends PureComponent {
 
   componentDidMount() {
     this.fetchGetMessages(); // 请求
-    this.socketFn();
-
-
-
-  }
-
-  socketFn =()=>{
-    const self = this;
-    // 不重要的代码，仅展示使用 - start
-    const con = document.querySelector('#console');
-    const doc = document.documentElement;
-    const wh = document.documentElement.clientHeight;
-
-    const _scrollToBottom = (function() {
-      return _.throttle(function() {
-        doc.scrollTop = doc.scrollHeight;
-      }, 100);
-    })();
-
-    const scrollToBottom = function() {
-      if (doc.scrollHeight > wh) {
-        _scrollToBottom();
-      }
-    };
-
-    const log = function() {
-      let msgList = [].slice.apply(arguments);
-      msgList = msgList.map(function(msg) {
-        if (typeof msg !== 'object') {
-          return msg;
-        }
-        try {
-          return JSON.stringify(msg, null, 2);
-        } catch(error) {
-          return _.toString(msg);
-        }
-      });
-      con.innerText += new Date().toLocaleString() + ' ' + msgList.join('') + '\n';
-      scrollToBottom();
-      // console.log.apply(null, arguments);
-    };
-
-    // 不重要的代码，仅展示使用 - end
-
-    window.onload = function () {
-      // init
-      const socket = io('http://127.0.0.1:7001/', {
-
-        // 实际使用中可以在这里传递参数
-        query: {
-          room: 'demo',
-          userId: `client_${Math.random()}`,
-        },
-
-        transports: ['websocket']
-      });
-
-      socket.on('connect', () => {
-        console.log('connect!')
-        socket.emit('chat', 'hello world!')
-      })
-
-      socket.on('res', msg => {
-        console.log('res from server: %s!', msg)
-        self.setState({
-          socketData: Object.assign({}, msg)
-        })
-      })
-
-      // socket.on('connect', () => {
-      //   const id = socket.id;
-      //
-      //   log('#connect,', id, socket);
-      //
-      //   // console.log('connect', socket)
-      //
-      //   // 监听自身 id 以实现 p2p 通讯
-      //   socket.on(id, msg => {
-      //     console.log('id, msg', id, msg)
-      //     log('#receive,', msg);
-      //   });
-      // });
-      //
-      // // 接收在线用户信息
-      // socket.on('online', msg => {
-      //   log('#online,', msg);
-      // });
-      //
-      // // 系统事件
-      // socket.on('disconnect', msg => {
-      //   log('#disconnect', msg);
-      // });
-      //
-      // socket.on('disconnecting', () => {
-      //   log('#disconnecting');
-      // });
-      //
-      // socket.on('error', () => {
-      //   log('#error');
-      // });
-
-      // window.setInterval(()=>{
-      //   socket.emit('chat');
-      // },1000)
-
-      window.socket = socket;
-    };
   }
 
   fetchGetMessages = (payload)=> {
@@ -253,7 +142,6 @@ class BasicList extends PureComponent {
       type: 'mineMessage/fetchDeleteMessages',
       payload: { id },
       callback: ()=>{
-        // socket.emit('chat');
         this.fetchGetMessages(); // 请求
       }
     });
@@ -313,7 +201,7 @@ class BasicList extends PureComponent {
 
 
   handleUploadChange = (info) => {
-    // console.log('info.file=>', info.file)
+    console.log('info.file=>', info.file)
     if (info.file.status === 'uploading') {
       this.setState({ loading: true });
       return;
@@ -489,11 +377,6 @@ class BasicList extends PureComponent {
         >
           {getModalContent()}
         </Modal>
-
-        <div className="console-wrapper">
-          <pre id="console"></pre>
-        </div>
-        <div>{this.state.socketData.total}</div>
       </PageHeaderWrapper>
     );
   }
