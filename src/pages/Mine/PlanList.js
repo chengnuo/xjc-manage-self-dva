@@ -53,6 +53,7 @@ class BasicList extends PureComponent {
   };
 
   componentDidMount() {
+    console.log('this', this)
     this.fetchGetPlans(); // 请求
   }
 
@@ -118,10 +119,10 @@ class BasicList extends PureComponent {
       let xjc = JSON.parse(window.localStorage.getItem('xjc')) || {};
       const submitData = Object.assign({}, fieldsValue,{
         // avatar: filterAvatar
-        // id: xjc.userInfo.id
+        uid: xjc.userInfo.id
       })
 
-      console.log('id', id)
+      console.log('id', id, xjc)
 
       if(id){
         dispatch({
