@@ -23,6 +23,8 @@ export default {
   'menu.mine.tool.toolList': '工具列表',
   'menu.mine.message': '消息',
   'menu.mine.message.messageList': '消息列表',
+  'menu.ventureCapital': '风险投资',
+  'menu.ventureCapital.ventureCapitalList': '风险投资列表',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',

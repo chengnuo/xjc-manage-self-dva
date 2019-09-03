@@ -23,7 +23,7 @@ export default [
       {
         path: '/system',
         name: 'system',
-        icon: 'appstore',
+        // icon: 'appstore', // 数据库
         routes: [
           {
             path: '/system/UserList',
@@ -80,7 +80,6 @@ export default [
       {
         path: '/mine',
         name: 'mine',
-        icon: 'mine',
         routes: [
           {
             path: '/mine/toolList',
@@ -101,6 +100,17 @@ export default [
             path: '/mine/messageList',
             name: 'messageList',
             component: './mine/messageList',
+          },
+        ]
+      },
+      {
+        path: '/ventureCapital',
+        name: 'ventureCapital',
+        routes: [
+          {
+            path: '/ventureCapital/ventureCapitalList',
+            name: 'ventureCapitalList',
+            component: './ventureCapital/ventureCapitalList',
           },
         ]
       },
